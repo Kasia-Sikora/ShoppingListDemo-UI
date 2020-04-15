@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ShoppingList-ui"
+    }
+  },
+  "defaultProject": "ShoppingList-ui",
+  "cli": {
+    "analytics": false
+  }
 }

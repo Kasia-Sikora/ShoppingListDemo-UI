@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+  <div><h1>{{ pageTitle }}</h1>
+  <div>
+    <app-users></app-users>
+  </div></div>`
 })
 export class AppComponent {
-  title = 'ShoppingList-ui';
+  pageTitle = 'Shopping List UI';
 }

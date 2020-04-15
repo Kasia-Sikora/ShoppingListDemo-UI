@@ -1,1 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~font-awesome/css/font-awesome.min.css";
+
+div.card-header {
+  font-size: large;
+}
+
+div.card {
+  margin-top: 10px;
+}
+
+/*.table {*/
+/*  margin-top: 10px;*/
+/*}*/
+
+
+body {
+  background-image: url("~assets/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+.button {
+  background-color: #e6e6e6;
+  opacity: 1;
+  border-radius: 5px;
+}
+
+h1 {
+  font-weight: 100;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 4em;
+  letter-spacing: 3px;
+  transform: scale(1.2, 1);
+  color: #975353;
+  text-shadow: 3px 3px #5e2222;
+}
+
+
+.table {
+  width: auto;
+  height: auto;
+  background-color: white;
+  opacity: 0.8;
+  margin: auto;
+}
+
+#null {
+  text-align: center;
+  font-size: 2em;
+  color: black;
+}
