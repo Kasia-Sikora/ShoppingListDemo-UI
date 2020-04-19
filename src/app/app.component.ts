@@ -1,13 +1,25 @@
 import {Component} from '@angular/core';
+import {ModalService} from './utils/modal';
 
 @Component({
+  templateUrl: './app.component.html',
   selector: 'app-root',
-  template: `
-  <div><h1>{{ pageTitle }}</h1>
-  <div>
-    <app-users></app-users>
-  </div></div>`
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  pageTitle = 'Shopping List UI';
+  pageTitle = 'Shopping List';
+
+  bodyText: string;
+
+
+  constructor(private modalService: ModalService) {
+  }
+
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
 }

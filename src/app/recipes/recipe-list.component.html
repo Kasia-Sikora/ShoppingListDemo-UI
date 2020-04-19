@@ -4,7 +4,7 @@
   </div>
   <div class="table-responsive">
     <table class="table"
-            *ngIf="users && users.length">
+           *ngIf="recipes && recipes.length">
       <thead>
       <tr>
         <th>
@@ -17,12 +17,13 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
-          <td>
-          </td>
-          <td> {{ user.login }}</td>
-          <td> {{ user.email }}</td>
-        </tr>
+      <tr *ngFor="let recipe of recipes">
+        <td>
+        </td>
+        <td>{{ recipe.picture }}</td>
+        <td> {{ recipe.title }}</td>
+        <td> {{ recipe.method }}</td>
+      </tr>
       </tbody>
     </table>
   </div>
