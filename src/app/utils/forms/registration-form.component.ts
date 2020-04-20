@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Form, FormBuilder, FormGroup} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-register-form',
@@ -9,15 +9,17 @@ import {HttpClient} from '@angular/common/http';
 })
 
 export class UserRegistrationComponent implements OnInit {
-  form: FormGroup;
 
-  constructor(public fb: FormBuilder, private http: HttpClient) {
-    this.form = this.fb.group({
-      login: [''],
-      password: [''],
-      email: [''],
+  form = this.fb.group({
+    login: ['', [Validators.required, Validators.minLength(4)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    email: ['', [Validators.required, Validators.minLength(6)]],
+  });
 
-    });
+  error: HttpErrorResponse;
+  errorMessage: string;
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {
   }
 
   ngOnInit() {
@@ -37,11 +39,17 @@ export class UserRegistrationComponent implements OnInit {
     formData.append('password', this.form.get('password').value);
     formData.append('email', this.form.get('email').value);
     // formData.append('picture', this.form.get('picture').value);
-    console.log(this.form.getRawValue());
+    if (this.form.valid) {
 
-    this.http.post('http://localhost:8080/users', formData).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
-    );
+      this.http.post('http://localhost:8080/users', formData).subscribe(
+        (response) => console.log(response),
+        (error) => {
+          this.error = error;
+          console.log(error);
+        }
+      );
+    } else {
+      this.errorMessage = 'Invalid Data';
+    }
   }
 }
