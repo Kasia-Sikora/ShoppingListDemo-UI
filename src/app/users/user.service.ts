@@ -9,9 +9,10 @@ import {catchError, tap} from 'rxjs/operators';
 })
 export class UserService {
 
+  constructor(private http: HttpClient){}
+
   private userUrl = 'http://localhost:8080/users';
 
-  constructor(private http: HttpClient){}
 
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.userUrl).pipe(
