@@ -35,5 +35,4 @@ export class UserService {
     console.error(errorMessage);
     return throwError(errorMessage);
   }
-
 }

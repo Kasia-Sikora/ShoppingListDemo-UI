@@ -1,4 +1,5 @@
 import {Injectable, ViewChild} from '@angular/core';
+import {IUser} from '../../users/user';
 
 @Injectable({ providedIn: 'root' })
 

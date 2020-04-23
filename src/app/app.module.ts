@@ -6,11 +6,13 @@ import {HttpClientModule} from '@angular/common/http';
 import {WelcomeComponent} from './home/welcome.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ModalModule} from './utils/modal';
+import {FooterComponent} from './home/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

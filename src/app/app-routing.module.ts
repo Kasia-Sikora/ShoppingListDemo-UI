@@ -18,7 +18,7 @@ const routes: Routes = [];
     UserRegistrationComponent,
     UserLoginComponent
   ],
-  exports: [RouterModule, UserListComponent, UserRegistrationComponent, UserLoginComponent]
+  exports: [RouterModule, UserListComponent, UserRegistrationComponent, UserLoginComponent, RecipeListComponent]
 })
 export class AppRoutingModule {
 }

@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {AppComponent} from '../../app.component';
 import {ModalService} from '../modal';
+import {AuthorisationService} from './authorisation.service';
 
 @Component({
   selector: 'app-register-form',
@@ -12,7 +12,9 @@ import {ModalService} from '../modal';
 
 export class UserRegistrationComponent implements OnInit {
 
-  constructor(@Inject(ModalService) private parent: ModalService, private fb: FormBuilder, private http: HttpClient) {
+  constructor(@Inject(ModalService) private parent: ModalService,
+              @Inject(AuthorisationService)private authorisationService: AuthorisationService,
+              private fb: FormBuilder, private http: HttpClient) {
   }
 
   regForm = this.fb.group({
@@ -48,6 +50,7 @@ export class UserRegistrationComponent implements OnInit {
         (response) => {
           console.log(response);
           this.isDataValid = true;
+          this.authorisationService.setUser(response);
           this.regForm.reset();
           this.parent.close('reg-modal');
         },

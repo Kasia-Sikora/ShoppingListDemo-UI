@@ -1,9 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {IUser} from '../../users/user';
-import {AppComponent} from '../../app.component';
 import {ModalService} from '../modal';
+import {AuthorisationService} from './authorisation.service';
 
 @Component({
   selector: 'app-login-form',
@@ -19,9 +18,11 @@ export class UserLoginComponent implements OnInit {
 
   error: HttpErrorResponse;
   errorMessage: string;
-  user: any;
 
-  constructor(@Inject(ModalService) private parent: ModalService, private fb: FormBuilder, private http: HttpClient) {
+
+  constructor(@Inject(ModalService) private parent: ModalService,
+              private fb: FormBuilder, private http: HttpClient,
+              @Inject(AuthorisationService)private authorisationService: AuthorisationService) {
   }
 
   ngOnInit() {
@@ -45,7 +46,7 @@ export class UserLoginComponent implements OnInit {
       this.http.post('http://localhost:8080/login', formData).subscribe(
         (response) => {
           console.log(response);
-          this.user = response;
+          this.authorisationService.setUser(response);
           this.form.reset();
           this.parent.close('login-modal');
         },

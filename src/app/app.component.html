@@ -1,19 +1,33 @@
-<nav class="navbar navbar-dark bg-dark">
-  <div id="tomato">
-    <img src="assets/tomato.png" alt="tomato">
+<nav class="navbar navbar-light bg-light">
+    <img id="broccoli-icon" src="assets/broccoli.png" alt="broccoli">
+  <div id="title">{{ pageTitle }}
   </div>
-  <div id="title"><h1>{{ pageTitle }}</h1>
-  </div>
-  <button class="btn btn-light" type="button" id="registration_button" (click)="openModal('reg-modal')">Registration</button>
-  <button class="btn btn-light" type="button" id="login_button" (click)="openModal('login-modal')">Login</button>
+  <ng-template [ngIf]="this.getUser() != null" [ngIfElse]="loggedOut">
+    <div id="user_login">Hi {{ this.getUser().login }}!</div>
+    <button class="btn btn-light" type="button" id="logout" (click)="logout()">Logout</button>
+  </ng-template>
+  <ng-template #loggedOut>
+    <div id="nav-buttons">
+    <button class="btn btn-light" type="button" id="registration_button" (click)="openModal('reg-modal')">Registration
+    </button>
+    <button class="btn btn-light" type="button" id="login_button" (click)="openModal('login-modal')">Login</button>
+    </div>
+  </ng-template>
 </nav>
-<div>
+
+<ng-template [ngIf]="this.getUser() == null" [ngIfElse]="recipes">
   <app-welcome></app-welcome>
+</ng-template>
+
+<ng-template #recipes>
+  <div>
+    <app-recipes></app-recipes>
+  </div>
+</ng-template>
+
+<div>
+  <app-footer></app-footer>
 </div>
-<div></div>
-<!--<div>-->
-<!--  <app-users></app-users>-->
-<!--</div>-->
 
 <app-modal id="reg-modal">
   <div class="modal-header">
@@ -26,7 +40,6 @@
     <app-register-form></app-register-form>
   </div>
 </app-modal>
-
 <app-modal id="login-modal">
   <div class="modal-header">
     <h5 class="modal-title">Sign In</h5>
