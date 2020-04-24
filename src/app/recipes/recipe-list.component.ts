@@ -4,6 +4,10 @@ import {IRecipe} from './recipe';
 import {AuthorisationService} from '../utils/forms/authorisation.service';
 import {FormBuilder} from '@angular/forms';
 
+
+// TODO Create Add recipe form
+// TODO Create recipe description page
+
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipe-list.component.html',
@@ -11,14 +15,13 @@ import {FormBuilder} from '@angular/forms';
 })
 
 export class RecipeListComponent implements OnInit {
-  pageTitle = 'Recipes';
+
   recipes: IRecipe[] = [];
   errorMessage: string;
 
   constructor(private recipeService: RecipeService, private authorisationService: AuthorisationService, private fb: FormBuilder){
   }
 
-  searchForm: object;
 
   ngOnInit(): void {
     this.recipeService.getRecipes().subscribe({
@@ -27,9 +30,6 @@ export class RecipeListComponent implements OnInit {
     });
   }
 
-  submitForm(){
-
-  }
 
   addRecipe() {
     console.log('dupa');

@@ -1,12 +1,9 @@
 div.card,
 .welcome,
 .card-body{
-  /*margin-top: 10px;*/
   margin-top: 2%;
-  /*opacity: 0.8;*/
   width: 400px;
   height: 400px;
-  /*position: center;*/
   margin-left: 5%;
   margin-right: auto;
   background-color: rgba(255,255,255, 0.4);

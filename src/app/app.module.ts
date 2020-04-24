@@ -18,7 +18,6 @@ import {FooterComponent} from './home/footer.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    // FormsModule,
     ModalModule,
     ReactiveFormsModule,
   ],

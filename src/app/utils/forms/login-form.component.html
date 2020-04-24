@@ -1,7 +1,6 @@
-<form [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
-  <!--    <div class="form-group">-->
-  <!--      <input type="file" (change)="uploadFile($event)">-->
-  <!--    </div>-->
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+
+<!--  Error messages -->
   <div *ngIf="error && (form.touched || form.dirty)" class="cross-validation-error-message alert alert-danger">
     <div class="has-ino" style="color: red"> {{ error.error }} </div>
   </div>
@@ -9,6 +8,7 @@
     <div class="has-ino" style="color: red"> {{ errorMessage }} </div>
   </div>
 
+<!--  Email input -->
   <div class="form-group input-group-lg">
     <input class="form-control" placeholder="E-mail" formControlName="email" minlength="6" required>
   </div>
@@ -21,6 +21,7 @@
     </div>
   </div>
 
+<!--  Password input -->
   <div class="form-group input-group-lg">
     <input type="password" class="form-control" placeholder="Password" formControlName="password" minlength="4" required>
   </div>

@@ -6,7 +6,6 @@
 
 .card,
 .card-header {
-  /*display: inline-flex;*/
   border: none;
 }
 
@@ -15,7 +14,6 @@
   margin-left: 10px;
   background-color: rgba(255, 255, 255, 1);
   margin-right: 10px;
-  /*height: 700px;*/
   border-color: dimgrey;
   margin-bottom: 10px;
   height: 70vh;
@@ -27,10 +25,6 @@
   margin-top: -10px;
 }
 
-/*#searchForm {*/
-/*  float: right;*/
-/*  margin-left: auto;*/
-/*}*/
 
 a:link,
 a:active,
@@ -52,10 +46,6 @@ a:visited {
   justify-content: space-evenly;
   position: relative;
 }
-
-/*#recipe-card{*/
-/*  max-width: 200px;*/
-/*}*/
 
 #recipe-title{
   text-align: center;

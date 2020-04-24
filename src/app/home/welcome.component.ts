@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-welcome',
-  templateUrl: 'welcome.component.html',
+  template: `
+    <div class="card welcome">
+      <div id="title">
+        {{pageTitle}}
+      </div>
+    </div>
+  `,
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent {

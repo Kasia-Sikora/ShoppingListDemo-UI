@@ -1,3 +1,4 @@
+<!-- Navbar -->
 <nav class="navbar navbar-light bg-light">
     <img id="broccoli-icon" src="assets/broccoli.png" alt="broccoli">
   <div id="title">{{ pageTitle }}
@@ -15,20 +16,24 @@
   </ng-template>
 </nav>
 
+<!-- Welcome grid -->
 <ng-template [ngIf]="this.getUser() == null" [ngIfElse]="recipes">
   <app-welcome></app-welcome>
 </ng-template>
 
+<!-- Recipes page -->
 <ng-template #recipes>
   <div>
     <app-recipes></app-recipes>
   </div>
 </ng-template>
 
+<!-- Footer -->
 <div>
   <app-footer></app-footer>
 </div>
 
+<!-- Registration modal -->
 <app-modal id="reg-modal">
   <div class="modal-header">
     <h5 class="modal-title">Sign up</h5>
@@ -40,6 +45,8 @@
     <app-register-form></app-register-form>
   </div>
 </app-modal>
+
+<!-- Login modal -->
 <app-modal id="login-modal">
   <div class="modal-header">
     <h5 class="modal-title">Sign In</h5>

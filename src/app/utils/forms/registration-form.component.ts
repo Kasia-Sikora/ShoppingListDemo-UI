@@ -7,7 +7,6 @@ import {AuthorisationService} from './authorisation.service';
 @Component({
   selector: 'app-register-form',
   templateUrl: './registration-form.component.html',
-  // styleUrls: ['./login-form.component.css']
 })
 
 export class UserRegistrationComponent implements OnInit {
@@ -26,6 +25,7 @@ export class UserRegistrationComponent implements OnInit {
   error: HttpErrorResponse;
   errorMessage: string;
   isDataValid: boolean;
+  postUrl: 'http://localhost:8080/users';
 
   ngOnInit() {
   }
@@ -44,9 +44,9 @@ export class UserRegistrationComponent implements OnInit {
     formData.append('password', this.regForm.get('password').value);
     formData.append('email', this.regForm.get('email').value);
     // formData.append('picture', this.form.get('picture').value);
-    if (this.regForm.valid) {
 
-      this.http.post('http://localhost:8080/users', formData).subscribe(
+    if (this.regForm.valid) {
+        this.http.post(this.postUrl, formData).subscribe(
         (response) => {
           console.log(response);
           this.isDataValid = true;

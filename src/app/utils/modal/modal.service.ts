@@ -1,7 +1,6 @@
-import {Injectable, ViewChild} from '@angular/core';
-import {IUser} from '../../users/user';
+import {Injectable} from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 
 export class ModalService {
   private modals: any[] = [];

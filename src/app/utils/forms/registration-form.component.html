@@ -1,8 +1,6 @@
-<!--<div class="container">-->
-  <form [formGroup]="regForm" (ngSubmit)="submitForm()" novalidate>
-<!--    <div class="form-group">-->
-<!--      <input type="file" (change)="uploadFile($event)">-->
-<!--    </div>-->
+  <form [formGroup]="regForm" (ngSubmit)="submitForm()">
+
+<!--    Error messages -->
     <div *ngIf="error && (regForm.touched || regForm.dirty)" class="cross-validation-error-message alert alert-danger">
       <div class="has-ino" style="color: red"> {{ error.error }} </div>
     </div>
@@ -10,6 +8,7 @@
       <div class="has-ino" style="color: red"> {{ errorMessage }} </div>
     </div>
 
+<!-- Login input -->
     <div class="form-group input-group-lg">
       <input class="form-control" placeholder="Name" formControlName="login" minlength="4" required>
     </div>
@@ -22,6 +21,7 @@
       </div>
     </div>
 
+<!-- Password input -->
     <div class="form-group input-group-lg">
       <input type="password" class="form-control" placeholder="Password" formControlName="password" minlength="4" required>
     </div>
@@ -34,6 +34,7 @@
       </div>
     </div>
 
+<!-- Email input -->
     <div class="form-group input-group-lg">
       <input class="form-control" placeholder="E-mail" formControlName="email" minlength="6" required>
     </div>
@@ -46,8 +47,9 @@
       </div>
     </div>
 
+
     <div class="form-group">
       <button class="btn btn-success btn-block btn-lg" [disabled]="!regForm.valid">Create</button>
     </div>
   </form>
-<!--</div>-->
+
