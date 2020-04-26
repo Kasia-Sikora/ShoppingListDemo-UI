@@ -5,6 +5,7 @@ import {Injectable} from '@angular/core';
 export class AuthorisationService {
 
   private user: any;
+  private token: string;
 
   setUser(user: any) {
     console.log(user);
@@ -15,4 +16,11 @@ export class AuthorisationService {
     return this.user;
   }
 
+  setToken(token: string) {
+    this.token = token;
+  }
+
+  getToken(){
+    return this.token;
+  }
 }

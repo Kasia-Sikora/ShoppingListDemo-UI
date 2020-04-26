@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ModalService} from '../modal';
 import {AuthorisationService} from './authorisation.service';
 
@@ -43,10 +43,17 @@ export class UserLoginComponent implements OnInit {
     // formData.append('picture', this.form.get('picture').value);
     if (this.form.valid) {
 
-      this.http.post('http://localhost:8080/login', logData).subscribe(
-        (response) => {
+      this.http.post('http://localhost:8080/login', logData, {observe: 'response'}).subscribe(
+        (response: HttpResponse<any>) => {
+          const token = response.headers.get('Authorization');
+          console.log(token);
           console.log(response);
-          this.authorisationService.setUser(response);
+          this.authorisationService.setToken(token);
+          this.http.get('http://localhost:8080/me').subscribe(
+            (response2: HttpResponse<any>) => {
+              console.log(response2);
+            }
+          );
           this.form.reset();
           this.parent.close('login-modal');
         },
