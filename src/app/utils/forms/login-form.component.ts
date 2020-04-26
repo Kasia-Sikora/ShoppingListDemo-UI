@@ -19,9 +19,9 @@ export class UserLoginComponent implements OnInit {
   errorMessage: string;
 
 
-  constructor(@Inject(ModalService) private parent: ModalService,
+  constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
-              @Inject(AuthorisationService)private authorisationService: AuthorisationService) {
+              private authorisationService: AuthorisationService) {
   }
 
   ngOnInit() {
@@ -36,13 +36,14 @@ export class UserLoginComponent implements OnInit {
   // }
 
   submitForm() {
-    const formData: any = new FormData();
-    formData.append('email', this.form.get('email').value);
-    formData.append('password', this.form.get('password').value);
+    const logData = {
+      email: this.form.get('email').value,
+      password: this.form.get('password').value
+    };
     // formData.append('picture', this.form.get('picture').value);
     if (this.form.valid) {
 
-      this.http.post('http://localhost:8080/login', formData).subscribe(
+      this.http.post('http://localhost:8080/login', logData).subscribe(
         (response) => {
           console.log(response);
           this.authorisationService.setUser(response);

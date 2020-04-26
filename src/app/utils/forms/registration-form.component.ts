@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {ModalService} from '../modal';
 import {AuthorisationService} from './authorisation.service';
 
@@ -11,8 +11,8 @@ import {AuthorisationService} from './authorisation.service';
 
 export class UserRegistrationComponent implements OnInit {
 
-  constructor(@Inject(ModalService) private parent: ModalService,
-              @Inject(AuthorisationService)private authorisationService: AuthorisationService,
+  constructor(private parent: ModalService,
+              private authorisationService: AuthorisationService,
               private fb: FormBuilder, private http: HttpClient) {
   }
 
@@ -25,7 +25,7 @@ export class UserRegistrationComponent implements OnInit {
   error: HttpErrorResponse;
   errorMessage: string;
   isDataValid: boolean;
-  postUrl: 'http://localhost:8080/users';
+  postUrl: 'http://localhost:8080/sign-up';
 
   ngOnInit() {
   }
@@ -39,14 +39,14 @@ export class UserRegistrationComponent implements OnInit {
   // }
 
   submitForm() {
-    const formData: any = new FormData();
-    formData.append('login', this.regForm.get('login').value);
-    formData.append('password', this.regForm.get('password').value);
-    formData.append('email', this.regForm.get('email').value);
-    // formData.append('picture', this.form.get('picture').value);
+    const reqData = {
+      login: this.regForm.get('login').value,
+      email: this.regForm.get('email').value,
+      password: this.regForm.get('password').value
+    };
 
     if (this.regForm.valid) {
-        this.http.post(this.postUrl, formData).subscribe(
+        this.http.post('http://localhost:8080/sign-up', reqData).subscribe(
         (response) => {
           console.log(response);
           this.isDataValid = true;
