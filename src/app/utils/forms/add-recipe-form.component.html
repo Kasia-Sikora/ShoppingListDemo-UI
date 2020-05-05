@@ -1,0 +1,40 @@
+<form [formGroup]="recipeForm" (ngSubmit)="submitForm()">
+
+  <!--  Error messages -->
+  <div *ngIf="error && (recipeForm.touched || recipeForm.dirty)" class="cross-validation-error-message alert alert-danger">
+    <div class="has-ino" style="color: red"> {{ error.error }} </div>
+  </div>
+  <div *ngIf="errorMessage && (recipeForm.touched || recipeForm.dirty)" class="cross-validation-error-message alert alert-danger">
+    <div class="has-ino" style="color: red"> {{ errorMessage }} </div>
+  </div>
+
+  <!--  Title input -->
+  <div class="form-group input-group-lg">
+    <input class="form-control" placeholder="Title" formControlName="title" minlength="6" required>
+  </div>
+  <div *ngIf="recipeForm.controls['title'].invalid && (recipeForm.controls['title'].dirty || recipeForm.controls['title'].touched)" class="alert alert-danger">
+    <div *ngIf="recipeForm.controls['title'].errors.required">
+      Title is required.
+    </div>
+    <div *ngIf="recipeForm.controls['title'].errors.minlength">
+      Title has to be min length 6
+    </div>
+  </div>
+
+  <!--  Method input -->
+  <div class="form-group input-group-lg">
+    <textarea type="text" rows="10" cols="20" class="form-control" placeholder="Method" formControlName="method" minlength="4" style="resize: none;" required></textarea>
+  </div>
+  <div *ngIf="recipeForm.controls['method'].invalid && (recipeForm.controls['method'].dirty || recipeForm.controls['method'].touched)" class="alert alert-danger">
+    <div *ngIf="recipeForm.controls['method'].errors.required">
+      Method is required.
+    </div>
+    <div *ngIf="recipeForm.controls['method'].errors.minlength">
+      Method has to be min length 6
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-success btn-block btn-lg" [disabled]="!recipeForm.valid">Save</button>
+  </div>
+</form>

@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {ModalService} from '../modal';
 import {AuthorisationService} from './authorisation.service';
 
@@ -46,7 +46,7 @@ export class UserRegistrationComponent implements OnInit {
     };
 
     if (this.regForm.valid) {
-        this.http.post('http://localhost:8080/sign-up', reqData).subscribe(
+      this.http.post('http://localhost:8080/sign-up', reqData).subscribe(
         (response) => {
           console.log(response);
           this.isDataValid = true;
@@ -55,13 +55,18 @@ export class UserRegistrationComponent implements OnInit {
           this.parent.close('reg-modal');
         },
         (error) => {
-          this.error = error;
-          console.log(error);
-          this.isDataValid = false;
+          if (error.status === 403) {
+            this.errorMessage = 'Invalid data';
+            this.isDataValid = false;
+          } else {
+            this.error = error;
+            console.log(error);
+            this.isDataValid = false;
+          }
         }
       );
     } else {
-      this.errorMessage = 'Invalid Data';
+      this.errorMessage = 'Invalid data';
     }
   }
 }

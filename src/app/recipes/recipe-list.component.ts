@@ -3,6 +3,7 @@ import {RecipeService} from './recipe.service';
 import {IRecipe} from './recipe';
 import {AuthorisationService} from '../utils/forms/authorisation.service';
 import {FormBuilder} from '@angular/forms';
+import {ModalService} from '../utils/modal';
 
 
 // TODO Create Add recipe form
@@ -19,7 +20,8 @@ export class RecipeListComponent implements OnInit {
   recipes: IRecipe[] = [];
   errorMessage: string;
 
-  constructor(private recipeService: RecipeService, private authorisationService: AuthorisationService, private fb: FormBuilder){
+  constructor(private recipeService: RecipeService, private authorisationService: AuthorisationService,
+              private fb: FormBuilder, private modalService: ModalService){
   }
 
 
@@ -31,7 +33,10 @@ export class RecipeListComponent implements OnInit {
   }
 
 
-  addRecipe() {
-    console.log('dupa');
+  addRecipe(id: string) {
+    this.modalService.open(id);  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }

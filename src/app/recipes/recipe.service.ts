@@ -10,13 +10,13 @@ import {AuthorisationService} from '../utils/forms/authorisation.service';
 })
 export class RecipeService {
 
-  private recipeUrl = 'http://localhost:8080/recipes';
+  private recipeUrl = 'http://localhost:8080/' + this.authorisationService.getUser().id + '/recipes';
 
   constructor(private http: HttpClient, private authorisationService: AuthorisationService){}
 
   getRecipes(): Observable<IRecipe[]> {
-    return this.http.get<IRecipe[]>('http://localhost:8080/' + this.authorisationService.getUser().id + '/recipes').pipe(
-      tap(data => console.log('All: ' + JSON.stringify(data))),
+    return this.http.get<IRecipe[]>(this.recipeUrl).pipe(
+      tap(data => JSON.stringify(data)),
       catchError(this.handleError));
   }
 

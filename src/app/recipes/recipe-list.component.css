@@ -2,6 +2,7 @@
   background-color: rgba(255, 255, 255, 0.5);
   margin-left: 10%;
   margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .card,
@@ -33,8 +34,8 @@ a:visited {
 }
 
 .picture {
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
   image-rendering: auto;
   border-color: dimgrey;
 }
@@ -79,3 +80,11 @@ a:visited {
 #add-recipe-button{
   background: none;
 }
+
+/*#add-recipe-modal,*/
+/*.app-modal,*/
+/*.app-modal-body,*/
+/*.modal-body{*/
+/*  width: 500px;*/
+/*  height: auto;*/
+/*}*/

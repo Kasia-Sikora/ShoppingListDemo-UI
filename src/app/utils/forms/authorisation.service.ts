@@ -6,6 +6,7 @@ export class AuthorisationService {
 
   private user: any;
   private token: string;
+  private errorMessage: string;
 
   setUser(user: any) {
     console.log(user);
@@ -20,7 +21,15 @@ export class AuthorisationService {
     this.token = token;
   }
 
-  getToken(){
+  getToken() {
     return this.token;
+  }
+
+  setErrorMessage(errorMessage: string) {
+    this.errorMessage = errorMessage;
+  }
+
+  getErrorMessage(){
+    return this.errorMessage;
   }
 }

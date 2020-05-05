@@ -4,7 +4,7 @@
     <div *ngIf="error && (regForm.touched || regForm.dirty)" class="cross-validation-error-message alert alert-danger">
       <div class="has-ino" style="color: red"> {{ error.error }} </div>
     </div>
-    <div *ngIf="errorMessage && (regForm.touched || regForm.dirty)">
+    <div *ngIf="errorMessage && (regForm.touched || regForm.dirty)" class="cross-validation-error-message alert alert-danger">
       <div class="has-ino" style="color: red"> {{ errorMessage }} </div>
     </div>
 

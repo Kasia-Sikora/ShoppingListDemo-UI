@@ -6,17 +6,20 @@ import {RecipeListComponent} from './recipes/recipe-list.component';
 import {UserRegistrationComponent} from './utils/forms/registration-form.component';
 import {UserLoginComponent} from './utils/forms/login-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ModalModule} from './utils/modal';
+import {AddRecipeFormComponent} from './utils/forms/add-recipe-form.component';
 
 
 const routes: Routes = [];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), CommonModule, ReactiveFormsModule],
+    imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}), CommonModule, ReactiveFormsModule, ModalModule],
   declarations: [
     UserListComponent,
     RecipeListComponent,
     UserRegistrationComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    AddRecipeFormComponent,
   ],
   exports: [RouterModule, UserListComponent, UserRegistrationComponent, UserLoginComponent, RecipeListComponent]
 })

@@ -6,7 +6,7 @@ app-modal {
   position: fixed;
   right: 0;
   bottom: 0;
-  width: 300px;
+  max-width: 300px;
   top: 10%;
   left: 40%;
   z-index: 1000;
@@ -16,6 +16,7 @@ app-modal {
 .app-modal-body {
   padding: 20px;
   background: #fff;
+  max-width: 300px;
 }
 
 
@@ -34,3 +35,6 @@ app-modal {
 body.app-modal-open {
   overflow: hidden;
 }
+
+
+
