@@ -16,12 +16,11 @@ const routes: Routes = [];
     imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}), CommonModule, ReactiveFormsModule, ModalModule],
   declarations: [
     UserListComponent,
-    RecipeListComponent,
     UserRegistrationComponent,
     UserLoginComponent,
     AddRecipeFormComponent,
   ],
-  exports: [RouterModule, UserListComponent, UserRegistrationComponent, UserLoginComponent, RecipeListComponent]
+  exports: [RouterModule, UserListComponent, UserRegistrationComponent, UserLoginComponent, AddRecipeFormComponent]
 })
 export class AppRoutingModule {
 }

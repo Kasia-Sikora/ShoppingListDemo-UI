@@ -8,12 +8,15 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ModalModule} from './utils/modal';
 import {FooterComponent} from './home/footer.component';
 import {InterceptorService} from './utils/interceptor.service';
+import { RecipeDetailComponent } from './recipes/recipe-detail.component';
+import {RecipeModule} from './recipes/recipe.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     FooterComponent,
+    // RecipeDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,6 +24,7 @@ import {InterceptorService} from './utils/interceptor.service';
     HttpClientModule,
     ModalModule,
     ReactiveFormsModule,
+    RecipeModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
   bootstrap: [AppComponent]

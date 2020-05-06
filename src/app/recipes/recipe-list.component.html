@@ -1,7 +1,7 @@
 <div class="card ">
   <div class="card-header">
 
-<!--    Nav tabs in card   -->
+    <!--    Nav tabs in card   -->
     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
@@ -16,7 +16,7 @@
            aria-selected="false">Shopping List</a>
       </li>
 
-<!--      Search box  -->
+      <!--      Search box  -->
       <li class="nav-item search-input">
         <div class="input-group">
           <div class="input-group-prepend">
@@ -28,20 +28,21 @@
         </div>
       </li>
 
-<!--      Add recipe button   -->
+      <!--      Add recipe button   -->
       <li class="add-recipe">
-        <a [routerLink]="" (click)="addRecipe('add-recipe-modal')"><img [src]="'./assets/addRecipe.png'" id="add-button" alt="add-recipe"></a>
+        <a [routerLink]="" (click)="addRecipe('add-recipe-modal')"><img [src]="'./assets/addRecipe.png'" id="add-button"
+                                                                        alt="add-recipe"></a>
       </li>
     </ul>
   </div>
 
 
-<!--  Recipes  -->
+  <!--  Recipes  -->
   <div class="card-body">
     <div class="grid">
 
-      <div class="recipe-card" *ngFor="let recipe of recipes">
-        <a [routerLink]="['/products', recipe.id]">
+      <div class="recipe-card" *ngFor='let recipe of recipes'>
+        <a [routerLink]="['/recipes', recipe.id]">
 
           <ng-template [ngIf]="recipe.picture != null" [ngIfElse]="noPicture">
             <img src="{{recipe.picture}}" class="picture" alt="picture">

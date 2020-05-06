@@ -69,4 +69,8 @@ export class UserRegistrationComponent implements OnInit {
       this.errorMessage = 'Invalid data';
     }
   }
+
+  closeModal(id: string){
+    this.parent.close(id);
+  }
 }

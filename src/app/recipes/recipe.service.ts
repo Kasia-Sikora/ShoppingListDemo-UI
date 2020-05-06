@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {IRecipe} from './recipe';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, tap, map} from 'rxjs/operators';
 import {AuthorisationService} from '../utils/forms/authorisation.service';
 
 @Injectable({
@@ -19,6 +19,14 @@ export class RecipeService {
       tap(data => JSON.stringify(data)),
       catchError(this.handleError));
   }
+
+  getRecipe(id: number): Observable<IRecipe | undefined> {
+    return this.getRecipes()
+      .pipe(
+        map((recipes: IRecipe[]) => recipes.find(r => r.id === id))
+      );
+  }
+
 
   private handleError(err: HttpErrorResponse) {
     let errorMessage =  '';

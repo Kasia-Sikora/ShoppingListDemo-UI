@@ -39,4 +39,8 @@ export class RecipeListComponent implements OnInit {
   closeModal(id: string) {
     this.modalService.close(id);
   }
+
+  viewRecipe(id: number) {
+    console.log('view recipe nr: ' + id);
+  }
 }
