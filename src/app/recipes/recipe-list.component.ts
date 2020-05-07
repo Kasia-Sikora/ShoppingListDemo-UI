@@ -10,7 +10,7 @@ import {ModalService} from '../utils/modal';
 // TODO Create recipe description page
 
 @Component({
-  selector: 'app-recipes',
+  // selector: 'app-recipes',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css'],
 })
@@ -20,12 +20,14 @@ export class RecipeListComponent implements OnInit {
   recipes: IRecipe[] = [];
   errorMessage: string;
 
-  constructor(private recipeService: RecipeService, private authorisationService: AuthorisationService,
+  constructor(private recipeService: RecipeService,
+              private authorisationService: AuthorisationService,
               private fb: FormBuilder, private modalService: ModalService){
   }
 
 
   ngOnInit(): void {
+    console.log('recipe component ' + this.authorisationService);
     this.recipeService.getRecipes().subscribe({
       next: recipes => this.recipes = recipes,
       error: err => this.errorMessage = err
@@ -42,5 +44,12 @@ export class RecipeListComponent implements OnInit {
 
   viewRecipe(id: number) {
     console.log('view recipe nr: ' + id);
+  }
+
+  refresh() {
+    this.recipeService.getRecipes().subscribe({
+      next: recipes => this.recipes = recipes,
+      error: err => this.errorMessage = err
+    });
   }
 }

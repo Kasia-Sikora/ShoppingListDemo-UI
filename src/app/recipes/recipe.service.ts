@@ -15,6 +15,7 @@ export class RecipeService {
   constructor(private http: HttpClient, private authorisationService: AuthorisationService){}
 
   getRecipes(): Observable<IRecipe[]> {
+    console.log('id' + this.authorisationService.getUser().id);
     return this.http.get<IRecipe[]>(this.recipeUrl).pipe(
       tap(data => JSON.stringify(data)),
       catchError(this.handleError));

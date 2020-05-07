@@ -1,26 +1,19 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {UserListComponent} from './users/user-list.component';
-import {CommonModule} from '@angular/common';
 import {RecipeListComponent} from './recipes/recipe-list.component';
-import {UserRegistrationComponent} from './utils/forms/registration-form.component';
-import {UserLoginComponent} from './utils/forms/login-form.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {ModalModule} from './utils/modal';
-import {AddRecipeFormComponent} from './utils/forms/add-recipe-form.component';
+import {RecipeDetailComponent} from './recipes/recipe-detail.component';
+import {WelcomeComponent} from './home/welcomeComponent/welcome.component';
 
 
-const routes: Routes = [];
+const routes: Routes = [{path: '', component: WelcomeComponent},
+  {path: 'recipes', component: RecipeListComponent},
+  {path: 'recipe/:id', component: RecipeDetailComponent},
+  { path: '**', component: WelcomeComponent}
+  ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}), CommonModule, ReactiveFormsModule, ModalModule],
-  declarations: [
-    UserListComponent,
-    UserRegistrationComponent,
-    UserLoginComponent,
-    AddRecipeFormComponent,
-  ],
-  exports: [RouterModule, UserListComponent, UserRegistrationComponent, UserLoginComponent, AddRecipeFormComponent]
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

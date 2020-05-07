@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ModalService} from '../modal';
 import {AuthorisationService} from './authorisation.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -16,7 +17,8 @@ export class UserLoginComponent implements OnInit {
   });
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
-              private authorisationService: AuthorisationService) {
+              private authorisationService: AuthorisationService,
+              private router: Router) {
   }
 
 
@@ -55,6 +57,7 @@ export class UserLoginComponent implements OnInit {
             );
             this.form.reset();
             this.parent.close('login-modal');
+            this.router.navigate(['/recipes']);
           }
         },
         (error) => {

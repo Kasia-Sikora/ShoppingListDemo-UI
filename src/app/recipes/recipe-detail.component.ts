@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { IRecipe } from './recipe';
 import { RecipeService } from './recipe.service';
+import {AuthorisationService} from '../utils/forms/authorisation.service';
 
 @Component({
   // selector: 'app-recipe-detail',
@@ -21,7 +22,11 @@ export class RecipeDetailComponent implements OnInit {
               private recipeService: RecipeService) { }
 
   ngOnInit(): void {
+    console.log('dupa1');
+    console.log(this.route.snapshot.paramMap);
     const param = this.route.snapshot.paramMap.get('id');
+    console.log('dupa');
+    console.log(param);
     if (param) {
       const id = +param;
       this.getRecipe(id);
@@ -36,7 +41,6 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onBack(): void {
-    this.router.navigate(['/recipes']);
+    this.router.navigate(['./recipes']);
   }
-
 }

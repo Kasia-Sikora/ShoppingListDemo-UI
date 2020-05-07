@@ -4,6 +4,7 @@ import {ModalService} from '../modal';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {AuthorisationService} from './authorisation.service';
 import {Router} from '@angular/router';
+import {RecipeListComponent} from '../../recipes/recipe-list.component';
 
 @Component({
   selector: 'app-add-recipes',
@@ -21,7 +22,8 @@ export class AddRecipeFormComponent {
 
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
-              private authorisationService: AuthorisationService) {
+              private authorisationService: AuthorisationService,
+              private recipeListComponent: RecipeListComponent) {
   }
 
   submitForm() {
@@ -33,17 +35,14 @@ export class AddRecipeFormComponent {
     // formData.append('picture', this.form.get('picture').value);
     if (this.recipeForm.valid) {
 
-      this.http.post('http://localhost:8080/' + recipeData.user_id + '/recipes', recipeData, {observe: 'response'}).subscribe(
+      this.http.post('http://localhost:8080/' + this.authorisationService.getUser().id + '/recipes', recipeData,
+        {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
           if (response != null) {
             console.log(response);
             this.recipeForm.reset();
             this.parent.close('add-recipe-modal');
-            this.http.get('http://localhost:8080/' + recipeData.user_id + '/recipes').subscribe(
-              (response2: HttpResponse<any>) => {
-                console.log(response2);
-              }
-            );
+            this.recipeListComponent.refresh();
           }
         },
       (error) => {

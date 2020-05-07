@@ -42,7 +42,7 @@
     <div class="grid">
 
       <div class="recipe-card" *ngFor='let recipe of recipes'>
-        <a [routerLink]="['/recipes', recipe.id]">
+        <a [routerLink]="['/recipe', recipe.id]">
 
           <ng-template [ngIf]="recipe.picture != null" [ngIfElse]="noPicture">
             <img src="{{recipe.picture}}" class="picture" alt="picture">

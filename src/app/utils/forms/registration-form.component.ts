@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ModalService} from '../modal';
 import {AuthorisationService} from './authorisation.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -13,7 +14,8 @@ export class UserRegistrationComponent implements OnInit {
 
   constructor(private parent: ModalService,
               private authorisationService: AuthorisationService,
-              private fb: FormBuilder, private http: HttpClient) {
+              private fb: FormBuilder, private http: HttpClient,
+              private router: Router) {
   }
 
   regForm = this.fb.group({
@@ -38,6 +40,7 @@ export class UserRegistrationComponent implements OnInit {
   //   this.form.get('picture').updateValueAndValidity();
   // }
 
+  // TODO token missing, there is no authorisation. User have to logout and login again to get token
   submitForm() {
     const reqData = {
       login: this.regForm.get('login').value,
@@ -46,13 +49,17 @@ export class UserRegistrationComponent implements OnInit {
     };
 
     if (this.regForm.valid) {
-      this.http.post('http://localhost:8080/sign-up', reqData).subscribe(
-        (response) => {
+      this.http.post('http://localhost:8080/sign-up', reqData, {observe: 'response'}).subscribe(
+        (response: HttpResponse<any>) => {
           console.log(response);
           this.isDataValid = true;
-          this.authorisationService.setUser(response);
+          const token = response.headers.get('Authorization');
+          console.log(token);
+          this.authorisationService.setToken(token);
+          this.authorisationService.setUser(response.body);
           this.regForm.reset();
           this.parent.close('reg-modal');
+          this.router.navigate(['/recipes']);
         },
         (error) => {
           if (error.status === 403) {
@@ -70,7 +77,7 @@ export class UserRegistrationComponent implements OnInit {
     }
   }
 
-  closeModal(id: string){
+  closeModal(id: string) {
     this.parent.close(id);
   }
 }

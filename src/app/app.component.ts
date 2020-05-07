@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {ModalService} from './utils/modal';
 import {AuthorisationService} from './utils/forms/authorisation.service';
 
 @Component({
@@ -10,26 +9,10 @@ import {AuthorisationService} from './utils/forms/authorisation.service';
 export class AppComponent {
   pageTitle = 'Stuff';
 
-  bodyText: string;
-  user: any;
-
-
-  constructor(private modalService: ModalService, private authorisationService: AuthorisationService) {
-  }
-
-  openModal(id: string) {
-    this.modalService.open(id);
-  }
-
-  closeModal(id: string) {
-    this.modalService.close(id);
+  constructor(private authorisationService: AuthorisationService) {
   }
 
   getUser() {
     return this.authorisationService.getUser();
-  }
-
-  logout() {
-    this.authorisationService.setUser(null);
   }
 }
