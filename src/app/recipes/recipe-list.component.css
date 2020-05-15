@@ -81,10 +81,30 @@ a:visited {
   background: none;
 }
 
-/*#add-recipe-modal,*/
-/*.app-modal,*/
-/*.app-modal-body,*/
-/*.modal-body{*/
-/*  width: 500px;*/
-/*  height: auto;*/
-/*}*/
+#add-recipe-modal{
+  width: 500px;
+  height: auto;
+}
+
+#add-recipe{
+  text-align: center;
+}
+
+.add-picture{
+  position: relative;
+  width: 150px;
+  height: 150px;
+  image-rendering: auto;
+  border-color: dimgrey;
+}
+
+#add-button-on-broccoli{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  margin-left: 25px;
+  margin-top: 25px;
+  z-index: 1000;
+  opacity: 0.8;
+}
+

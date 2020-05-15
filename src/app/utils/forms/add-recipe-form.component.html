@@ -23,7 +23,7 @@
 
   <!--  Method input -->
   <div class="form-group input-group-lg">
-    <textarea type="text" rows="10" cols="20" class="form-control" placeholder="Method" formControlName="method" minlength="4" style="resize: none;" required></textarea>
+    <textarea type="text" rows="5" cols="30" class="form-control" placeholder="Method" formControlName="method" minlength="4" style="resize: none;" required></textarea>
   </div>
   <div *ngIf="recipeForm.controls['method'].invalid && (recipeForm.controls['method'].dirty || recipeForm.controls['method'].touched)" class="alert alert-danger">
     <div *ngIf="recipeForm.controls['method'].errors.required">

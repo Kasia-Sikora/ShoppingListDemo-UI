@@ -29,10 +29,10 @@
       </li>
 
       <!--      Add recipe button   -->
-      <li class="add-recipe">
-        <a [routerLink]="" (click)="addRecipe('add-recipe-modal')"><img [src]="'./assets/addRecipe.png'" id="add-button"
-                                                                        alt="add-recipe"></a>
-      </li>
+<!--      <li class="add-recipe">-->
+<!--        <a [routerLink]="" (click)="addRecipe('add-recipe-modal')"><img [src]="'./assets/addRecipe.png'" id="add-button"-->
+<!--                                                                        alt="add-recipe"></a>-->
+<!--      </li>-->
     </ul>
   </div>
 
@@ -41,6 +41,14 @@
   <div class="card-body">
     <div class="grid">
 
+      <div class="recipe-card">
+        <a [routerLink]="" (click)="addRecipe('add-recipe-modal')">
+          <img [src]="'./assets/addRecipe.png'" id="add-button-on-broccoli"
+               alt="add-recipe">
+          <img [src]="'./assets/trans-broccoli.png'" class="add-picture" alt="picture">
+          <div id="add-recipe">Add New Recipe</div>
+        </a>
+      </div>
       <div class="recipe-card" *ngFor='let recipe of recipes'>
         <a [routerLink]="['/recipe', recipe.id]">
 

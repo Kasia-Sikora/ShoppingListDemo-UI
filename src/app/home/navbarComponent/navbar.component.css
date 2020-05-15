@@ -34,3 +34,13 @@
   margin-right: 50px;
   margin-left: auto;
 }
+
+#reg-modal,
+#login-modal {
+  width: 300px;
+}
+
+.modal-body,
+.modal-header {
+  width: 300px;
+}

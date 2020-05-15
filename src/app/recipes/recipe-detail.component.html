@@ -1,18 +1,18 @@
 <div class='card'
      *ngIf='recipe'>
   <div class='card-header'>
-    {{pageTitle + ': ' + recipe.title}}
+    {{recipe.title}}
   </div>
 
   <div class='card-body'>
     <div class='row'>
       <div class='col-md-8'>
         <div class='row'>
-          <div class='col-md-4'>Name:</div>
+          <div class='col-md-4'>Recipe:</div><br>
           <div class='col-md-8'>{{recipe.title}}</div>
         </div>
         <div class='row'>
-          <div class='col-md-4'>Description:</div>
+          <div class='col-md-4'>Description:</div><br>
           <div class='col-md-8'>{{recipe.method}}</div>
         </div>
 <!--        <div class='row'>-->
@@ -35,6 +35,7 @@
       <div class='col-md-4'>
         <img class='center-block img-responsive'
              [style.width.px]='200'
+             [style.height.px]='200'
              [style.margin.px]='2'
              [src]='recipe.picture'
              [title]='recipe.title'>
