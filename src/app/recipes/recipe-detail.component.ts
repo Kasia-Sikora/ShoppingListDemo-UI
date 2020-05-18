@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
-import { IRecipe } from './recipe';
-import { RecipeService } from './recipe.service';
+import {IRecipe} from './recipe';
+import {RecipeService} from './recipe.service';
 import {AuthorisationService} from '../utils/forms/authorisation.service';
+import {RecipeListComponent} from './recipe-list.component';
 
 @Component({
   // selector: 'app-recipe-detail',
@@ -19,7 +20,8 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private recipeService: RecipeService) { }
+              private recipeService: RecipeService) {
+  }
 
   ngOnInit(): void {
     console.log('dupa1');
@@ -42,5 +44,17 @@ export class RecipeDetailComponent implements OnInit {
 
   onBack(): void {
     this.router.navigate(['./recipes']);
+  }
+
+  removeRecipe(id: number) {
+    console.log('enter remove Recipe with id: ' + id);
+    this.recipeService.remove(id).subscribe({
+      error: err => this.errorMessage = err
+    });
+    this.router.navigate(['./recipes']);
+  }
+
+  editRecipe(id: number) {
+    console.log('editing');
   }
 }

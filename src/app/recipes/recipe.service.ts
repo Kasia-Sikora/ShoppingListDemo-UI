@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {IRecipe} from './recipe';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 import {AuthorisationService} from '../utils/forms/authorisation.service';
@@ -11,11 +11,14 @@ import {AuthorisationService} from '../utils/forms/authorisation.service';
 export class RecipeService {
 
   private recipeUrl = 'http://localhost:8080/' + this.authorisationService.getUser().id + '/recipes';
+  private removeRecipe = 'http://localhost:8080/' + this.authorisationService.getUser().id + '/recipes';
+  private httpOptions = {
+    headers: new HttpHeaders({ header: 'Access-Control-Allow-Origin' })
+  };
 
   constructor(private http: HttpClient, private authorisationService: AuthorisationService){}
 
   getRecipes(): Observable<IRecipe[]> {
-    console.log('id' + this.authorisationService.getUser().id);
     return this.http.get<IRecipe[]>(this.recipeUrl).pipe(
       tap(data => JSON.stringify(data)),
       catchError(this.handleError));
@@ -40,4 +43,13 @@ export class RecipeService {
     return throwError(errorMessage);
   }
 
+  remove(id: number): Observable<IRecipe> {
+    console.log('deleting' + id);
+    const url = `${this.recipeUrl}/${id}`;
+    console.log(this.httpOptions);
+    return this.http.delete<IRecipe>(url, this.httpOptions).pipe(
+      tap(_ => console.log(`deleted recipe id=${id}`)),
+      catchError(this.handleError)
+    );
+  }
 }

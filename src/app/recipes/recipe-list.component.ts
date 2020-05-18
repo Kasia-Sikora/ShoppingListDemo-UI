@@ -22,7 +22,7 @@ export class RecipeListComponent implements OnInit {
 
   constructor(private recipeService: RecipeService,
               private authorisationService: AuthorisationService,
-              private fb: FormBuilder, private modalService: ModalService){
+              private fb: FormBuilder, private modalService: ModalService) {
   }
 
 
@@ -36,7 +36,8 @@ export class RecipeListComponent implements OnInit {
 
 
   addRecipe(id: string) {
-    this.modalService.open(id);  }
+    this.modalService.open(id);
+  }
 
   closeModal(id: string) {
     this.modalService.close(id);
@@ -52,4 +53,5 @@ export class RecipeListComponent implements OnInit {
       error: err => this.errorMessage = err
     });
   }
+
 }
