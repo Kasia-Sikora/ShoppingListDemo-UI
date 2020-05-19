@@ -21,8 +21,6 @@ export class UserLoginComponent implements OnInit {
               private router: Router) {
   }
 
-
-
   error: HttpErrorResponse;
   errorMessage: string;
 

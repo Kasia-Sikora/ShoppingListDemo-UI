@@ -35,12 +35,22 @@
       </div>
 
       <div class='col-md-4'>
-        <img class='center-block img-responsive'
-             [style.width.px]='200'
-             [style.height.px]='200'
-             [style.margin.px]='2'
-             [src]='recipe.picture'
-             [title]='recipe.title'>
+        <ng-template [ngIf]="recipe.picture != null" [ngIfElse]="noPicture">
+          <img class='center-block img-responsive'
+               [style.width.px]='200'
+               [style.height.px]='200'
+               [style.margin.px]='2'
+               [src]='recipe.picture'
+               [title]='recipe.title'>
+        </ng-template>
+        <ng-template #noPicture>
+          <img class='center-block img-responsive'
+               [style.width.px]='200'
+               [style.height.px]='200'
+               [style.margin.px]='2'
+               [src]="'./assets/broccoli.png'">
+        </ng-template>
+
       </div>
     </div>
   </div>
@@ -57,9 +67,22 @@
               style='width:80px'> Delete
       </button>
       <button class='btn btn-outline-secondary'
-              (click)='editRecipe(recipe.id)'
+              (click)="openModal('edit-recipe-modal')"
               style='width:80px'> Edit
       </button>
     </div>
   </div>
 </div>
+
+
+<app-modal id="edit-recipe-modal">
+  <div class="modal-header">
+    <h5 class="modal-title">Update recipe</h5>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal('edit-recipe-modal')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-edit-recipe></app-edit-recipe>
+  </div>
+</app-modal>

@@ -23,7 +23,9 @@ export class AddRecipeFormComponent {
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
               private authorisationService: AuthorisationService,
+              private router: Router,
               private recipeListComponent: RecipeListComponent) {
+  // ){
   }
 
   submitForm() {
@@ -43,11 +45,12 @@ export class AddRecipeFormComponent {
             this.recipeForm.reset();
             this.parent.close('add-recipe-modal');
             this.recipeListComponent.refresh();
+            // this.router.navigate(['/recipes']);
           }
         },
-      (error) => {
-        console.log(error.status);
-      });
+        (error) => {
+          console.log(error.status);
+        });
     }
   }
 }

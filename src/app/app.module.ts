@@ -15,6 +15,7 @@ import {RecipeListComponent} from './recipes/recipe-list.component';
 import {UserRegistrationComponent} from './utils/forms/registration-form.component';
 import {UserLoginComponent} from './utils/forms/login-form.component';
 import {AddRecipeFormComponent} from './utils/forms/add-recipe-form.component';
+import {UpdateRecipeFormComponent} from './utils/forms/update-recipe-form.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {AddRecipeFormComponent} from './utils/forms/add-recipe-form.component';
     UserRegistrationComponent,
     UserLoginComponent,
     AddRecipeFormComponent,
+    UpdateRecipeFormComponent,
   ],
   imports: [
     AppRoutingModule,

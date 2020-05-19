@@ -4,8 +4,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {IRecipe} from './recipe';
 import {RecipeService} from './recipe.service';
-import {AuthorisationService} from '../utils/forms/authorisation.service';
-import {RecipeListComponent} from './recipe-list.component';
+// import {AuthorisationService} from '../utils/forms/authorisation.service';
+// import {RecipeListComponent} from './recipe-list.component';
+import {ModalService} from '../utils/modal';
+// import {UpdateRecipeFormComponent} from '../utils/forms/update-recipe-form.component';
 
 @Component({
   // selector: 'app-recipe-detail',
@@ -13,14 +15,17 @@ import {RecipeListComponent} from './recipe-list.component';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-
   pageTitle = 'Recipe Detail';
+
   errorMessage = '';
-  recipe: IRecipe | undefined;
+  recipe: IRecipe;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private recipeService: RecipeService) {
+              private recipeService: RecipeService,
+              private modalService: ModalService,
+              // private updateRecipeForm: UpdateRecipeFormComponent
+  ) {
   }
 
   ngOnInit(): void {
@@ -40,6 +45,7 @@ export class RecipeDetailComponent implements OnInit {
       next: recipe => this.recipe = recipe,
       error: err => this.errorMessage = err
     });
+    console.log('recipe detail' + this.recipe);
   }
 
   onBack(): void {
@@ -47,14 +53,18 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   removeRecipe(id: number) {
-    console.log('enter remove Recipe with id: ' + id);
     this.recipeService.remove(id).subscribe({
       error: err => this.errorMessage = err
     });
     this.router.navigate(['./recipes']);
   }
 
-  editRecipe(id: number) {
-    console.log('editing');
+  openModal(id: string) {
+    this.modalService.open(id);
+    // this.updateRecipeForm.recipe = this.recipe;
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
   }
 }

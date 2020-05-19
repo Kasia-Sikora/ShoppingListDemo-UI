@@ -6,9 +6,6 @@ import {FormBuilder} from '@angular/forms';
 import {ModalService} from '../utils/modal';
 
 
-// TODO Create Add recipe form
-// TODO Create recipe description page
-
 @Component({
   // selector: 'app-recipes',
   templateUrl: './recipe-list.component.html',
@@ -43,15 +40,10 @@ export class RecipeListComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  viewRecipe(id: number) {
-    console.log('view recipe nr: ' + id);
-  }
-
   refresh() {
     this.recipeService.getRecipes().subscribe({
       next: recipes => this.recipes = recipes,
       error: err => this.errorMessage = err
     });
   }
-
 }

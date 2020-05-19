@@ -47,7 +47,7 @@ export class RecipeService {
     console.log('deleting' + id);
     const url = `${this.recipeUrl}/${id}`;
     console.log(this.httpOptions);
-    return this.http.delete<IRecipe>(url, this.httpOptions).pipe(
+    return this.http.delete<IRecipe>(url).pipe(
       tap(_ => console.log(`deleted recipe id=${id}`)),
       catchError(this.handleError)
     );
