@@ -1,0 +1,75 @@
+<div class="card ">
+  <div class="card-header">
+
+    <!--    Nav tabs in card   -->
+    <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+           aria-selected="true">My Recipes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+           aria-selected="false">Favourite</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+           aria-selected="false">Shopping List</a>
+      </li>
+
+      <!--      Search box  -->
+      <li class="nav-item search-input">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text" id="btnGroupAddon"><img [src]="'./assets/search.png'" class="search-icon"
+                                                                  alt="search-icon"></div>
+          </div>
+          <input type="text" class="form-control" placeholder="Search" aria-label="Input group example"
+                 aria-describedby="btnGroupAddon">
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+  <!--  Recipes  -->
+  <div class="card-body">
+    <div class="grid">
+
+      <div class="recipe-card">
+        <a [routerLink]="" (click)="addRecipe('add-recipe-modal')">
+          <img [src]="'./assets/addRecipe.png'" id="add-button-on-broccoli"
+               alt="add-recipe">
+          <img [src]="'./assets/trans-broccoli.png'" class="add-picture" alt="picture">
+          <div id="add-recipe">Add New Recipe</div>
+        </a>
+      </div>
+      <div class="recipe-card" *ngFor='let recipe of recipes'>
+        <a [routerLink]="['/recipe', recipe.id]">
+
+          <ng-template [ngIf]="recipe.picture != null" [ngIfElse]="noPicture">
+            <img src="{{recipe.picture}}" class="picture" alt="picture">
+          </ng-template>
+
+          <ng-template #noPicture>
+            <img [src]="'./assets/broccoli.png'" class="picture" alt="picture">
+          </ng-template>
+
+          <div id="recipe-title">{{recipe.title}}</div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<app-modal id="add-recipe-modal">
+  <div class="modal-header">
+    <h5 class="modal-title">Add new recipe</h5>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal('add-recipe-modal')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-add-recipes></app-add-recipes>
+  </div>
+</app-modal>

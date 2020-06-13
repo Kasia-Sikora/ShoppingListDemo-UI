@@ -1,0 +1,46 @@
+#registration_button,
+#login_button,
+#logout{
+  box-shadow: 4px 2px 2px dimgrey;
+  font-style: normal;
+  font-size: 1em;
+  margin-top: 4vh;
+  margin-right: 4vh;
+}
+
+#title {
+  margin-top: 10px;
+  position: absolute;
+  margin-left: 3%;
+  margin-right: 3%;
+  font-family: 'Manrope', sans-serif !important;
+  font-style: normal;
+  text-align: -webkit-left;
+  font-size: 3em;
+  letter-spacing: 3px;
+  color: black;
+}
+
+
+#title:before {
+  color: #085317;
+  content: "Food";
+}
+
+
+#user_login {
+  margin-top: 30px;
+  color: black;
+  margin-right: 50px;
+  margin-left: auto;
+}
+
+#reg-modal,
+#login-modal {
+  width: 300px;
+}
+
+.modal-body,
+.modal-header {
+  width: 300px;
+}

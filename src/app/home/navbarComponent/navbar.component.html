@@ -1,0 +1,47 @@
+<nav class="navbar navbar-light bg-light">
+  <img id="broccoli-icon" src="assets/broccoli.png" alt="broccoli">
+  <div id="title">{{ pageTitle }}
+  </div>
+  <ng-template [ngIf]="this.getUser() != null" [ngIfElse]="loggedOut">
+    <div id="user_login">Hi {{ this.getUser().login }}!</div>
+    <button class="btn btn-light" type="button" id="logout" (click)="logout()">Logout</button>
+  </ng-template>
+  <ng-template #loggedOut>
+    <div id="nav-buttons">
+      <button class="btn btn-light" type="button" id="registration_button" (click)="openModal('reg-modal')">Registration
+      </button>
+      <button class="btn btn-light" type="button" id="login_button" (click)="openModal('login-modal')">Login</button>
+    </div>
+  </ng-template>
+</nav>
+
+<!-- Footer -->
+<div>
+  <app-footer></app-footer>
+</div>
+
+<!--Registration modal-->
+<app-modal id="reg-modal">
+<div class="modal-header">
+<h5 class="modal-title">Sign up</h5>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal('reg-modal')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-register-form></app-register-form>
+  </div>
+</app-modal>
+
+<!-- Login modal -->
+<app-modal id="login-modal">
+  <div class="modal-header">
+    <h5 class="modal-title">Sign In</h5>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal('login-modal')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-login-form></app-login-form>
+  </div>
+</app-modal>

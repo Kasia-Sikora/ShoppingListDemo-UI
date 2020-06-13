@@ -1,0 +1,9 @@
+.options{
+  float: right;
+  margin-left: auto;
+}
+
+.btn,
+.btn-outline-secondary{
+  margin: 5px;
+}

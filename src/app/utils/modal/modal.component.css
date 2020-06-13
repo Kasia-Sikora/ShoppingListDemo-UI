@@ -1,0 +1,42 @@
+app-modal {
+  display: none;
+}
+
+.app-modal {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: auto !important;
+  height: auto !important;
+  top: 10%;
+  left: 40%;
+  z-index: 1000;
+  overflow: auto;
+  display: table;
+}
+
+.app-modal-body {
+  padding: 20px;
+  background: #fff;
+  width: auto !important;
+}
+
+
+.app-modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.75;
+  z-index: 900;
+}
+
+
+body.app-modal-open {
+  overflow: hidden;
+}
+
+
+/*TODO change modal size from px to % */

@@ -1,0 +1,17 @@
+thead {
+  color: #337AB7
+}
+
+
+table {
+  width: 70%;
+  height: auto;
+  background-color: white;
+  opacity: 0.8;
+  margin: auto;
+}
+
+.btn,
+.btn-primary {
+  background-color: #4C8131;
+}
