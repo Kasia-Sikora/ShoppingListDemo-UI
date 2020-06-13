@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, enableProdMode} from '@angular/core';
 import {AuthorisationService} from './utils/forms/authorisation.service';
+import { environment } from '../environments/environment';
 
 @Component({
   templateUrl: './app.component.html',
@@ -8,8 +9,10 @@ import {AuthorisationService} from './utils/forms/authorisation.service';
 })
 export class AppComponent {
   pageTitle = 'Stuff';
+  public apiUrl: string;
 
   constructor(private authorisationService: AuthorisationService) {
+    console.log(environment.production);
   }
 
   getUser() {

@@ -3,6 +3,7 @@ import {ModalService} from '../../utils/modal';
 import {AuthorisationService} from '../../utils/forms/authorisation.service';
 import {Router} from '@angular/router';
 import {HttpClient, HttpResponse} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private modalService: ModalService, private authorisationService: AuthorisationService,
               private router: Router, private http: HttpClient) {
+
   }
 
   openModal(id: string) {
@@ -31,7 +33,7 @@ export class NavbarComponent implements OnInit {
 
   // TODO one user have to refresh whole page after logout to login another user
   logout() {
-    this.http.post('http://localhost:8080/logout', {observe: 'response'}).subscribe(
+    this.http.post(environment.apiUrl + 'logout', {observe: 'response'}).subscribe(
       (response: HttpResponse<any>) => {
         if (response != null) {
           console.log(response);
@@ -39,6 +41,7 @@ export class NavbarComponent implements OnInit {
       });
     this.authorisationService.setUser(null);
     this.authorisationService.setToken(null);
+    localStorage.setItem('token', null);
     this.router.navigate(['']);
   }
 

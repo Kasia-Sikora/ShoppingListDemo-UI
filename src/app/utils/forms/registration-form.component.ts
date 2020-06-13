@@ -4,6 +4,8 @@ import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http'
 import {ModalService} from '../modal';
 import {AuthorisationService} from './authorisation.service';
 import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-register-form',
@@ -40,7 +42,6 @@ export class UserRegistrationComponent implements OnInit {
   //   this.form.get('picture').updateValueAndValidity();
   // }
 
-  // TODO token missing, there is no authorisation. User have to logout and login again to get token
   submitForm() {
     const reqData = {
       login: this.regForm.get('login').value,
@@ -49,12 +50,13 @@ export class UserRegistrationComponent implements OnInit {
     };
 
     if (this.regForm.valid) {
-      this.http.post('http://localhost:8080/sign-up', reqData, {observe: 'response'}).subscribe(
+      this.http.post(environment.apiUrl + 'sign-up', reqData, {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
           console.log(response);
           this.isDataValid = true;
           const token = response.headers.get('Authorization');
           console.log(token);
+          localStorage.setItem('token', token);
           this.authorisationService.setToken(token);
           this.authorisationService.setUser(response.body);
           this.regForm.reset();

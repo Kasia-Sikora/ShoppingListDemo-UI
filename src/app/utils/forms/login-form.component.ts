@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http'
 import {ModalService} from '../modal';
 import {AuthorisationService} from './authorisation.service';
 import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-login-form',
@@ -43,12 +44,13 @@ export class UserLoginComponent implements OnInit {
     // formData.append('picture', this.form.get('picture').value);
     if (this.form.valid) {
 
-      this.http.post('http://localhost:8080/login', logData, {observe: 'response'}).subscribe(
+      this.http.post(environment.apiUrl + 'login', logData, {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
           if (response != null) {
             const token = response.headers.get('Authorization');
+            localStorage.setItem('token', token);
             this.authorisationService.setToken(token);
-            this.http.get('http://localhost:8080/me').subscribe(
+            this.http.get(environment.apiUrl + 'me').subscribe(
               (response2: HttpResponse<any>) => {
                 this.authorisationService.setUser(response2);
               }

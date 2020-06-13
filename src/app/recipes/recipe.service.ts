@@ -4,19 +4,20 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 import {AuthorisationService} from '../utils/forms/authorisation.service';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
 
-  private recipeUrl = 'http://localhost:8080/' + this.authorisationService.getUser().id + '/recipes';
-  private removeRecipe = 'http://localhost:8080/' + this.authorisationService.getUser().id + '/recipes';
+  private recipeUrl = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
+  private removeRecipe = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
   private httpOptions = {
     headers: new HttpHeaders({ header: 'Access-Control-Allow-Origin' })
   };
 
-  constructor(private http: HttpClient, private authorisationService: AuthorisationService){}
+  constructor(private http: HttpClient, private authorisationService: AuthorisationService){  }
 
   getRecipes(): Observable<IRecipe[]> {
     return this.http.get<IRecipe[]>(this.recipeUrl).pipe(

@@ -5,6 +5,8 @@ import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http'
 import {AuthorisationService} from './authorisation.service';
 import {Router} from '@angular/router';
 import {RecipeListComponent} from '../../recipes/recipe-list.component';
+import {environment} from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-add-recipes',
@@ -24,8 +26,7 @@ export class AddRecipeFormComponent {
               private fb: FormBuilder, private http: HttpClient,
               private authorisationService: AuthorisationService,
               private router: Router,
-              private recipeListComponent: RecipeListComponent) {
-  // ){
+              private recipeListComponent: RecipeListComponent, ) {
   }
 
   submitForm() {
@@ -37,7 +38,7 @@ export class AddRecipeFormComponent {
     // formData.append('picture', this.form.get('picture').value);
     if (this.recipeForm.valid) {
 
-      this.http.post('http://localhost:8080/' + this.authorisationService.getUser().id + '/recipes', recipeData,
+      this.http.post(environment.apiUrl + this.authorisationService.getUser().id + '/recipes', recipeData,
         {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
           if (response != null) {
