@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {WelcomeComponent} from './home/welcomeComponent/welcome.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule} from './utils/modal';
 import {FooterComponent} from './home/footerComponent/footer.component';
 import {InterceptorService} from './utils/interceptor.service';
@@ -16,6 +16,16 @@ import {UserRegistrationComponent} from './utils/forms/registration-form.compone
 import {UserLoginComponent} from './utils/forms/login-form.component';
 import {AddRecipeFormComponent} from './utils/forms/add-recipe-form.component';
 import {UpdateRecipeFormComponent} from './utils/forms/update-recipe-form.component';
+import {AddProductFormComponent} from './utils/forms/add-product-form.component';
+import {ProductComponent} from './products/product/product.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import { ProductQuantityComponent } from './products/product-quantity/product-quantity.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +39,9 @@ import {UpdateRecipeFormComponent} from './utils/forms/update-recipe-form.compon
     UserLoginComponent,
     AddRecipeFormComponent,
     UpdateRecipeFormComponent,
+    AddProductFormComponent,
+    ProductComponent,
+    ProductQuantityComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -37,6 +50,14 @@ import {UpdateRecipeFormComponent} from './utils/forms/update-recipe-form.compon
     ModalModule,
     ReactiveFormsModule,
     CommonModule,
+    FormsModule,
+    NgbModule,
+    NoopAnimationsModule,
+    MatSliderModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
   exports: [

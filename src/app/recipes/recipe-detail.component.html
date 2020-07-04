@@ -12,6 +12,19 @@
           <br>
           <div class='col-md-8'>{{recipe.title}}</div>
         </div>
+        <div class='row' *ngIf="productQuantity.length">
+          <div *ngFor="let productQuantity of productQuantity">
+            <div class='col-md-4'>Product name:</div>
+            <br>
+          <div class='col-md-8'>{{productQuantity.product.name}}</div>
+            <div class='col-md-4'>Unit:</div>
+            <br>
+            <div class='col-md-8'>{{productQuantity.unit}}</div><br>
+            <div class='col-md-4'>Quantity:</div>
+            <br>
+            <div class='col-md-8'>{{productQuantity.quantity}}</div><br>
+          </div>
+        </div>
         <div class='row'>
           <div class='col-md-4'>Description:</div>
           <br>

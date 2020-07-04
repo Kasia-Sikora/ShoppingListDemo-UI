@@ -4,11 +4,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {IRecipe} from './recipe';
 import {RecipeService} from './recipe.service';
-// import {AuthorisationService} from '../utils/forms/authorisation.service';
-// import {RecipeListComponent} from './recipe-list.component';
 import {ModalService} from '../utils/modal';
-
-// import {UpdateRecipeFormComponent} from '../utils/forms/update-recipe-form.component';
+import {IProductQuantity} from '../products/product-quantity/product-quantity';
+import {ProductQuantityService} from '../products/product-quantity/product-quantity.service';
 
 @Component({
   // selector: 'app-recipe-detail',
@@ -20,21 +18,18 @@ export class RecipeDetailComponent implements OnInit {
 
   errorMessage = '';
   recipe: IRecipe;
+  productQuantity: IProductQuantity[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private recipeService: RecipeService,
               private modalService: ModalService,
-              // private updateRecipeForm: UpdateRecipeFormComponent
+              private productQuantityService: ProductQuantityService,
   ) {
   }
 
   ngOnInit(): void {
-    console.log('dupa1');
-    console.log(this.route.snapshot.paramMap);
     const param = this.route.snapshot.paramMap.get('id');
-    console.log('dupa');
-    console.log(param);
     if (param) {
       const id = +param;
       this.getRecipe(id);
@@ -42,11 +37,21 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   getRecipe(id: number) {
-    this.recipeService.getRecipe(id).subscribe({
-      next: recipe => this.recipe = recipe,
-      error: err => this.errorMessage = err
+    this.recipeService.getRecipe(id).toPromise().then(data => {
+      this.recipe = data;
+      console.log(JSON.stringify(data));
+      this.productQuantityService.recipeId = data.id;
+      // @ts-ignore
+      this.productQuantity = data.productsQuantity;
+      // @ts-ignore
+      console.log(JSON.stringify('quantity' + data.productsQuantity));
+      // this.getProductQuantity();
     });
-    console.log('recipe detail' + this.recipe);
+      // subscribe({
+    //   next: recipe => this.recipe = recipe,
+    //   error: err => this.errorMessage = err
+    // });
+    // console.log('recipe ' + JSON.stringify(this.recipe));
   }
 
   onBack(): void {
@@ -67,5 +72,12 @@ export class RecipeDetailComponent implements OnInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
+  }
+
+  private getProductQuantity() {
+    this.productQuantityService.getProductsQuantity().toPromise().then(data => {
+      this.productQuantity = data;
+      // console.log('product quantity ' + JSON.stringify(data));
+    });
   }
 }

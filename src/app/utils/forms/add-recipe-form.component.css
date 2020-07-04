@@ -1,0 +1,13 @@
+input{
+  font-size: 12px !important;
+}
+
+.add-product{
+  display: inline-flex;
+  width: auto;
+  height: auto;
+}
+
+td{
+  margin-right: 5px;
+}

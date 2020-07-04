@@ -7,7 +7,6 @@ import {ModalService} from '../utils/modal';
 
 
 @Component({
-  // selector: 'app-recipes',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css'],
 })
@@ -24,7 +23,6 @@ export class RecipeListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('recipe component ' + this.authorisationService);
     this.recipeService.getRecipes().subscribe({
       next: recipes => this.recipes = recipes,
       error: err => this.errorMessage = err
