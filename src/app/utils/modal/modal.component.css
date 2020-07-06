@@ -1,3 +1,7 @@
+body.app-modal-open {
+  overflow: hidden;
+}
+
 app-modal {
   display: none;
 }
@@ -15,6 +19,7 @@ app-modal {
   display: table;
 }
 
+
 .app-modal-body {
   padding: 20px;
   background: #fff;
@@ -31,11 +36,6 @@ app-modal {
   background-color: #000;
   opacity: 0.75;
   z-index: 900;
-}
-
-
-body.app-modal-open {
-  overflow: hidden;
 }
 
 

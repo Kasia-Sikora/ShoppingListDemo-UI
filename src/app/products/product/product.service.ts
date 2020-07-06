@@ -40,14 +40,11 @@ export class ProductService {
     } else {
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
-    console.error(errorMessage);
     return throwError(errorMessage);
   }
 
   remove(id: number): Observable<IProduct> {
-    console.log('deleting' + id);
     const url = `${this.productUrl}/${id}`;
-    console.log(this.httpOptions);
     return this.http.delete<IProduct>(url).pipe(
       tap(_ => console.log(`deleted recipe id=${id}`)),
       catchError(this.handleError)

@@ -9,7 +9,6 @@ import {IProductQuantity} from '../products/product-quantity/product-quantity';
 import {ProductQuantityService} from '../products/product-quantity/product-quantity.service';
 
 @Component({
-  // selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
 })
@@ -40,19 +39,12 @@ export class RecipeDetailComponent implements OnInit {
   getRecipe(id: number) {
     this.recipeService.getRecipe(id).toPromise().then(data => {
       this.recipe = data;
-      console.log(JSON.stringify(data));
       this.productQuantityService.recipeId = data.id;
       // @ts-ignore
       this.productQuantity = data.productsQuantity;
       // @ts-ignore
       console.log(JSON.stringify('quantity' + data.productsQuantity));
-      // this.getProductQuantity();
     });
-      // subscribe({
-    //   next: recipe => this.recipe = recipe,
-    //   error: err => this.errorMessage = err
-    // });
-    // console.log('recipe ' + JSON.stringify(this.recipe));
   }
 
   onBack(): void {
@@ -68,7 +60,6 @@ export class RecipeDetailComponent implements OnInit {
 
   openModal(id: string) {
     this.modalService.open(id);
-    // this.updateRecipeForm.recipe = this.recipe;
   }
 
   closeModal(id: string) {
@@ -78,7 +69,6 @@ export class RecipeDetailComponent implements OnInit {
   private getProductQuantity() {
     this.productQuantityService.getProductsQuantity().toPromise().then(data => {
       this.productQuantity = data;
-      // console.log('product quantity ' + JSON.stringify(data));
     });
   }
 }

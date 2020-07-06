@@ -46,7 +46,6 @@ export class AddProductFormComponent implements OnInit {
               private router: Router,
               private addRecipeFormComponent: AddRecipeFormComponent,
               private productService: ProductService) {
-
   }
 
   performFilter(filterBy: string): IProduct[] {

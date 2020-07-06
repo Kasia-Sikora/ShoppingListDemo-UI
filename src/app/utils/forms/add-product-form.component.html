@@ -1,21 +1,5 @@
 <form [formGroup]="productForm" (ngSubmit)="addProduct(); productForm.reset()" id="add-product-form">
 
-
-  <!--  Error messages -->
-  <!--  <div *ngIf="error && (productForm.touched || productForm.dirty)"-->
-  <!--       class="cross-validation-error-message alert alert-danger">-->
-  <!--    <div class="has-ino" style="color: red"> {{ error.error }} </div>-->
-  <!--  </div>-->
-  <!--  <div *ngIf="errorMessage && (productForm.touched || productForm.dirty)"-->
-  <!--       class="cross-validation-error-message alert alert-danger">-->
-  <!--    <div class="has-ino" style="color: red"> {{ errorMessage }} </div>-->
-  <!--  </div>-->
-
-
-  <!--  Product input -->
-<!--  <div class="form-group input-group-sm mb-3">-->
-<!--    <input class="form-control" [(ngModel)]='listFilter' placeholder="product name" formControlName="productName"-->
-<!--           minlength="2" required>-->
     <mat-form-field class="example-full-width">
       <input type="text"
              placeholder="product name"
@@ -29,12 +13,7 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-<!--    <select class="browser-default custom-select" size="{{filteredProducts.length}}" *ngIf="listFilter">-->
-<!--      &lt;!&ndash;      <div class="recipe-card" *ngFor='let product of products'>&ndash;&gt;-->
-<!--      <option *ngFor='let product of filteredProducts'>{{product.name}}</option>-->
-<!--    </select>-->
-    <!--  </div>-->
-<!--  </div>-->
+
   <div
     *ngIf="productForm.controls['productName'].invalid && (productForm.controls['productName'].dirty || productForm.controls['productName'].touched)"
     class="alert alert-danger">
@@ -45,21 +24,6 @@
       Product name has to be min length 2
     </div>
   </div>
-
-  <!--  Method input -->
-<!--  <div class="form-group input-group-sm mb-3">-->
-
-<!--    <select formControlName="unit" id="unit">-->
-<!--      <option value="kg">kg</option>-->
-<!--      <option value="dag">dag</option>-->
-<!--      <option value="g">g</option>-->
-<!--      <option value="cup">cup</option>-->
-<!--      <option value="teaspoon">teaspoon</option>-->
-<!--      <option value="tablespoon">tablespoon</option>-->
-<!--      <option value="pinch">pinch</option>-->
-<!--      <option value="pinch">piece</option>-->
-<!--    </select>-->
-<!--  </div>-->
 
   <mat-form-field class="select" appearance="fill">
     <mat-label>unit</mat-label>
@@ -78,14 +42,8 @@
            formControlName="quantity">
   </mat-form-field>
 
-<!--  <div class="form-group input-group-sm">-->
-<!--    <input class="form-control" placeholder="quantity" formControlName="quantity">-->
-<!--  </div>-->
   <div class="example-button-container">
     <button mat-mini-fab class="add-button">+</button>
   </div>
 
-<!--  <div class="form-group">-->
-<!--    <button class="btn btn-success btn-block btn-sm mb-3" id="add-product-button">Add</button>-->
-<!--  </div>-->
 </form>

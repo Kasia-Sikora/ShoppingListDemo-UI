@@ -1,21 +1,3 @@
-/*.form-group,*/
-/*.input-group-sm{*/
-/*  width: 10px;*/
-/*  height: auto;*/
-/*}*/
-
-/*input {*/
-/*  font-size: 12px;*/
-/*}*/
-
-#add-product-form {
-  display: none;
-  flex-flow: row wrap;
-  align-items: center;
-}
-
-
-/* Style the input fields */
 .form-group input {
   vertical-align: middle;
   margin: 5px 10px 5px 0;
@@ -25,7 +7,6 @@
   font-size: 12px;
 }
 
-/* Style the submit button */
 .form-group button {
   padding: 10px 20px;
   background-color: #4C8131;
@@ -35,16 +16,9 @@
   height: 30px;
   font-size: 10px;
 }
-
 .form-group button:hover {
   background-color: #4c8131;
 }
-
-/*.browser-default,*/
-/*.custom-select{*/
-/*  height: auto;*/
-/*}*/
-
 
 .example-full-width {
   width: 20%;
@@ -61,4 +35,10 @@
 .add-button{
   background-color: #218838;
   margin-left: 10px;
+}
+
+#add-product-form {
+  display: none;
+  flex-flow: row wrap;
+  align-items: center;
 }

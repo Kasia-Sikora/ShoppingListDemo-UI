@@ -2,10 +2,6 @@
   font-size: 10px;
 }
 
-#develop {
-  font-weight: bold;
-}
-
 .navbar {
   margin-top: 20px;
   position: fixed;
@@ -16,4 +12,8 @@
   font-size: small;
   box-shadow: 4px 2px 2px 2px black;
   z-index: 1000;
+}
+
+#develop {
+  font-weight: bold;
 }

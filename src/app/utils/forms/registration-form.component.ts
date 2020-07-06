@@ -29,7 +29,6 @@ export class UserRegistrationComponent implements OnInit {
   error: HttpErrorResponse;
   errorMessage: string;
   isDataValid: boolean;
-  postUrl: 'http://localhost:8080/sign-up';
 
   ngOnInit() {
   }
@@ -52,10 +51,8 @@ export class UserRegistrationComponent implements OnInit {
     if (this.regForm.valid) {
       this.http.post(environment.apiUrl + 'sign-up', reqData, {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
-          console.log(response);
           this.isDataValid = true;
           const token = response.headers.get('Authorization');
-          console.log(token);
           localStorage.setItem('token', token);
           this.authorisationService.setToken(token);
           this.authorisationService.setUser(response.body);
