@@ -1,4 +1,4 @@
-<form [formGroup]="recipeForm" (ngSubmit)="submitForm()">
+<form [formGroup]="recipeForm" (ngSubmit)="submitForm(); recipeForm.reset()">
 
   <!--  Error messages -->
   <div *ngIf="error && (recipeForm.touched || recipeForm.dirty)"
@@ -26,18 +26,24 @@
   </div>
 
   <table *ngIf="products && products.length">
-      <ul>
-        <div *ngFor='let product of products'>
-          <li>
-            <tr>
-              <td>{{product.product_id}}</td>
-<!--              <td>{{product.unit}}</td>-->
-<!--              <td>{{product.quantity}}</td>-->
-            </tr>
-          </li>
-        </div>
-      </ul>
+    <ul>
+      <div *ngFor='let product of products'>
+        <li>
+          <tr>
+            <td>{{product.name  }}</td>
+            <td>{{product.unit ? product.unit : ''  }}</td>
+            <td>{{product.quantity ? product.quantity : ''  }}</td>
+            <td>
+              <a [routerLink]="" (click)="removeProduct(product)">
+                <img src="https://img.icons8.com/small/16/000000/cancel--v1.png" id="remove-product"/>
+              </a>
+            </td>
+          </tr>
+        </li>
+      </div>
+    </ul>
   </table>
+
 
   <button class="btn btn-success" (click)="displayProductForm()" id="add-prod-button">Add product</button>
   <div class="add-product">

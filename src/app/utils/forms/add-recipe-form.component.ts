@@ -9,6 +9,7 @@ import {environment} from '../../../environments/environment';
 import {IProductQuantity} from '../../products/product-quantity/product-quantity';
 import {IProduct} from '../../products/product/product';
 import {IRecipe} from '../../recipes/recipe';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -25,9 +26,10 @@ export class AddRecipeFormComponent {
 
   errorMessage: string;
   error: HttpErrorResponse;
-  products: IProductQuantity[] = [];
+  productsQuantity: IProductQuantity[] = [];
   displayForm: boolean;
   recipeId: number;
+  products: any[] = [];
 
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
@@ -44,7 +46,7 @@ export class AddRecipeFormComponent {
       user_id: this.authorisationService.getUser().id,
       // productsQuantity: this.products
     };
-    console.log('produkty' + this.products);
+    console.log('produkty' + this.productsQuantity);
     // formData.append('picture', this.form.get('picture').value);
     if (this.recipeForm.valid) {
 
@@ -56,7 +58,7 @@ export class AddRecipeFormComponent {
             // @ts-ignore
             this.recipeId = response.body.id;
             console.log('this.recipeid ' + this.recipeId);
-            this.http.post(environment.apiUrl + this.recipeId + '/recipe_products', this.products,
+            this.http.post(environment.apiUrl + this.recipeId + '/recipe_products', this.productsQuantity,
               {observe: 'response'}).toPromise().then(data2 => {
               console.log('products response' + data2.body);
               console.log('recipeId ' + this.recipeId);
@@ -73,8 +75,6 @@ export class AddRecipeFormComponent {
         (error) => {
           console.log('error 2: ' + error.status);
         });
-      console.log('dupaaaaa');
-      console.log('this products ' + this.products);
       // await this.http.post(environment.apiUrl + this.recipeId + '/recipe_products', this.products,
       //   {observe: 'response'}).subscribe(
       //   (response2: HttpResponse<any>) => {
@@ -111,9 +111,31 @@ export class AddRecipeFormComponent {
     }
   }
 
-  addProducts(productQuantity: IProductQuantity) {
-    this.products.push(productQuantity);
-    // console.log('Add component ' + JSON.stringify(this.products));
-    console.log('product name ' + JSON.stringify(productQuantity));
+  addProducts(productQuantity: IProductQuantity, product: IProduct) {
+    const prod = {
+      id: product.id,
+      name: product.name,
+      unit: productQuantity.unit,
+      quantity: productQuantity.quantity != null ? productQuantity.quantity : '',
+    };
+    this.productsQuantity.push(productQuantity);
+    this.products.push(prod);
+  }
+
+  removeProduct(product: any) {
+    console.log('dupa?');
+    const index = this.products.indexOf(product, 0);
+    if (index > -1) {
+      this.products.splice(index, 1);
+    }
+    console.log('product ' + JSON.stringify(product));
+    console.log('product id ' + product.id);
+    const tempProd: IProductQuantity = this.productsQuantity.filter(prod => prod.product_id === product.id)[0];
+    const index2 = this.productsQuantity.indexOf(tempProd);
+    console.log(index2 + ' ' + index);
+    if (index2 > -1) {
+      this.productsQuantity.splice(index2, 1);
+      console.log(this.productsQuantity);
+    }
   }
 }

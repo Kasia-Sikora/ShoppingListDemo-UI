@@ -20,6 +20,7 @@ export class RecipeDetailComponent implements OnInit {
   recipe: IRecipe;
   productQuantity: IProductQuantity[] = [];
 
+
   constructor(private route: ActivatedRoute,
               private router: Router,
               private recipeService: RecipeService,

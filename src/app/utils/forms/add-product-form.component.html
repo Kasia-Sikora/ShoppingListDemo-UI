@@ -1,4 +1,4 @@
-<form [formGroup]="productForm" (ngSubmit)="addProduct()" id="add-product-form">
+<form [formGroup]="productForm" (ngSubmit)="addProduct(); productForm.reset()" id="add-product-form">
 
 
   <!--  Error messages -->
@@ -70,11 +70,22 @@
     </mat-select>
   </mat-form-field>
 
-  <div class="form-group input-group-sm">
-    <input class="form-control" placeholder="quantity" formControlName="quantity">
+  <mat-form-field class="example-full-width">
+    <input type="number"
+           placeholder="quantity"
+           aria-label="text"
+           matInput
+           formControlName="quantity">
+  </mat-form-field>
+
+<!--  <div class="form-group input-group-sm">-->
+<!--    <input class="form-control" placeholder="quantity" formControlName="quantity">-->
+<!--  </div>-->
+  <div class="example-button-container">
+    <button mat-mini-fab class="add-button">+</button>
   </div>
 
-  <div class="form-group">
-    <button class="btn btn-success btn-block btn-sm mb-3" id="add-product-button">Add</button>
-  </div>
+<!--  <div class="form-group">-->
+<!--    <button class="btn btn-success btn-block btn-sm mb-3" id="add-product-button">Add</button>-->
+<!--  </div>-->
 </form>

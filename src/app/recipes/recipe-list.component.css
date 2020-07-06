@@ -117,3 +117,7 @@ a:visited {
   margin-top: 10px;
   z-index: 1100;
 }
+
+.with-picture{
+  border-radius: 20px;
+}

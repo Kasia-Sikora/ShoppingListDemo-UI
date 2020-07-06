@@ -1,13 +1,35 @@
-input{
+input {
   font-size: 12px !important;
 }
 
-.add-product{
+.add-product {
   display: inline-flex;
   width: auto;
   height: auto;
 }
 
-td{
+td {
   margin-right: 5px;
 }
+
+.add-button {
+  width: 20px;
+  height: 20px;
+  line-height: 16px;
+}
+
+#remove-product {
+  width: 16px;
+  height: auto;
+}
+
+table{
+  border-spacing: 1em .5em;
+}
+
+td{
+  padding: 5px;
+}
+
+
+
