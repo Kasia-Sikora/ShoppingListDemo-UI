@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ModalService} from '../modal';
 import {AuthorisationService} from './authorisation.service';
@@ -23,7 +23,10 @@ export class UserRegistrationComponent implements OnInit {
   regForm = this.fb.group({
     login: ['', [Validators.required, Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
+    confirmPassword: ['', Validators.required],
     email: ['', [Validators.required, Validators.minLength(6)]],
+  }, {
+    validator: this.MustMatch('password', 'confirmPassword')
   });
 
   error: HttpErrorResponse;
@@ -78,5 +81,24 @@ export class UserRegistrationComponent implements OnInit {
 
   closeModal(id: string) {
     this.parent.close(id);
+  }
+
+  private MustMatch(password: string, confirmPassword: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[password];
+      const matchingControl = formGroup.controls[confirmPassword];
+
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+
+      // set error on matchingControl if validation fails
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
   }
 }
