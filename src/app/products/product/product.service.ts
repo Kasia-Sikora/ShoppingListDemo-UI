@@ -1,34 +1,34 @@
 import {Injectable} from '@angular/core';
-import {IRecipe} from './recipe';
+import {IProduct} from './product';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
-import {AuthorisationService} from '../utils/forms/authorisation.service';
-import {environment} from '../../environments/environment';
+import {AuthorisationService} from '../../utils/forms/authorisation.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeService {
+export class ProductService {
 
-  private recipeUrl = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
-  private removeRecipe = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
+  private productUrl = environment.apiUrl + 'products';
+  private removeProduct = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
   private httpOptions = {
     headers: new HttpHeaders({ header: 'Access-Control-Allow-Origin' })
   };
 
   constructor(private http: HttpClient, private authorisationService: AuthorisationService){  }
 
-  getRecipes(): Observable<IRecipe[]> {
-    return this.http.get<IRecipe[]>(this.recipeUrl).pipe(
+  getProducts(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(this.productUrl).pipe(
       tap(data => JSON.stringify(data)),
       catchError(this.handleError));
   }
 
-  getRecipe(id: number): Observable<IRecipe | undefined> {
-    return this.getRecipes()
+  getProduct(id: number): Observable<IProduct | undefined> {
+    return this.getProducts()
       .pipe(
-        map((recipes: IRecipe[]) => recipes.find(r => r.id === id))
+        map((products: IProduct[]) => products.find(r => r.id === id))
       );
   }
 
@@ -43,9 +43,9 @@ export class RecipeService {
     return throwError(errorMessage);
   }
 
-  remove(id: number): Observable<IRecipe> {
-    const url = `${this.recipeUrl}/${id}`;
-    return this.http.delete<IRecipe>(url).pipe(
+  remove(id: number): Observable<IProduct> {
+    const url = `${this.productUrl}/${id}`;
+    return this.http.delete<IProduct>(url).pipe(
       tap(_ => console.log(`deleted recipe id=${id}`)),
       catchError(this.handleError)
     );

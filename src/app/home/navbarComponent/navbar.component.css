@@ -1,3 +1,8 @@
+.modal-body,
+.modal-header {
+  width: 300px;
+}
+
 #registration_button,
 #login_button,
 #logout{
@@ -7,6 +12,7 @@
   margin-top: 4vh;
   margin-right: 4vh;
 }
+
 
 #title {
   margin-top: 10px;
@@ -27,7 +33,6 @@
   content: "Food";
 }
 
-
 #user_login {
   margin-top: 30px;
   color: black;
@@ -37,10 +42,5 @@
 
 #reg-modal,
 #login-modal {
-  width: 300px;
-}
-
-.modal-body,
-.modal-header {
   width: 300px;
 }

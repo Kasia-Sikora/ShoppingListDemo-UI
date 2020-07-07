@@ -47,7 +47,7 @@
         <a [routerLink]="['/recipe', recipe.id]">
 
           <ng-template [ngIf]="recipe.picture != null" [ngIfElse]="noPicture">
-            <img src="{{recipe.picture}}" class="picture" alt="picture">
+            <img src="{{recipe.picture}}" class="picture with-picture" alt="picture">
           </ng-template>
 
           <ng-template #noPicture>

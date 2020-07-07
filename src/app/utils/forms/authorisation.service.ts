@@ -25,10 +25,6 @@ export class AuthorisationService {
     return this.token;
   }
 
-  setErrorMessage(errorMessage: string) {
-    this.errorMessage = errorMessage;
-  }
-
   getErrorMessage(){
     return this.errorMessage;
   }

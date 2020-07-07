@@ -1,0 +1,44 @@
+.form-group input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+
+.form-group button {
+  padding: 10px 20px;
+  background-color: #4C8131;
+  border: 1px solid #4c8131;
+  color: white;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 10px;
+}
+.form-group button:hover {
+  background-color: #4c8131;
+}
+
+.example-full-width {
+  width: 20%;
+}
+
+.select{
+  width: 20%;
+  height: 20%;
+  background-color: white;
+  font-size: 11.5px;
+  margin-left: 5px;
+}
+
+.add-button{
+  background-color: #218838;
+  margin-left: 10px;
+}
+
+#add-product-form {
+  display: none;
+  flex-flow: row wrap;
+  align-items: center;
+}

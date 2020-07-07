@@ -1,0 +1,49 @@
+<form [formGroup]="productForm" (ngSubmit)="addProduct(); productForm.reset()" id="add-product-form">
+
+    <mat-form-field class="example-full-width">
+      <input type="text"
+             placeholder="product name"
+             aria-label="text"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+  <div
+    *ngIf="productForm.controls['productName'].invalid && (productForm.controls['productName'].dirty || productForm.controls['productName'].touched)"
+    class="alert alert-danger">
+    <div *ngIf="productForm.controls['productName'].errors.required" style="size: 2em">
+      Product name is required.
+    </div>
+    <div *ngIf="productForm.controls['productName'].errors.productForm">
+      Product name has to be min length 2
+    </div>
+  </div>
+
+  <mat-form-field class="select" appearance="fill">
+    <mat-label>unit</mat-label>
+    <mat-select [(ngModel)]="selectedUnit" formControlName="unit">
+      <mat-option *ngFor="let unit of units" [value]="unit">
+        {{unit}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input type="number"
+           placeholder="quantity"
+           aria-label="text"
+           matInput
+           formControlName="quantity">
+  </mat-form-field>
+
+  <div class="example-button-container">
+    <button mat-mini-fab class="add-button">+</button>
+  </div>
+
+</form>
