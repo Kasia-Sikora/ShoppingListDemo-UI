@@ -1,6 +1,6 @@
-import {Component, enableProdMode} from '@angular/core';
-import {AuthorisationService} from './utils/forms/authorisation.service';
-import { environment } from '../environments/environment';
+import {Component} from '@angular/core';
+import {AuthorisationService} from './utils/authorisation/authorisation.service';
+import {environment} from '../environments/environment';
 
 @Component({
   templateUrl: './app.component.html',

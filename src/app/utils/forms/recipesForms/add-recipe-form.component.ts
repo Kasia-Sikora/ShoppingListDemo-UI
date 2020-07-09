@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ModalService} from '../modal';
+import {ModalService} from '../../modal';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {AuthorisationService} from './authorisation.service';
+import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {Router} from '@angular/router';
-import {RecipeListComponent} from '../../recipes/recipe-list.component';
-import {environment} from '../../../environments/environment';
-import {IProductQuantity} from '../../products/product-quantity/product-quantity';
-import {IProduct} from '../../products/product/product';
+import {RecipeListComponent} from '../../../recipes/recipe-list.component';
+import {environment} from '../../../../environments/environment';
+import {IProductQuantity} from '../../../products/product-quantity/product-quantity';
+import {IProduct} from '../../../products/product/product';
 
 
 @Component({

@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
+import {IUser} from '../../users/user';
 
 @Injectable({providedIn: 'root'})
 
 export class AuthorisationService {
 
-  private user: any;
+  private user: IUser;
   private token: string;
   private errorMessage: string;
 

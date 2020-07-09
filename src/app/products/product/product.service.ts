@@ -3,7 +3,7 @@ import {IProduct} from './product';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
-import {AuthorisationService} from '../../utils/forms/authorisation.service';
+import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
 import {environment} from '../../../environments/environment';
 
 @Injectable({

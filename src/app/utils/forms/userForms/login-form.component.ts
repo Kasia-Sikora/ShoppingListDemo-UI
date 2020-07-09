@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {ModalService} from '../modal';
-import {AuthorisationService} from './authorisation.service';
-import {Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthorisationService} from '../../authorisation/authorisation.service';
+import {ModalService} from '../../modal';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login-form',
@@ -16,6 +16,7 @@ export class UserLoginComponent implements OnInit {
     email: ['', [Validators.required, Validators.minLength(6)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
+
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
               private authorisationService: AuthorisationService,
@@ -25,8 +26,9 @@ export class UserLoginComponent implements OnInit {
   error: HttpErrorResponse;
   errorMessage: string;
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
+
 
   // uploadFile(event) {
   //   const file = (event.target as HTMLInputElement).files[0];
@@ -48,21 +50,22 @@ export class UserLoginComponent implements OnInit {
         (response: HttpResponse<any>) => {
           if (response != null) {
             const token = response.headers.get('Authorization');
+            console.log('token from login ' + token);
             localStorage.setItem('token', token);
             this.authorisationService.setToken(token);
             this.http.get(environment.apiUrl + 'me').subscribe(
               (response2: HttpResponse<any>) => {
                 this.authorisationService.setUser(response2);
+                this.form.reset();
+                this.parent.close('login-modal');
+                this.router.navigate(['/recipes']);
               }
             );
-            this.form.reset();
-            this.parent.close('login-modal');
-            this.router.navigate(['/recipes']);
           }
         },
         (error) => {
           console.log(error.status);
-          if (error.status === 403){
+          if (error.status === 403) {
             this.errorMessage = 'Invalid data';
           } else {
             this.error = error;

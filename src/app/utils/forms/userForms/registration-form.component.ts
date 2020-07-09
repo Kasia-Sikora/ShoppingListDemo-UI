@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {ModalService} from '../modal';
-import {AuthorisationService} from './authorisation.service';
+import {ModalService} from '../../modal';
+import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../../../environments/environment';
 
 
 @Component({
@@ -48,7 +48,8 @@ export class UserRegistrationComponent implements OnInit {
     const reqData = {
       login: this.regForm.get('login').value,
       email: this.regForm.get('email').value,
-      password: this.regForm.get('password').value
+      password: this.regForm.get('password').value,
+      isEnabled: false,
     };
 
     if (this.regForm.valid) {
@@ -56,12 +57,12 @@ export class UserRegistrationComponent implements OnInit {
         (response: HttpResponse<any>) => {
           this.isDataValid = true;
           const token = response.headers.get('Authorization');
-          localStorage.setItem('token', token);
+          console.log('token ' + token);
           this.authorisationService.setToken(token);
           this.authorisationService.setUser(response.body);
           this.regForm.reset();
           this.parent.close('reg-modal');
-          this.router.navigate(['/recipes']);
+          this.parent.open('info-modal');
         },
         (error) => {
           if (error.status === 403) {

@@ -6,17 +6,17 @@ import {WelcomeComponent} from './home/welcomeComponent/welcome.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ModalModule} from './utils/modal';
 import {FooterComponent} from './home/footerComponent/footer.component';
-import {InterceptorService} from './utils/interceptor.service';
+import {InterceptorService} from './utils/authorisation/interceptor.service';
 import {AppRoutingModule} from './app-routing.module';
 import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './home/navbarComponent/navbar.component';
 import {RecipeDetailComponent} from './recipes/recipe-detail.component';
 import {RecipeListComponent} from './recipes/recipe-list.component';
-import {UserRegistrationComponent} from './utils/forms/registration-form.component';
-import {UserLoginComponent} from './utils/forms/login-form.component';
-import {AddRecipeFormComponent} from './utils/forms/add-recipe-form.component';
-import {UpdateRecipeFormComponent} from './utils/forms/update-recipe-form.component';
-import {AddProductFormComponent} from './utils/forms/add-product-form.component';
+import {UserRegistrationComponent} from './utils/forms/userForms/registration-form.component';
+import {UserLoginComponent} from './utils/forms/userForms/login-form.component';
+import {AddRecipeFormComponent} from './utils/forms/recipesForms/add-recipe-form.component';
+import {UpdateRecipeFormComponent} from './utils/forms/recipesForms/update-recipe-form.component';
+import {AddProductFormComponent} from './utils/forms/recipesForms/add-product-form.component';
 import {ProductComponent} from './products/product/product.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ import { ProductQuantityComponent } from './products/product-quantity/product-qu
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-registration.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {MatListModule} from '@angular/material/list';
     AddProductFormComponent,
     ProductComponent,
     ProductQuantityComponent,
+    ConfirmRegistrationComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -68,7 +70,7 @@ import {MatListModule} from '@angular/material/list';
   providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
   exports: [
     FooterComponent,
-    WelcomeComponent
+    WelcomeComponent,
   ],
   bootstrap: [AppComponent]
 })

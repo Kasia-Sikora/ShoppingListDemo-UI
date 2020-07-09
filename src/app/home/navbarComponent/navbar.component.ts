@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ModalService} from '../../utils/modal';
-import {AuthorisationService} from '../../utils/forms/authorisation.service';
+import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
 import {Router} from '@angular/router';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {environment} from '../../../environments/environment';

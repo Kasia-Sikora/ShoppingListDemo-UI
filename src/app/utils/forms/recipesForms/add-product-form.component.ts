@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ModalService} from '../modal';
+import {ModalService} from '../../modal';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {AuthorisationService} from './authorisation.service';
+import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {Router} from '@angular/router';
 import {AddRecipeFormComponent} from './add-recipe-form.component';
-import {IProduct} from '../../products/product/product';
-import {environment} from '../../../environments/environment';
+import {IProduct} from '../../../products/product/product';
+import {environment} from '../../../../environments/environment';
 import {Observable} from 'rxjs';
-import {ProductService} from '../../products/product/product.service';
-import {IProductQuantity} from '../../products/product-quantity/product-quantity';
+import {ProductService} from '../../../products/product/product.service';
+import {IProductQuantity} from '../../../products/product-quantity/product-quantity';
 import {map, startWith} from 'rxjs/operators';
 
 

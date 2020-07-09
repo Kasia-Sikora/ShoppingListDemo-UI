@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ModalService} from '../modal';
+import {ModalService} from '../../modal';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {AuthorisationService} from './authorisation.service';
+import {AuthorisationService} from '../../authorisation/authorisation.service';
 // import {RecipeListComponent} from '../../recipes/recipe-list.component';
-import {IRecipe} from '../../recipes/recipe';
-import {RecipeService} from '../../recipes/recipe.service';
+import {IRecipe} from '../../../recipes/recipe';
+import {RecipeService} from '../../../recipes/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {environment} from '../../../environments/environment';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-edit-recipe',

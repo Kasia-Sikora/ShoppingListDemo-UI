@@ -3,7 +3,7 @@ import {IRecipe} from './recipe';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
-import {AuthorisationService} from '../utils/forms/authorisation.service';
+import {AuthorisationService} from '../utils/authorisation/authorisation.service';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -17,7 +17,9 @@ export class RecipeService {
     headers: new HttpHeaders({ header: 'Access-Control-Allow-Origin' })
   };
 
-  constructor(private http: HttpClient, private authorisationService: AuthorisationService){  }
+  constructor(private http: HttpClient, private authorisationService: AuthorisationService){
+    console.log(this.authorisationService.getUser());
+  }
 
   getRecipes(): Observable<IRecipe[]> {
     return this.http.get<IRecipe[]>(this.recipeUrl).pipe(

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
-import {AuthorisationService} from '../../utils/forms/authorisation.service';
+import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
 import {environment} from '../../../environments/environment';
 import {IProductQuantity} from './product-quantity';
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RecipeService} from './recipe.service';
 import {IRecipe} from './recipe';
-import {AuthorisationService} from '../utils/forms/authorisation.service';
+import {AuthorisationService} from '../utils/authorisation/authorisation.service';
 import {FormBuilder} from '@angular/forms';
 import {ModalService} from '../utils/modal';
 

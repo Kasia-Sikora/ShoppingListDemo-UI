@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {AuthorisationService} from './forms/authorisation.service';
+import {AuthorisationService} from './authorisation.service';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
