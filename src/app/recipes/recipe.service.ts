@@ -11,17 +11,20 @@ import {environment} from '../../environments/environment';
 })
 export class RecipeService {
 
-  private recipeUrl = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
-  private removeRecipe = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
+  private id = this.authorisationService.getUserId();
+
+  private recipeUrl = environment.apiUrl + this.id + '/recipes';
+  private removeRecipe = environment.apiUrl + this.id + '/recipes';
   private httpOptions = {
     headers: new HttpHeaders({ header: 'Access-Control-Allow-Origin' })
   };
 
   constructor(private http: HttpClient, private authorisationService: AuthorisationService){
-    console.log(this.authorisationService.getUser());
+    // console.log(this.authorisationService.getUser());
   }
 
   getRecipes(): Observable<IRecipe[]> {
+    console.log('id ' + this.id);
     return this.http.get<IRecipe[]>(this.recipeUrl).pipe(
       tap(data => JSON.stringify(data)),
       catchError(this.handleError));

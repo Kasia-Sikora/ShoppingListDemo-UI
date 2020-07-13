@@ -14,8 +14,4 @@ export class AppComponent {
   constructor(private authorisationService: AuthorisationService) {
     console.log(environment.production);
   }
-
-  getUser() {
-    return this.authorisationService.getUser();
-  }
 }

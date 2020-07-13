@@ -30,6 +30,7 @@
   background-color: white;
   font-size: 11.5px;
   margin-left: 5px;
+  z-index: 1000;
 }
 
 .add-button{
@@ -38,7 +39,7 @@
 }
 
 #add-product-form {
-  display: none;
+  display: inline-flex;
   flex-flow: row wrap;
   align-items: center;
 }

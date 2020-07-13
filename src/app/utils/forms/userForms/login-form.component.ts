@@ -50,7 +50,6 @@ export class UserLoginComponent implements OnInit {
         (response: HttpResponse<any>) => {
           if (response != null) {
             const token = response.headers.get('Authorization');
-            console.log('token from login ' + token);
             localStorage.setItem('token', token);
             this.authorisationService.setToken(token);
             this.http.get(environment.apiUrl + 'me').subscribe(
@@ -59,6 +58,10 @@ export class UserLoginComponent implements OnInit {
                 this.form.reset();
                 this.parent.close('login-modal');
                 this.router.navigate(['/recipes']);
+              },
+              (error) => {
+                console.log(error);
+                this.errorMessage = error.error;
               }
             );
           }

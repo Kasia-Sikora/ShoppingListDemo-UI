@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'recipe/:id', component: RecipeDetailComponent},
   {path: 'activate', component: ConfirmRegistrationComponent},
   {path: '', component: WelcomeComponent},
-  // { path: '**', component: WelcomeComponent}
+  {path: '**', component: WelcomeComponent}
 ];
 
 @NgModule({

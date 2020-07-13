@@ -28,6 +28,7 @@ export class AddRecipeFormComponent {
   displayForm: boolean;
   recipeId: number;
   products: any[] = [];
+  private id = this.authorisationService.getUserId();
 
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
@@ -40,11 +41,11 @@ export class AddRecipeFormComponent {
     const recipeData = {
       title: this.recipeForm.get('title').value,
       method: this.recipeForm.get('method').value,
-      user_id: this.authorisationService.getUser().id,
+      user_id: this.id,
     };
 
     if (this.recipeForm.valid) {
-      this.http.post(environment.apiUrl + this.authorisationService.getUser().id + '/recipes', recipeData,
+      this.http.post(environment.apiUrl + this.id + '/recipes', recipeData,
         {observe: 'response'}).toPromise().then(response => {
           if (response != null) {
             // @ts-ignore

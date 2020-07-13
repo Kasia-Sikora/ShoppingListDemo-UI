@@ -13,7 +13,7 @@ export class ProductQuantityService {
 
   public recipeId: number;
   private productUrl = environment.apiUrl + this.recipeId + '/recipe_products';
-  private removeProduct = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
+  // private removeProduct = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
 
   private httpOptions = {
     headers: new HttpHeaders({header: 'Access-Control-Allow-Origin'})

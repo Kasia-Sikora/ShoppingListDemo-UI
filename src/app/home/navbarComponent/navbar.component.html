@@ -2,8 +2,8 @@
   <img id="broccoli-icon" src="assets/broccoli.png" alt="broccoli">
   <div id="title">{{ pageTitle }}
   </div>
-  <ng-template [ngIf]="this.getUser() != null" [ngIfElse]="loggedOut">
-    <div id="user_login">Hi {{ this.getUser().login }}!</div>
+  <ng-template [ngIf]="(this.user$ | async) != null" [ngIfElse]="loggedOut">
+    <div id="user_login">Hi {{ (this.user$ | async).login }}!</div>
     <button class="btn btn-light" type="button" id="logout" (click)="logout()">Logout</button>
   </ng-template>
   <ng-template #loggedOut>

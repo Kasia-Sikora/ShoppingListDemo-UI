@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ModalService} from '../../utils/modal';
 import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
 import {Router} from '@angular/router';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {environment} from '../../../environments/environment';
+import {IUser} from '../../users/user';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -13,10 +13,10 @@ import {environment} from '../../../environments/environment';
 export class NavbarComponent implements OnInit {
 
   pageTitle = 'Stuff';
+  user$: Observable<IUser>;
 
   constructor(private modalService: ModalService, private authorisationService: AuthorisationService,
-              private router: Router, private http: HttpClient) {
-
+              private router: Router) {
   }
 
   openModal(id: string) {
@@ -27,25 +27,17 @@ export class NavbarComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  getUser() {
-    return this.authorisationService.getUser();
-  }
-
   // TODO one user have to refresh whole page after logout to login another user
   logout() {
-    this.http.post(environment.apiUrl + 'logout', {observe: 'response'}).subscribe(
-      (response: HttpResponse<any>) => {
-        if (response != null) {
-          console.log(response);
-        }
-      });
     this.authorisationService.setUser(null);
     this.authorisationService.setToken(null);
     localStorage.setItem('token', null);
+    console.log('token2 ' + localStorage.getItem('token'));
+    console.log('user ' + JSON.stringify(this.authorisationService.getUser()));
     this.router.navigate(['']);
   }
 
   ngOnInit(): void {
+    this.user$ = this.authorisationService.getUser();
   }
-
 }

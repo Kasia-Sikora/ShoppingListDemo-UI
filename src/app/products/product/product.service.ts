@@ -11,8 +11,9 @@ import {environment} from '../../../environments/environment';
 })
 export class ProductService {
 
+  private id = this.authorisationService.getUserId();
   private productUrl = environment.apiUrl + 'products';
-  private removeProduct = environment.apiUrl + this.authorisationService.getUser().id + '/recipes';
+  private removeProduct = environment.apiUrl + this.id + '/recipes';
   private httpOptions = {
     headers: new HttpHeaders({ header: 'Access-Control-Allow-Origin' })
   };

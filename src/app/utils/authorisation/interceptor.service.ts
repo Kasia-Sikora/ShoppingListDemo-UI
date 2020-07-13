@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class InterceptorService implements HttpInterceptor {
 
-  constructor(private authorisationService: AuthorisationService, private router: Router) {
+  constructor(private authorisationService: AuthorisationService) {
   }
 
   //
@@ -31,7 +31,11 @@ export class InterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req instanceof HttpRequest) {
       if (this.authorisationService.getToken() != null) {
-        req = req.clone({setHeaders: {Authorization: `${this.authorisationService.getToken()}`}});
+        req = req.clone({
+          setHeaders: {
+            Authorization: `${this.authorisationService.getToken()}`
+          }
+        });
       }
     }
     return next.handle(req);

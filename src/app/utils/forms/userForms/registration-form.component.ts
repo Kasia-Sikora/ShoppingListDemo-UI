@@ -57,9 +57,6 @@ export class UserRegistrationComponent implements OnInit {
         (response: HttpResponse<any>) => {
           this.isDataValid = true;
           const token = response.headers.get('Authorization');
-          console.log('token ' + token);
-          this.authorisationService.setToken(token);
-          this.authorisationService.setUser(response.body);
           this.regForm.reset();
           this.parent.close('reg-modal');
           this.parent.open('info-modal');

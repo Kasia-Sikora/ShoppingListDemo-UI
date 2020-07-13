@@ -24,6 +24,7 @@ export class UpdateRecipeFormComponent implements OnInit {
 
   errorMessage: string;
   error: HttpErrorResponse;
+  private id = this.authorisationService.getUserId();
 
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
@@ -58,13 +59,13 @@ export class UpdateRecipeFormComponent implements OnInit {
       id: this.recipe.id,
       title: this.recipeForm.get('title').value,
       method: this.recipeForm.get('method').value,
-      user_id: this.authorisationService.getUser().id,
+      user_id: this.id,
     };
     console.log(recipeData);
     // formData.append('picture', this.form.get('picture').value);
     if (this.recipeForm.valid) {
 
-      this.http.put(environment.apiUrl + this.authorisationService.getUser().id + '/recipes/' + this.recipe.id, recipeData,
+      this.http.put(environment.apiUrl + this.id + '/recipes/' + this.recipe.id, recipeData,
         {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
           if (response != null) {
