@@ -2,7 +2,7 @@
 
     <mat-form-field class="example-full-width">
       <input type="text"
-             placeholder="product name"
+             placeholder="Produkt"
              aria-label="text"
              matInput
              [formControl]="myControl"
@@ -18,15 +18,15 @@
     *ngIf="productForm.controls['productName'].invalid && (productForm.controls['productName'].dirty || productForm.controls['productName'].touched)"
     class="alert alert-danger">
     <div *ngIf="productForm.controls['productName'].errors.required" style="size: 2em">
-      Product name is required.
+      Nazwa produktu jest wymagana.
     </div>
     <div *ngIf="productForm.controls['productName'].errors.productForm">
-      Product name has to be min length 2
+      Produkt musi miec conajmniej 2 znaki.
     </div>
   </div>
 
-  <mat-form-field class="select" appearance="fill">
-    <mat-label>unit</mat-label>
+  <mat-form-field class="select">
+    <mat-label>Jednostka</mat-label>
     <mat-select [(ngModel)]="selectedUnit" formControlName="unit">
       <mat-option *ngFor="let unit of units" [value]="unit">
         {{unit}}
@@ -35,8 +35,9 @@
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
-    <input type="number"
-           placeholder="quantity"
+    <input type="text"
+           pattern="[0-9]+([\.,][0-9]+)?"
+           placeholder="Ilość"
            aria-label="text"
            matInput
            formControlName="quantity">

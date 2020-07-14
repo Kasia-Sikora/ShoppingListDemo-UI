@@ -12,5 +12,5 @@ import {Component} from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent {
-  public pageTitle = 'Welcome!';
+  public pageTitle = 'Witamy!';
 }

@@ -5,15 +5,15 @@
     <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
       <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-           aria-selected="true">My Recipes</a>
+           aria-selected="true">Przepisy</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-           aria-selected="false">Favourite</a>
+           aria-selected="false">Ulubione</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-           aria-selected="false">Shopping List</a>
+           aria-selected="false">Lista zakupów</a>
       </li>
 
       <!--      Search box  -->
@@ -23,7 +23,7 @@
             <div class="input-group-text" id="btnGroupAddon"><img [src]="'./assets/search.png'" class="search-icon"
                                                                   alt="search-icon"></div>
           </div>
-          <input type="text" class="form-control" placeholder="Search" aria-label="Input group example"
+          <input type="text" class="form-control" placeholder="Szukaj" aria-label="Input group example"
                  aria-describedby="btnGroupAddon">
         </div>
       </li>
@@ -40,7 +40,7 @@
           <img [src]="'./assets/addRecipe.png'" id="add-button-on-broccoli"
                alt="add-recipe">
           <img [src]="'./assets/trans-broccoli.png'" class="add-picture" alt="picture">
-          <div id="add-recipe">Add New Recipe</div>
+          <div id="add-recipe">Dodaj nowy przepis</div>
         </a>
       </div>
       <div class="recipe-card" *ngFor='let recipe of recipes'>
@@ -64,7 +64,7 @@
 
 <app-modal id="add-recipe-modal">
   <div class="modal-header">
-    <h5 class="modal-title">Add new recipe</h5>
+    <h5 class="modal-title">Dodaj nowy przepis</h5>
     <button type="button" class="btn btn-outline-dark" (click)="closeModal('add-recipe-modal')">
       <span aria-hidden="true">&times;</span>
     </button>

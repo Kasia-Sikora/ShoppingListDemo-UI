@@ -34,7 +34,7 @@ export class AddProductFormComponent implements OnInit {
   product: IProduct;
   filteredProducts: IProduct[];
   products: IProduct[] = [];
-  units: string[] = ['', 'kg', 'dag', 'g', 'szklanka', 'łyżeczka', 'łyżka', 'szczypta', 'sztuka'];
+  units: string[] = ['', 'kg', 'dag', 'gram', 'mililitry', 'litry', 'szklanka', 'łyżeczka', 'łyżka', 'szczypta', 'sztuka'];
   productQuantity: IProductQuantity;
   selectedUnit: any = {
     unit: ''
@@ -79,9 +79,10 @@ export class AddProductFormComponent implements OnInit {
         product_id: null,
         user_recipe_id: null,
         unit: this.productForm.get('unit').value,
-        quantity: this.productForm.get('quantity').value,
+        quantity: this.productForm.get('quantity').value.replace(/,/, '.'),
         department: null,
       };
+      console.log(productQuantity.quantity);
       this.http.post(environment.apiUrl + 'product', productData,
         {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {

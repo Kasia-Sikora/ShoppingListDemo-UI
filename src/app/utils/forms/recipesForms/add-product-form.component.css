@@ -28,18 +28,28 @@
   width: 20%;
   height: 20%;
   background-color: white;
-  font-size: 11.5px;
+  /*font-size: 11.5px;*/
   margin-left: 5px;
+  margin-right: 5px;
   z-index: 1000;
 }
 
 .add-button{
   background-color: #218838;
   margin-left: 10px;
+  margin-bottom: 20px;
 }
 
 #add-product-form {
   display: inline-flex;
   flex-flow: row wrap;
-  align-items: center;
+  align-items: flex-end;
 }
+
+/*.mat-form-field-appearance-legacy .mat-form-field-infix {*/
+/*  padding: .8em 0 !important;*/
+/*}*/
+
+/*.mat-form-field-appearance-fill .mat-form-field-flex {*/
+/*  background-color: rgba(0,0,0,0) !important;*/
+/*}*/

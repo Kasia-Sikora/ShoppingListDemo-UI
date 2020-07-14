@@ -10,6 +10,16 @@ export class AuthorisationService {
   private token: string;
   private errorMessage: string;
   private user$ = new BehaviorSubject<IUser>(null);
+  private verificationMessage$ = new BehaviorSubject<string>(null);
+
+
+  setVerificationMessage(message: string){
+    this.verificationMessage$.next(message);
+  }
+
+  getVerificationMessage(){
+    return this.verificationMessage$;
+  }
 
   setUser(user: any) {
     this.user = user;

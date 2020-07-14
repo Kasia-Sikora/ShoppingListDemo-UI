@@ -5,6 +5,7 @@ import {ModalService} from '../../modal';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
+import {CustomValidationService} from './custom-validation.service';
 
 
 @Component({
@@ -17,16 +18,16 @@ export class UserRegistrationComponent implements OnInit {
   constructor(private parent: ModalService,
               private authorisationService: AuthorisationService,
               private fb: FormBuilder, private http: HttpClient,
-              private router: Router) {
+              private customValidator: CustomValidationService) {
   }
 
   regForm = this.fb.group({
     login: ['', [Validators.required, Validators.minLength(4)]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', Validators.required],
-    email: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator(), Validators.minLength(6)])],
+    confirmPassword: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email, Validators.minLength(6)]],
   }, {
-    validator: this.MustMatch('password', 'confirmPassword')
+    validator: this.customValidator.MustMatchPassword('password', 'confirmPassword')
   });
 
   error: HttpErrorResponse;
@@ -63,7 +64,7 @@ export class UserRegistrationComponent implements OnInit {
         },
         (error) => {
           if (error.status === 403) {
-            this.errorMessage = 'Invalid data';
+            this.errorMessage = 'Nieprawidłowe dane.';
             this.isDataValid = false;
           } else {
             this.error = error;
@@ -73,30 +74,11 @@ export class UserRegistrationComponent implements OnInit {
         }
       );
     } else {
-      this.errorMessage = 'Invalid data';
+      this.errorMessage = 'Nieprawidłowe dane.';
     }
   }
 
   closeModal(id: string) {
     this.parent.close(id);
-  }
-
-  private MustMatch(password: string, confirmPassword: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[password];
-      const matchingControl = formGroup.controls[confirmPassword];
-
-      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-        // return if another validator has already found an error on the matchingControl
-        return;
-      }
-
-      // set error on matchingControl if validation fails
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ mustMatch: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    };
   }
 }

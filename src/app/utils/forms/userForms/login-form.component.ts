@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {ModalService} from '../../modal';
 import {environment} from '../../../../environments/environment';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {IUser} from '../../../users/user';
 
 @Component({
   selector: 'app-login-form',
@@ -13,8 +15,8 @@ import {environment} from '../../../../environments/environment';
 
 export class UserLoginComponent implements OnInit {
   form = this.fb.group({
-    email: ['', [Validators.required, Validators.minLength(6)]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    email: ['', [Validators.required]],
+    password: ['', [Validators.required]],
   });
 
   constructor(private parent: ModalService,
@@ -25,8 +27,10 @@ export class UserLoginComponent implements OnInit {
 
   error: HttpErrorResponse;
   errorMessage: string;
+  verificationMessage$ = new Observable<string>();
 
   ngOnInit(): void {
+    this.verificationMessage$ = this.authorisationService.getVerificationMessage();
   }
 
 

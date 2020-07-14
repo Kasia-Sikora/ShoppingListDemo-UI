@@ -3,7 +3,6 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {ModalService} from '../../modal';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
-// import {RecipeListComponent} from '../../recipes/recipe-list.component';
 import {IRecipe} from '../../../recipes/recipe';
 import {RecipeService} from '../../../recipes/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -18,7 +17,7 @@ export class UpdateRecipeFormComponent implements OnInit {
   recipe: IRecipe | undefined;
 
   recipeForm = this.fb.group({
-    title: ['', [Validators.required, Validators.minLength(6)]],
+    title: ['', [Validators.required, Validators.minLength(4)]],
     method: ['', [Validators.required, Validators.minLength(6)]],
   });
 
@@ -29,7 +28,6 @@ export class UpdateRecipeFormComponent implements OnInit {
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
               private authorisationService: AuthorisationService,
-              // private recipeListComponent: RecipeListComponent
               private recipeService: RecipeService,
               private router: Router,
               private route: ActivatedRoute) {

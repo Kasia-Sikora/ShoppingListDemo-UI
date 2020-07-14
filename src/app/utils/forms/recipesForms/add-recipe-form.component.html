@@ -12,16 +12,16 @@
 
   <!--  Title input -->
   <div class="form-group input-group-lg">
-    <input class="form-control" placeholder="Title" formControlName="title" minlength="6" required>
+    <input class="form-control" placeholder="Tytuł" formControlName="title" minlength="4" required>
   </div>
   <div
     *ngIf="recipeForm.controls['title'].invalid && (recipeForm.controls['title'].dirty || recipeForm.controls['title'].touched)"
     class="alert alert-danger">
     <div *ngIf="recipeForm.controls['title'].errors.required">
-      Title is required.
+      Tytuł jest wymagany.
     </div>
     <div *ngIf="recipeForm.controls['title'].errors.minlength">
-      Title has to be min length 6
+      Tytuł musi mieć conajmniej 4 znaki.
     </div>
   </div>
 
@@ -44,29 +44,25 @@
     </ul>
   </table>
 
-
-<!--  <button class="btn btn-success" (click)="displayProductForm()" id="add-prod-button">Add product</button>-->
-<!--  <div class="add-product">-->
-    <app-add-product></app-add-product>
-<!--  </div>-->
+  <app-add-product></app-add-product>
 
   <!--  Method input -->
   <div class="form-group input-group-lg">
-    <textarea type="text" rows="5" cols="30" class="form-control" placeholder="Method" formControlName="method"
+    <textarea type="text" rows="5" cols="30" class="form-control" placeholder="Sposób przygotowania" formControlName="method"
               minlength="4" style="resize: none; margin-top: 5px" required></textarea>
   </div>
   <div
     *ngIf="recipeForm.controls['method'].invalid && (recipeForm.controls['method'].dirty || recipeForm.controls['method'].touched)"
     class="alert alert-danger">
     <div *ngIf="recipeForm.controls['method'].errors.required">
-      Method is required.
+      Sposób przygotowania jest wymagany.
     </div>
     <div *ngIf="recipeForm.controls['method'].errors.minlength">
-      Method has to be min length 6
+      Sposób przygotowania musi mieć conajmniej 6 znaków.
     </div>
   </div>
 
   <div class="form-group">
-    <button class="btn btn-success btn-block btn-lg" [disabled]="!recipeForm.valid">Save</button>
+    <button class="btn btn-success btn-block btn-lg" [disabled]="!recipeForm.valid">Zapisz</button>
   </div>
 </form>

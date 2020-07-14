@@ -11,16 +11,16 @@
 
   <!-- Login input -->
   <div class="form-group input-group-lg">
-    <input class="form-control" placeholder="Name" formControlName="login" minlength="4" required>
+    <input class="form-control" placeholder="Nazwa użytkownika" formControlName="login" minlength="4" required>
   </div>
   <div
     *ngIf="regForm.controls['login'].invalid && (regForm.controls['login'].dirty || regForm.controls['login'].touched)"
     class="alert alert-danger">
     <div *ngIf="regForm.controls['login'].errors.required">
-      Name is required.
+      Nazwa użytkownika jest wymagana.
     </div>
     <div *ngIf="regForm.controls['login'].errors.minlength">
-      Name has to be min length 4
+      Nazwa użytkownika musi mieć conajmniej 4 znaki.
     </div>
   </div>
 
@@ -32,47 +32,51 @@
     *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)"
     class="alert alert-danger">
     <div *ngIf="regForm.controls['email'].errors.required">
-      Email is required.
+      E-mail jest wymagany.
     </div>
     <div *ngIf="regForm.controls['email'].errors.minlength">
-      E-mail has to be min length 6
+      E-mail musi mieć conajmniej 6 znaków.
+    </div>
+    <div *ngIf="regForm.controls.email.errors?.email">
+      Nieprawidłowy E-mail.
     </div>
   </div>
 
   <!-- Password input -->
   <div class="form-group input-group-lg">
-    <input type="password" class="form-control" placeholder="Password" formControlName="password" minlength="4"
-           required>
+    <input type="password" class="form-control" placeholder="Hasło" formControlName="password">
   </div>
   <div
     *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)"
     class="alert alert-danger">
     <div *ngIf="regForm.controls['password'].errors.required">
-      Password is required.
+      Hasło jest wymagane.
     </div>
     <div *ngIf="regForm.controls['password'].errors.minlength">
-      Password has to be min length 6
+      Hasło musi mieć conajmniej 6 znaków.
+    </div>
+    <div *ngIf="regForm.controls.password.errors?.invalidPassword">
+      Hasło musi zawierać conajmniej 1 dużą literę, 1 małą litere i 1 cyfrę.
     </div>
   </div>
 
 <!--  Confirm password -->
   <div class="form-group input-group-lg">
-    <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword" minlength="4"
-           required>
+    <input type="password" class="form-control" placeholder="Powietdź hasło" formControlName="confirmPassword">
   </div>
   <div
     *ngIf="regForm.controls['confirmPassword'].invalid && (regForm.controls['confirmPassword'].dirty || regForm.controls['confirmPassword'].touched)"
     class="alert alert-danger">
     <div *ngIf="regForm.controls['confirmPassword'].errors.required">
-      Confirm Password is required.
+      Potwierdzenie hasła jest wymagane.
     </div>
     <div *ngIf="regForm.controls['confirmPassword'].errors.mustMatch">
-      Passwords must match
+      Hasło musi sie zgadzać.
     </div>
   </div>
 
   <div class="form-group">
-    <button class="btn btn-success btn-block btn-lg" [disabled]="!regForm.valid">Create</button>
+    <button class="btn btn-success btn-block btn-lg" [disabled]="!regForm.valid">Utwórz konto</button>
   </div>
 </form>
 

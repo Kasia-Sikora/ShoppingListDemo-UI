@@ -14,23 +14,23 @@
   </div>
   <div *ngIf="recipeForm.controls['title'].invalid && (recipeForm.controls['title'].dirty || recipeForm.controls['title'].touched)" class="alert alert-danger">
     <div *ngIf="recipeForm.controls['title'].errors.required">
-      Title is required.
+      Tytuł jest wymagany.
     </div>
     <div *ngIf="recipeForm.controls['title'].errors.minlength">
-      Title has to be min length 6
+      Tytuł musi miec conajmniej 4 znaki.
     </div>
   </div>
 
   <!--  Method input -->
   <div class="form-group input-group-lg">
-    <textarea type="text" rows="5" cols="30" class="form-control" [(ngModel)]='recipe.method' formControlName="method" minlength="4" style="resize: none;" required></textarea>
+    <textarea type="text" rows="5" cols="30" class="form-control" [(ngModel)]='recipe.method' formControlName="method" style="resize: none;" required></textarea>
   </div>
   <div *ngIf="recipeForm.controls['method'].invalid && (recipeForm.controls['method'].dirty || recipeForm.controls['method'].touched)" class="alert alert-danger">
     <div *ngIf="recipeForm.controls['method'].errors.required">
-      Method is required.
+      Sposób wykonania jest wymagany.
     </div>
     <div *ngIf="recipeForm.controls['method'].errors.minlength">
-      Method has to be min length 6
+      Sposób wykonania musi mieć conajmniej 6 znaków.
     </div>
   </div>
 
