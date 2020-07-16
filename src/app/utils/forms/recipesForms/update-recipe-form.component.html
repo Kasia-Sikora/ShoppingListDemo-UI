@@ -8,9 +8,10 @@
     <div class="has-ino" style="color: red"> {{ errorMessage }} </div>
   </div>
 
+
   <!--  Title input -->
-  <div class="form-group input-group-lg">
-    <input class="form-control" [(ngModel)]='recipe.title' formControlName="title" minlength="6" required>
+  <div class="form-group input-group-lg" *ngIf="this.recipe != null">
+    <input class="form-control" value="{{ this.recipe.title }}" formControlName="title" minlength="6" required>
   </div>
   <div *ngIf="recipeForm.controls['title'].invalid && (recipeForm.controls['title'].dirty || recipeForm.controls['title'].touched)" class="alert alert-danger">
     <div *ngIf="recipeForm.controls['title'].errors.required">
@@ -21,9 +22,30 @@
     </div>
   </div>
 
+  <table *ngIf="products && products.length">
+    <ul>
+      <div *ngFor='let product of products; let i= index'>
+        <li>
+          <tr>
+            <td>{{product.name }}</td>
+            <td>{{productsQuantity[i].unit ? productsQuantity[i].unit : ''  }}</td>
+            <td>{{productsQuantity[i].quantity ? productsQuantity[i].quantity : ''  }}</td>
+            <td>
+              <a [routerLink]="" (click)="removeProduct(product)">
+                <img src="https://img.icons8.com/small/16/000000/cancel--v1.png" id="remove-product"/>
+              </a>
+            </td>
+          </tr>
+        </li>
+      </div>
+    </ul>
+  </table>
+
+  <app-add-product></app-add-product>
+
   <!--  Method input -->
-  <div class="form-group input-group-lg">
-    <textarea type="text" rows="5" cols="30" class="form-control" [(ngModel)]='recipe.method' formControlName="method" style="resize: none;" required></textarea>
+  <div class="form-group input-group-lg" *ngIf="this.recipe != null">
+    <textarea type="text" rows="5" cols="30" class="form-control" formControlName="method" style="resize: none;" required> {{ this.recipe.method }} </textarea>
   </div>
   <div *ngIf="recipeForm.controls['method'].invalid && (recipeForm.controls['method'].dirty || recipeForm.controls['method'].touched)" class="alert alert-danger">
     <div *ngIf="recipeForm.controls['method'].errors.required">

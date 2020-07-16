@@ -27,12 +27,12 @@
 
   <table *ngIf="products && products.length">
     <ul>
-      <div *ngFor='let product of products'>
+      <div *ngFor='let product of products; let i= index'>
         <li>
           <tr>
             <td>{{product.name  }}</td>
-            <td>{{product.unit ? product.unit : ''  }}</td>
-            <td>{{product.quantity ? product.quantity : ''  }}</td>
+            <td>{{productsQuantity[i].unit ? productsQuantity[i].unit : ''  }}</td>
+            <td>{{productsQuantity[i].quantity ? productsQuantity[i].quantity : ''  }}</td>
             <td>
               <a [routerLink]="" (click)="removeProduct(product)">
                 <img src="https://img.icons8.com/small/16/000000/cancel--v1.png" id="remove-product"/>

@@ -13,7 +13,6 @@ import {ProductQuantityService} from '../products/product-quantity/product-quant
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-  pageTitle = 'Recipe Detail';
 
   errorMessage = '';
   recipe: IRecipe;
@@ -43,7 +42,7 @@ export class RecipeDetailComponent implements OnInit {
       // @ts-ignore
       this.productQuantity = data.productsQuantity;
       // @ts-ignore
-      console.log(JSON.stringify('quantity' + data.productsQuantity));
+      console.log('quantity' + JSON.stringify(data.productsQuantity));
     });
   }
 

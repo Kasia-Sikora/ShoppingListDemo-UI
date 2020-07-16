@@ -25,10 +25,9 @@ export class AddRecipeFormComponent {
   errorMessage: string;
   error: HttpErrorResponse;
   productsQuantity: IProductQuantity[] = [];
-  displayForm: boolean;
-  recipeId: number;
-  products: any[] = [];
+  products: IProduct[] = [];
   private id = this.authorisationService.getUserId();
+  recipeId: number;
 
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
@@ -68,30 +67,15 @@ export class AddRecipeFormComponent {
     }
   }
 
-  displayProductForm() {
-    if (!this.displayForm) {
-      document.getElementById('add-prod-button').style.display = 'none';
-      document.getElementById('add-product-form').style.display = 'inline-flex';
-      this.displayForm = true;
-    } else {
-      document.getElementById('add-prod-button').style.display = 'inline-flex';
-      document.getElementById('add-product-form').style.display = 'none';
-      this.displayForm = false;
-    }
-  }
-
   addProducts(productQuantity: IProductQuantity, product: IProduct) {
-    const prod = {
-      id: product.id,
-      name: product.name,
-      unit: productQuantity.unit,
-      quantity: productQuantity.quantity != null ? productQuantity.quantity : '',
-    };
+    productQuantity.product_id = product.id;
     this.productsQuantity.push(productQuantity);
-    this.products.push(prod);
+    this.products.push(product);
   }
 
   removeProduct(product: any) {
+    console.log(product);
+    console.log(this.products);
     const index = this.products.indexOf(product, 0);
     if (index > -1) {
       this.products.splice(index, 1);

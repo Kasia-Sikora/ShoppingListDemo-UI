@@ -3,6 +3,7 @@ import {IUser} from './user';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
+// @ts-ignore
 import {EnvService} from '../env.service';
 
 @Injectable({

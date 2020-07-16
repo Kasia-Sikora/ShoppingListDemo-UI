@@ -11,12 +11,14 @@ import {Observable} from 'rxjs';
 import {ProductService} from '../../../products/product/product.service';
 import {IProductQuantity} from '../../../products/product-quantity/product-quantity';
 import {map, startWith} from 'rxjs/operators';
+import {UpdateRecipeFormComponent} from './update-recipe-form.component';
 
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product-form.component.html',
-  styleUrls: ['./add-product-form.component.css']
+  styleUrls: ['./add-product-form.component.css'],
+  // providers: [UpdateRecipeFormComponent, AddRecipeFormComponent],
 })
 
 export class AddProductFormComponent implements OnInit {
@@ -45,6 +47,7 @@ export class AddProductFormComponent implements OnInit {
               private authorisationService: AuthorisationService,
               private router: Router,
               private addRecipeFormComponent: AddRecipeFormComponent,
+              private updateRecipeFormComponent: UpdateRecipeFormComponent,
               private productService: ProductService) {
   }
 
@@ -91,9 +94,10 @@ export class AddProductFormComponent implements OnInit {
               id: response.body.id,
               name: response.body.name,
             };
-            productQuantity.product_id = response.body.id;
             this.productQuantity = productQuantity;
+            this.productQuantity.product_id = response.body.id;
             this.addRecipeFormComponent.addProducts(this.productQuantity, this.product);
+            this.updateRecipeFormComponent.addProducts(this.productQuantity, this.product);
           }
         },
         (error) => {

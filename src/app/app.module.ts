@@ -67,7 +67,8 @@ import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-regi
     MatButtonModule,
     MatListModule,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
+    RecipeListComponent, AddRecipeFormComponent, UpdateRecipeFormComponent],
   exports: [
     FooterComponent,
     WelcomeComponent,
