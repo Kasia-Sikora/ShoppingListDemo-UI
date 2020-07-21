@@ -85,7 +85,6 @@ export class AddProductFormComponent implements OnInit {
         quantity: this.productForm.get('quantity').value.replace(/,/, '.'),
         department: null,
       };
-      console.log(productQuantity.quantity);
       this.http.post(environment.apiUrl + 'product', productData,
         {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
@@ -101,7 +100,7 @@ export class AddProductFormComponent implements OnInit {
           }
         },
         (error) => {
-          console.log('error ' + error.status);
+          this.errorMessage = error.message;
         });
     }
   }

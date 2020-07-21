@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {IRecipe} from './recipe';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 import {AuthorisationService} from '../utils/authorisation/authorisation.service';
 import {environment} from '../../environments/environment';
@@ -11,21 +11,15 @@ import {environment} from '../../environments/environment';
 })
 export class RecipeService {
 
-  private id = this.authorisationService.getUserId();
-
-  private recipeUrl = environment.apiUrl + this.id + '/recipes';
-  private removeRecipe = environment.apiUrl + this.id + '/recipes';
-  private httpOptions = {
-    headers: new HttpHeaders({ header: 'Access-Control-Allow-Origin' })
-  };
+  private id$ = new BehaviorSubject<number>(this.authorisationService.getUserId());
+  private recipeUrl = environment.apiUrl + this.id$.getValue() + '/recipes';
 
   constructor(private http: HttpClient, private authorisationService: AuthorisationService){
-    // console.log(this.authorisationService.getUser());
+    this.id$.next(this.authorisationService.getUserId());
   }
 
   getRecipes(): Observable<IRecipe[]> {
-    console.log('id ' + this.id);
-    return this.http.get<IRecipe[]>(this.recipeUrl).pipe(
+    return this.http.get<IRecipe[]>(environment.apiUrl + this.id$.getValue() + '/recipes').pipe(
       tap(data => JSON.stringify(data)),
       catchError(this.handleError));
   }
@@ -49,10 +43,14 @@ export class RecipeService {
   }
 
   remove(id: number): Observable<IRecipe> {
-    const url = `${this.recipeUrl}/${id}`;
+    const url = `${environment.apiUrl + this.id$.getValue() + '/recipes'}/${id}`;
     return this.http.delete<IRecipe>(url).pipe(
-      tap(_ => console.log(`deleted recipe id=${id}`)),
+      // tap(_ => console.log(`deleted recipe id=${id}`)),
       catchError(this.handleError)
     );
+  }
+
+  setId(id: number){
+    this.id$.next(id);
   }
 }

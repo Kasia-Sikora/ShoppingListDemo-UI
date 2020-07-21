@@ -15,13 +15,10 @@ export class InterceptorService implements HttpInterceptor {
   //
   // private handleAuthError(err: HttpErrorResponse): Observable<any> {
   //   // handle your auth error or rethrow
-  //   console.log('dupa');
   //   if (err.status === 401 || err.status === 403) {
-  //     console.log('dupa2');
   //     // navigate /delete cookies or whatever
   //     // if you've caught / handled the error, you don't want to rethrow it unless you also want
   //     // downstream consumers to have to handle it as well.
-  //     console.log('err' + err.message);
   //     this.authorisationService.setErrorMessage('Invalid data.');
   //     return of('Invalid data'); // or EMPTY may be appropriate here
   //   }

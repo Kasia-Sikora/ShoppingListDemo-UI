@@ -1,4 +1,4 @@
-<form [formGroup]="regForm" (ngSubmit)="submitForm()">
+<form [formGroup]="regForm" (ngSubmit)="submitForm(); regForm.reset()">
 
   <!--    Error messages -->
   <div *ngIf="error && (regForm.touched || regForm.dirty)" class="cross-validation-error-message alert alert-danger">

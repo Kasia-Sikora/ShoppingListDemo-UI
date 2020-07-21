@@ -27,7 +27,7 @@
 
   <mat-form-field class="select">
     <mat-label>Jednostka</mat-label>
-    <mat-select [(ngModel)]="selectedUnit" formControlName="unit">
+    <mat-select ngModel="selectedUnit" formControlName="unit">
       <mat-option *ngFor="let unit of units" [value]="unit">
         {{unit}}
       </mat-option>

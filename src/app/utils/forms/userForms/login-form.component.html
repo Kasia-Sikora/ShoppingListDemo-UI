@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="submitForm()">
+<form [formGroup]="form" (ngSubmit)="submitForm(); form.reset()">
 
 <!--  Error messages -->
   <div *ngIf="error && (form.touched || form.dirty)" class="cross-validation-error-message alert alert-danger">
@@ -23,7 +23,7 @@
 
 <!--  Password input -->
   <div class="form-group input-group-lg">
-    <input type="password" class="form-control" placeholder="Hasło" formControlName="password" minlength="4" required>
+    <input type="password" class="form-control" placeholder="Hasło" formControlName="password" required>
   </div>
   <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)" class="alert alert-danger">
     <div *ngIf="form.controls['password'].errors.required">

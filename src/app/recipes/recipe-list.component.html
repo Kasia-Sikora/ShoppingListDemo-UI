@@ -43,7 +43,7 @@
           <div id="add-recipe">Dodaj nowy przepis</div>
         </a>
       </div>
-      <div class="recipe-card" *ngFor='let recipe of recipes'>
+      <div class="recipe-card" *ngFor='let recipe of (recipes$ | async)'>
         <a [routerLink]="['/recipe', recipe.id]">
 
           <ng-template [ngIf]="recipe.picture != null" [ngIfElse]="noPicture">

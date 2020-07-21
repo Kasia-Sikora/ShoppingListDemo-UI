@@ -49,7 +49,7 @@ export class ProductQuantityService {
   remove(id: number): Observable<IProductQuantity> {
     const url = `${this.productUrl}/${id}`;
     return this.http.delete<IProductQuantity>(url).pipe(
-      tap(_ => console.log(`deleted recipe id=${id}`)),
+      // tap(_ => console.log(`deleted recipe id=${id}`)),
       catchError(this.handleError)
     );
   }

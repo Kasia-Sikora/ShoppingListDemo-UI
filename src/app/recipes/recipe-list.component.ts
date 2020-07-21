@@ -4,6 +4,8 @@ import {IRecipe} from './recipe';
 import {AuthorisationService} from '../utils/authorisation/authorisation.service';
 import {FormBuilder} from '@angular/forms';
 import {ModalService} from '../utils/modal';
+import {BehaviorSubject} from 'rxjs';
+import {IUser} from '../users/user';
 
 
 @Component({
@@ -13,6 +15,7 @@ import {ModalService} from '../utils/modal';
 
 export class RecipeListComponent implements OnInit {
 
+  recipes$ = new BehaviorSubject<IRecipe[]>(null);
   recipes: IRecipe[] = [];
   errorMessage: string;
 
@@ -21,14 +24,13 @@ export class RecipeListComponent implements OnInit {
               private fb: FormBuilder, private modalService: ModalService) {
   }
 
-
   ngOnInit(): void {
+    this.recipeService.setId(this.authorisationService.getUserId());
     this.recipeService.getRecipes().subscribe({
-      next: recipes => this.recipes = recipes,
+      next: recipes => this.recipes$.next(recipes),
       error: err => this.errorMessage = err
     });
   }
-
 
   addRecipe(id: string) {
     this.modalService.open(id);
@@ -40,7 +42,7 @@ export class RecipeListComponent implements OnInit {
 
   refresh() {
     this.recipeService.getRecipes().subscribe({
-      next: recipes => this.recipes = recipes,
+      next: recipes => this.recipes$.next(recipes),
       error: err => this.errorMessage = err
     });
   }

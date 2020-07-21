@@ -68,7 +68,6 @@ export class UserRegistrationComponent implements OnInit {
             this.isDataValid = false;
           } else {
             this.error = error;
-            console.log(error);
             this.isDataValid = false;
           }
         }

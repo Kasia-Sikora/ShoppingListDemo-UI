@@ -15,8 +15,9 @@ import {IUser} from '../../../users/user';
 
 export class UserLoginComponent implements OnInit {
   form = this.fb.group({
-    email: ['', [Validators.required]],
-    password: ['', [Validators.required]],
+    email: ['', {validators: [Validators.required]}],
+    password: ['', {validators: [Validators.required]}],
+
   });
 
   constructor(private parent: ModalService,
@@ -64,14 +65,12 @@ export class UserLoginComponent implements OnInit {
                 this.router.navigate(['/recipes']);
               },
               (error) => {
-                console.log(error);
                 this.errorMessage = error.error;
               }
             );
           }
         },
         (error) => {
-          console.log(error.status);
           if (error.status === 403) {
             this.errorMessage = 'Invalid data';
           } else {
@@ -80,7 +79,8 @@ export class UserLoginComponent implements OnInit {
         }
       );
     } else {
-      this.errorMessage = this.authorisationService.getErrorMessage();
+      // this.errorMessage = this.authorisationService.getErrorMessage();
+      console.log(this.authorisationService.getErrorMessage());
     }
   }
 }

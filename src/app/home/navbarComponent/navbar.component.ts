@@ -31,9 +31,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.authorisationService.setUser(null);
     this.authorisationService.setToken(null);
-    localStorage.setItem('token', null);
-    console.log('token2 ' + localStorage.getItem('token'));
-    console.log('user ' + JSON.stringify(this.authorisationService.getUser()));
+    localStorage.removeItem('token');
     this.router.navigate(['']);
   }
 

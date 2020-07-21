@@ -57,12 +57,12 @@ export class AddRecipeFormComponent {
                 this.router.navigate(['/recipes']);
               },
               (error) => {
-                console.log('error 3: ' + error.status);
+                this.errorMessage = error.message;
               });
           }
         },
         (error) => {
-          console.log('error 2: ' + error.status);
+          this.errorMessage = error.message;
         });
     }
   }
@@ -74,8 +74,6 @@ export class AddRecipeFormComponent {
   }
 
   removeProduct(product: any) {
-    console.log(product);
-    console.log(this.products);
     const index = this.products.indexOf(product, 0);
     if (index > -1) {
       this.products.splice(index, 1);

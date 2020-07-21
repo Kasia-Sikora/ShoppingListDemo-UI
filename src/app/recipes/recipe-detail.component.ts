@@ -41,8 +41,6 @@ export class RecipeDetailComponent implements OnInit {
       this.productQuantityService.recipeId = data.id;
       // @ts-ignore
       this.productQuantity = data.productsQuantity;
-      // @ts-ignore
-      console.log('quantity' + JSON.stringify(data.productsQuantity));
     });
   }
 
@@ -52,9 +50,9 @@ export class RecipeDetailComponent implements OnInit {
 
   removeRecipe(id: number) {
     this.recipeService.remove(id).subscribe({
+      next: next => this.router.navigate(['./recipes']),
       error: err => this.errorMessage = err
     });
-    this.router.navigate(['./recipes']);
   }
 
   openModal(id: string) {

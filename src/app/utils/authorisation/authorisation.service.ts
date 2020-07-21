@@ -13,11 +13,11 @@ export class AuthorisationService {
   private verificationMessage$ = new BehaviorSubject<string>(null);
 
 
-  setVerificationMessage(message: string){
+  setVerificationMessage(message: string) {
     this.verificationMessage$.next(message);
   }
 
-  getVerificationMessage(){
+  getVerificationMessage() {
     return this.verificationMessage$;
   }
 
@@ -35,31 +35,31 @@ export class AuthorisationService {
   }
 
   getToken() {
-    console.log('token ' + localStorage.getItem('token'));
     return localStorage.getItem('token');
     // return this.token;
   }
 
-  getErrorMessage(){
+  getErrorMessage() {
     return this.errorMessage;
   }
 
-  getUserId(){
-    if (this.user$.getValue() != null){
+  getUserId(): number {
+    if (this.user$.getValue() != null) {
+      console.log('authorisation ' + this.user$.getValue().id);
       return this.user$.getValue().id;
     }
   }
 
 
-  public isAuthenticated(): boolean {
-    // get the token
-    const token = this.getToken();
-    // return a boolean reflecting
-    // whether or not the token is expired
-    return this.tokenNotExpired(token);
-  }
-
-  private tokenNotExpired(token: string) {
-    return false;
-  }
+  // public isAuthenticated(): boolean {
+  //   // get the token
+  //   const token = this.getToken();
+  //   // return a boolean reflecting
+  //   // whether or not the token is expired
+  //   return this.tokenNotExpired(token);
+  // }
+  //
+  // private tokenNotExpired(token: string) {
+  //   return false;
+  // }
 }
