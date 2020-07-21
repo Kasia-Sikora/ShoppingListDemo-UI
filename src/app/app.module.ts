@@ -19,13 +19,13 @@ import {UpdateRecipeFormComponent} from './utils/forms/recipesForms/update-recip
 import {AddProductFormComponent} from './utils/forms/recipesForms/add-product-form.component';
 import {ProductComponent} from './products/product/product.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {MatSliderModule} from '@angular/material/slider';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import { ProductQuantityComponent } from './products/product-quantity/product-quantity.component';
+import {ProductQuantityComponent} from './products/product-quantity/product-quantity.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
@@ -63,9 +63,9 @@ import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-regi
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatListModule,
     MatIconModule,
     MatButtonModule,
-    MatListModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
     RecipeListComponent, AddRecipeFormComponent, UpdateRecipeFormComponent],

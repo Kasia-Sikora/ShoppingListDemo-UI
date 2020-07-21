@@ -24,12 +24,12 @@ import {UpdateRecipeFormComponent} from './update-recipe-form.component';
 export class AddProductFormComponent implements OnInit {
 
   productForm = new FormGroup({
-    productName: new FormControl(''),
+    productName: new FormControl('', Validators.required),
     unit: new FormControl(''),
     quantity: new FormControl(''),
   });
 
-  myControl = new FormControl();
+  // myControl = new FormControl('', Validators.required);
   filteredOptions: Observable<IProduct[]>;
   errorMessage: string;
   error: HttpErrorResponse;
@@ -58,24 +58,15 @@ export class AddProductFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productService.getProducts().subscribe({
-      next: products => {
-        this.products = products;
-        this.filteredProducts = this.products;
-      },
-      error: err => this.errorMessage = err
-    });
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.performFilter(value))
-      );
+    this.refresh();
   }
 
   addProduct() {
+    console.log('wchodzi');
     if (this.productForm.valid) {
+      console.log('wchodzi2');
       const productData = {
-        name: this.myControl.value,
+        name: this.productForm.get('productName').value,
       };
       const productQuantity = {
         id: null,
@@ -89,19 +80,40 @@ export class AddProductFormComponent implements OnInit {
         {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
           if (response != null) {
+            console.log(response);
             this.product = {
               id: response.body.id,
               name: response.body.name,
             };
+            this.errorMessage = '';
+            this.error = null;
             this.productQuantity = productQuantity;
             this.productQuantity.product_id = response.body.id;
             this.addRecipeFormComponent.addProducts(this.productQuantity, this.product);
             this.updateRecipeFormComponent.addProducts(this.productQuantity, this.product);
+            this.refresh();
           }
         },
         (error) => {
-          this.errorMessage = error.message;
+          console.log('add product ' + error.error);
+          this.errorMessage = error.error;
         });
     }
+    this.errorMessage = 'Nazwa produktu jest wymagana';
+  }
+
+  refresh(): void {
+    this.productService.getProducts().subscribe({
+      next: products => {
+        this.products = products;
+        this.filteredProducts = this.products;
+      },
+      error: err => this.errorMessage = err
+    });
+    this.filteredOptions = this.productForm.get('productName').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.performFilter(value))
+      );
   }
 }

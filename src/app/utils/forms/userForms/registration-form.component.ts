@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {ModalService} from '../../modal';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
-import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
 import {CustomValidationService} from './custom-validation.service';
 

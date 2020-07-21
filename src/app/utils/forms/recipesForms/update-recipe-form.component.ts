@@ -10,6 +10,7 @@ import {environment} from '../../../../environments/environment';
 import {IProductQuantity} from '../../../products/product-quantity/product-quantity';
 import {IProduct} from '../../../products/product/product';
 import {ProductService} from '../../../products/product/product.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -26,7 +27,7 @@ export class UpdateRecipeFormComponent implements OnInit {
 
   errorMessage: string;
   error: HttpErrorResponse;
-  private id = this.authorisationService.getUserId();
+  private id$ = new BehaviorSubject<number>(this.authorisationService.getUserId());
   products: IProduct[] = [];
   productsQuantity: IProductQuantity[] = [];
   recipe: IRecipe;
@@ -38,6 +39,7 @@ export class UpdateRecipeFormComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private productService: ProductService) {
+    this.id$.next(this.authorisationService.getUserId());
   }
 
   ngOnInit() {
@@ -67,12 +69,12 @@ export class UpdateRecipeFormComponent implements OnInit {
       id: this.recipe.id,
       title: this.recipeForm.get('title').value,
       method: this.recipeForm.get('method').value,
-      user_id: this.id,
+      user_id: this.id$.getValue(),
     };
     // formData.append('picture', this.form.get('picture').value);
     if (this.recipeForm.valid) {
       // @ts-ignore
-      this.http.put(environment.apiUrl + this.id + '/recipes/' + this.recipe.id, recipeData,
+      this.http.put(environment.apiUrl + this.id$.getValue() + '/recipes/' + this.recipe.id, recipeData,
         {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
           if (response != null) {

@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {ModalService} from '../../modal';
 import {environment} from '../../../../environments/environment';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {IUser} from '../../../users/user';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-login-form',
@@ -15,8 +14,8 @@ import {IUser} from '../../../users/user';
 
 export class UserLoginComponent implements OnInit {
   form = this.fb.group({
-    email: ['', {validators: [Validators.required]}],
-    password: ['', {validators: [Validators.required]}],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
 
   });
 
@@ -65,6 +64,7 @@ export class UserLoginComponent implements OnInit {
                 this.router.navigate(['/recipes']);
               },
               (error) => {
+                console.log(error.error);
                 this.errorMessage = error.error;
               }
             );
@@ -72,6 +72,7 @@ export class UserLoginComponent implements OnInit {
         },
         (error) => {
           if (error.status === 403) {
+            console.log(error);
             this.errorMessage = 'Invalid data';
           } else {
             this.error = error;
