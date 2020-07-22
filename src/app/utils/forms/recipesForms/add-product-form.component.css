@@ -40,6 +40,11 @@
   margin-bottom: 20px;
 }
 
+.add-button:disabled{
+  background-color: #5fa349;
+  color: white;
+}
+
 #add-product-form {
   display: inline-flex;
   flex-flow: row wrap;

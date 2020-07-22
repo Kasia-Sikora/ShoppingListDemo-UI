@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -12,9 +12,9 @@ import {Observable} from 'rxjs';
   templateUrl: './login-form.component.html',
 })
 
-export class UserLoginComponent implements OnInit {
+export class UserLoginComponent implements OnInit, OnDestroy {
   form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required]],
     password: ['', [Validators.required]],
 
   });
@@ -60,11 +60,13 @@ export class UserLoginComponent implements OnInit {
               (response2: HttpResponse<any>) => {
                 this.authorisationService.setUser(response2);
                 this.form.reset();
+                this.error = null;
+                this.errorMessage = null;
                 this.parent.close('login-modal');
                 this.router.navigate(['/recipes']);
               },
               (error) => {
-                console.log(error.error);
+                console.log('inner error ' + error.error);
                 this.errorMessage = error.error;
               }
             );
@@ -72,16 +74,24 @@ export class UserLoginComponent implements OnInit {
         },
         (error) => {
           if (error.status === 403) {
-            console.log(error);
-            this.errorMessage = 'Invalid data';
+            console.log('second error' + JSON.stringify(error));
+            this.errorMessage = 'Nieprawidłowy email lub hasło';
           } else {
             this.error = error;
           }
-        }
+        },
       );
     } else {
+      console.log('else');
       // this.errorMessage = this.authorisationService.getErrorMessage();
       console.log(this.authorisationService.getErrorMessage());
     }
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  getErrorMessage() {
+    return this.errorMessage;
   }
 }

@@ -1,21 +1,18 @@
 <form [formGroup]="regForm" (ngSubmit)="submitForm(); regForm.reset()">
 
   <!--    Error messages -->
-  <div *ngIf="error && (regForm.touched || regForm.dirty)" class="cross-validation-error-message alert alert-danger">
+  <div *ngIf="error && (regForm.touched || regForm.dirty)" class="nas-ino" style="color: red">
     <div class="has-ino" style="color: red"> {{ error.error }} </div>
   </div>
   <div *ngIf="errorMessage && (regForm.touched || regForm.dirty)"
-       class="cross-validation-error-message alert alert-danger">
+       class="nas-ino" style="color: red">
     <div class="has-ino" style="color: red"> {{ errorMessage }} </div>
   </div>
-
+<br>
   <!-- Login input -->
-  <div class="form-group input-group-lg">
-    <input class="form-control" placeholder="Nazwa użytkownika" formControlName="login" minlength="4" required>
-  </div>
   <div
     *ngIf="regForm.controls['login'].invalid && (regForm.controls['login'].dirty || regForm.controls['login'].touched)"
-    class="alert alert-danger">
+    class="nas-ino" style="color: red">
     <div *ngIf="regForm.controls['login'].errors.required">
       Nazwa użytkownika jest wymagana.
     </div>
@@ -23,32 +20,30 @@
       Nazwa użytkownika musi mieć conajmniej 4 znaki.
     </div>
   </div>
+  <div class="form-group input-group-lg">
+    <input class="form-control" placeholder="Nazwa użytkownika" formControlName="login" minlength="4" required>
+  </div>
 
   <!-- Email input -->
-  <div class="form-group input-group-lg">
-    <input class="form-control" placeholder="E-mail" formControlName="email" minlength="6" required>
-  </div>
   <div
     *ngIf="regForm.controls['email'].invalid && (regForm.controls['email'].dirty || regForm.controls['email'].touched)"
-    class="alert alert-danger">
+    class="nas-ino" style="color: red">
     <div *ngIf="regForm.controls['email'].errors.required">
       E-mail jest wymagany.
-    </div>
-    <div *ngIf="regForm.controls['email'].errors.minlength">
-      E-mail musi mieć conajmniej 6 znaków.
     </div>
     <div *ngIf="regForm.controls.email.errors?.email">
       Nieprawidłowy E-mail.
     </div>
   </div>
+  <div class="form-group input-group-lg">
+    <input class="form-control" placeholder="E-mail" formControlName="email" required>
+  </div>
+
 
   <!-- Password input -->
-  <div class="form-group input-group-lg">
-    <input type="password" class="form-control" placeholder="Hasło" formControlName="password">
-  </div>
   <div
     *ngIf="regForm.controls['password'].invalid && (regForm.controls['password'].dirty || regForm.controls['password'].touched)"
-    class="alert alert-danger">
+    class="nas-ino" style="color: red">
     <div *ngIf="regForm.controls['password'].errors.required">
       Hasło jest wymagane.
     </div>
@@ -59,14 +54,15 @@
       Hasło musi zawierać conajmniej 1 dużą literę, 1 małą litere i 1 cyfrę.
     </div>
   </div>
+  <div class="form-group input-group-lg">
+    <input type="password" class="form-control" placeholder="Hasło" formControlName="password">
+  </div>
+
 
 <!--  Confirm password -->
-  <div class="form-group input-group-lg">
-    <input type="password" class="form-control" placeholder="Powietdź hasło" formControlName="confirmPassword">
-  </div>
   <div
     *ngIf="regForm.controls['confirmPassword'].invalid && (regForm.controls['confirmPassword'].dirty || regForm.controls['confirmPassword'].touched)"
-    class="alert alert-danger">
+    class="nas-ino" style="color: red">
     <div *ngIf="regForm.controls['confirmPassword'].errors.required">
       Potwierdzenie hasła jest wymagane.
     </div>
@@ -74,6 +70,10 @@
       Hasło musi sie zgadzać.
     </div>
   </div>
+  <div class="form-group input-group-lg">
+    <input type="password" class="form-control" placeholder="Powietdź hasło" formControlName="confirmPassword">
+  </div>
+
 
   <div class="form-group">
     <button class="btn btn-success btn-block btn-lg" [disabled]="!regForm.valid">Utwórz konto</button>

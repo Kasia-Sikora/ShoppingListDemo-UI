@@ -11,7 +11,7 @@
              matInput
              formControlName="productName"
              [matAutocomplete]="auto">
-      <mat-error *ngIf="productForm.controls['productName'].invalid">{{ errorMessage }}</mat-error>
+      <mat-error *ngIf="productForm.controls['productName'].errors?.required">{{ errorMessage }}</mat-error>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
           {{option.name}}
@@ -48,7 +48,7 @@
   </mat-form-field>
 
   <div class="example-button-container">
-    <button mat-mini-fab class="add-button">+</button>
+    <button mat-mini-fab class="add-button" [disabled]="!productForm.valid">+</button>
   </div>
 
 </form>

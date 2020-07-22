@@ -85,7 +85,7 @@ export class AddProductFormComponent implements OnInit {
               id: response.body.id,
               name: response.body.name,
             };
-            this.errorMessage = '';
+            this.errorMessage = null;
             this.error = null;
             this.productQuantity = productQuantity;
             this.productQuantity.product_id = response.body.id;
