@@ -16,18 +16,12 @@ export interface Task {
 })
 export class CheckBoxComponent {
 
-  constructor(recipeDetailComponent: RecipeDetailComponent) {
-    if (recipeDetailComponent.productQuantity.length){
-      for (const product of recipeDetailComponent.productQuantity){
-        // @ts-ignore
-        this.task.subtasks.push({name: product.product.name + product.quantity + product.unit, completed: false, color: 'primary'});
-      }
-    }
-    console.log(this.task.subtasks);
+  constructor(private recipeDetailComponent: RecipeDetailComponent) {
+    this.addProductsToTask();
   }
 
   task: Task = {
-    name: 'Indeterminate',
+    name: 'Zaznacz wszystko',
     completed: false,
     color: 'primary',
     subtasks: []
@@ -52,5 +46,19 @@ export class CheckBoxComponent {
       return;
     }
     this.task.subtasks.forEach(t => t.completed = completed);
+  }
+
+  addProductsToTask() {
+    this.recipeDetailComponent.getProductQuantity().subscribe(
+      next => {
+        for (const product of next) {
+
+          console.log(next);
+          // @ts-ignore
+          this.task.subtasks.push({name: product.product.name, completed: false, color: 'primary'});
+        }
+      }
+    );
+    console.log(this.task);
   }
 }

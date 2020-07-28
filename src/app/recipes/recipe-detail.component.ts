@@ -7,6 +7,8 @@ import {RecipeService} from './recipe.service';
 import {ModalService} from '../utils/modal';
 import {IProductQuantity} from '../products/product-quantity/product-quantity';
 import {ProductQuantityService} from '../products/product-quantity/product-quantity.service';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {IUser} from '../users/user';
 
 @Component({
   templateUrl: './recipe-detail.component.html',
@@ -17,6 +19,7 @@ export class RecipeDetailComponent implements OnInit {
   errorMessage = '';
   recipe: IRecipe;
   productQuantity: IProductQuantity[] = [];
+  private productQuantity$ = new BehaviorSubject<IProductQuantity[]>([]);
 
 
   constructor(private route: ActivatedRoute,
@@ -36,11 +39,24 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   getRecipe(id: number) {
-    this.recipeService.getRecipe(id).toPromise().then(data => {
-      this.recipe = data;
-      this.productQuantityService.recipeId = data.id;
-      // @ts-ignore
-      this.productQuantity = data.productsQuantity;
+    // this.recipeService.getRecipe(id).toPromise().then(data => {
+    //   this.recipe = data;
+    //   this.productQuantityService.recipeId = data.id;
+    //   // @ts-ignore
+    //   this.productQuantity = data.productsQuantity;
+    //   // @ts-ignore
+    //   this.productQuantity$.next(data.productsQuantity);
+    // });
+    this.recipeService.getRecipe(id).subscribe({
+      next: next => {
+        this.recipe = next;
+        this.productQuantityService.recipeId = next.id;
+        // @ts-ignore
+        this.productQuantity = next.productsQuantity;
+        // @ts-ignore
+        this.productQuantity$.next(next.productsQuantity);
+        },
+      error: err => this.errorMessage = err
     });
   }
 
@@ -63,9 +79,7 @@ export class RecipeDetailComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  private getProductQuantity() {
-    this.productQuantityService.getProductsQuantity().toPromise().then(data => {
-      this.productQuantity = data;
-    });
+  getProductQuantity(): Observable<IProductQuantity[]> {
+    return this.productQuantity$;
   }
 }

@@ -41,3 +41,8 @@
   height: 80vh;
   overflow: auto;
 }
+
+.add-to-list{
+  margin-left: 20px;
+  font-size: 0.85vw;
+}
