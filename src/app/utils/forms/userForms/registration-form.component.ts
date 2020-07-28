@@ -66,7 +66,8 @@ export class UserRegistrationComponent implements OnInit {
             this.errorMessage = 'Nieprawidłowe dane.';
             this.isDataValid = false;
           } else {
-            this.error = error;
+            console.log(JSON.stringify(error));
+            this.errorMessage = error.error;
             this.isDataValid = false;
           }
         }

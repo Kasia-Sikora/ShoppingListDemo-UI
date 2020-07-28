@@ -16,4 +16,10 @@
 
 #develop {
   font-weight: bold;
+  display: inherit;
+}
+
+#name {
+  font-weight: normal;
+  margin-left: 5px;
 }

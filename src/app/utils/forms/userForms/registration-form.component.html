@@ -1,4 +1,4 @@
-<form [formGroup]="regForm" (ngSubmit)="submitForm(); regForm.reset()">
+<form [formGroup]="regForm" (ngSubmit)="submitForm()">
 
   <!--    Error messages -->
   <div *ngIf="error && (regForm.touched || regForm.dirty)" class="nas-ino" style="color: red">

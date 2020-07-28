@@ -18,7 +18,7 @@ import {IProduct} from '../../../products/product/product';
 export class AddRecipeFormComponent {
   recipeForm = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(4)]],
-    method: ['', [Validators.required, Validators.minLength(6)]],
+    method: ['', [Validators.required, Validators.minLength(4)]],
     user_id: [''],
   });
 

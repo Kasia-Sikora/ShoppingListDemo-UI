@@ -45,21 +45,8 @@ export class AuthorisationService {
 
   getUserId(): number {
     if (this.user$.getValue() != null) {
-      console.log('authorisation ' + this.user$.getValue().id);
       return this.user$.getValue().id;
     }
   }
 
-
-  // public isAuthenticated(): boolean {
-  //   // get the token
-  //   const token = this.getToken();
-  //   // return a boolean reflecting
-  //   // whether or not the token is expired
-  //   return this.tokenNotExpired(token);
-  // }
-  //
-  // private tokenNotExpired(token: string) {
-  //   return false;
-  // }
 }

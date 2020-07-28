@@ -66,7 +66,6 @@ export class UserLoginComponent implements OnInit, OnDestroy {
                 this.router.navigate(['/recipes']);
               },
               (error) => {
-                console.log('inner error ' + error.error);
                 this.errorMessage = error.error;
               }
             );
@@ -74,17 +73,14 @@ export class UserLoginComponent implements OnInit, OnDestroy {
         },
         (error) => {
           if (error.status === 403) {
-            console.log('second error' + JSON.stringify(error));
             this.errorMessage = 'Nieprawidłowy email lub hasło';
           } else {
-            this.error = error;
+            this.errorMessage = 'Nieprawidłowy email lub hasło';
           }
         },
       );
     } else {
-      console.log('else');
-      // this.errorMessage = this.authorisationService.getErrorMessage();
-      console.log(this.authorisationService.getErrorMessage());
+      this.errorMessage = this.authorisationService.getErrorMessage();
     }
   }
 
