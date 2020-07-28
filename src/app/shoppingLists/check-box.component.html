@@ -13,9 +13,12 @@
         <mat-checkbox [(ngModel)]="subtask.completed"
                       [color]="subtask.color"
                       (ngModelChange)="updateAllComplete()">
-          {{subtask.name}}
+          {{subtask.name }}
+          {{subtask.unit }}
+          {{subtask.quantity}}
         </mat-checkbox>
       </li>
     </ul>
   </span>
+  <button class="btn btn-success btn-block btn-lg" (click)="saveToList()">Zapisz do listy</button>
 </section>

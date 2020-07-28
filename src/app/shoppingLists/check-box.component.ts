@@ -4,6 +4,8 @@ import {RecipeDetailComponent} from '../recipes/recipe-detail.component';
 
 export interface Task {
   name: string;
+  unit: string;
+  quantity: number;
   completed: boolean;
   color: ThemePalette;
   subtasks?: Task[];
@@ -22,6 +24,8 @@ export class CheckBoxComponent {
 
   task: Task = {
     name: 'Zaznacz wszystko',
+    unit: '',
+    quantity: null,
     completed: false,
     color: 'primary',
     subtasks: []
@@ -31,6 +35,7 @@ export class CheckBoxComponent {
 
   updateAllComplete() {
     this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
+    console.log(this.task);
   }
 
   someComplete(): boolean {
@@ -54,11 +59,20 @@ export class CheckBoxComponent {
         for (const product of next) {
 
           console.log(next);
-          // @ts-ignore
-          this.task.subtasks.push({name: product.product.name, completed: false, color: 'primary'});
+          this.task.subtasks.push({
+            // @ts-ignore
+            name: product.product.name,
+            unit: product.unit,
+            quantity: product.quantity,
+            completed: false,
+            color: 'primary'});
         }
       }
     );
     console.log(this.task);
+  }
+
+  saveToList() {
+
   }
 }
