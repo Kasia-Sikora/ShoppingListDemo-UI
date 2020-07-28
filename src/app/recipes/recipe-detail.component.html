@@ -6,21 +6,22 @@
 
   <div class='card-body'>
     <div class="grid-container">
-      <div class="ingredients">
-        <mat-list role="list" *ngIf="productQuantity && productQuantity.length">
-          <mat-list-item class="body-header" role="listitem">Składniki:</mat-list-item>
-          <mat-divider></mat-divider>
-          <ul>
-            <div *ngFor='let product of productQuantity'>
-              <li>
-                <mat-list-item role="listitem">{{product.quantity ? product.quantity : ''}}
-                  {{product.unit ? product.unit : ''}}
-                  {{product.product.name}} </mat-list-item>
-              </li>
-            </div>
-          </ul>
-        </mat-list>
-      </div>
+<!--      <app-check-box></app-check-box>-->
+<!--      <div class="ingredients">-->
+<!--        <mat-list role="list" *ngIf="productQuantity && productQuantity.length">-->
+<!--          <mat-list-item class="body-header" role="listitem">Składniki:</mat-list-item>-->
+<!--          <mat-divider></mat-divider>-->
+<!--          <ul>-->
+<!--            <div *ngFor='let product of productQuantity'>-->
+<!--              <li>-->
+<!--                <mat-list-item role="listitem">{{product.quantity ? product.quantity : ''}}-->
+<!--                  {{product.unit ? product.unit : ''}}-->
+<!--                  {{product.product.name}} </mat-list-item>-->
+<!--              </li>-->
+<!--            </div>-->
+<!--          </ul>-->
+<!--        </mat-list>-->
+<!--      </div>-->
       <div class="picture">
         <ng-template [ngIf]="recipe.picture != null" [ngIfElse]="noPicture">
           <img class='center-block img-responsive with-picture'

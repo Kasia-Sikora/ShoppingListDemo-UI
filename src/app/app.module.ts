@@ -30,6 +30,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-registration.component';
+import { CheckBoxComponent } from './shoppingLists/check-box.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-regi
     ProductComponent,
     ProductQuantityComponent,
     ConfirmRegistrationComponent,
+    CheckBoxComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -66,6 +69,7 @@ import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-regi
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    MatCheckboxModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
     RecipeListComponent, AddRecipeFormComponent, UpdateRecipeFormComponent],
