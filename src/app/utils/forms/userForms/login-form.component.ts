@@ -58,6 +58,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
             this.authorisationService.setToken(token);
             this.http.get(environment.apiUrl + 'me').subscribe(
               (response2: HttpResponse<any>) => {
+                console.log(response2);
                 this.authorisationService.setUser(response2);
                 this.form.reset();
                 this.error = null;

@@ -30,8 +30,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-registration.component';
-import { CheckBoxComponent } from './shoppingLists/check-box.component';
+import { CheckBoxComponent } from './shoppingLists/check-box/check-box.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ShoppingListDashboardComponent } from './shoppingLists/shopping-list-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     ProductQuantityComponent,
     ConfirmRegistrationComponent,
     CheckBoxComponent,
+    ShoppingListDashboardComponent,
   ],
   imports: [
     AppRoutingModule,

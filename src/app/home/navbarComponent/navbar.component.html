@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light bg-light">
   <img id="broccoli-icon" src="assets/broccoli.png" alt="broccoli">
-  <div id="title">{{ pageTitle }}
+   <div id="title"><a href="/">{{ pageTitle }}</a>
   </div>
 
   <ng-template [ngIf]="(this.user$ | async) == null" [ngIfElse]="user">

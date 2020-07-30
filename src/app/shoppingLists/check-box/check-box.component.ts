@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
-import {RecipeDetailComponent} from '../recipes/recipe-detail.component';
+import {RecipeDetailComponent} from '../../recipes/recipe-detail.component';
 
 export interface Task {
   name: string;
