@@ -2,13 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-welcome',
-  template: `
-    <div class="card welcome">
-      <div id="title">
-        {{pageTitle}}
-      </div>
-    </div>
-  `,
+  templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent {

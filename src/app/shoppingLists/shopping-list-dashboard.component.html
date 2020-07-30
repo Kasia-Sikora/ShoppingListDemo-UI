@@ -1,1 +1,14 @@
-<p>shopping-list-dashboard works!</p>
+<div class="card">
+<app-dashboard></app-dashboard>
+<!--  Recipes  -->
+<div class="card-body">
+  <div class="grid">
+
+
+    <div class="recipe-card" *ngFor='let recipe of (shoppingLists$ | async)'>
+        <div id="recipe-title">ShoppingList title: {{recipe.title}}</div>
+    </div>
+
+  </div>
+</div>
+</div>

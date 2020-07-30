@@ -5,7 +5,6 @@ import {AuthorisationService} from '../utils/authorisation/authorisation.service
 import {FormBuilder} from '@angular/forms';
 import {ModalService} from '../utils/modal';
 import {BehaviorSubject} from 'rxjs';
-import {IUser} from '../users/user';
 
 
 @Component({

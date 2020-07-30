@@ -33,6 +33,7 @@ import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-regi
 import { CheckBoxComponent } from './shoppingLists/check-box/check-box.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ShoppingListDashboardComponent } from './shoppingLists/shopping-list-dashboard.component';
+import { DashboardComponent } from './home/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ShoppingListDashboardComponent } from './shoppingLists/shopping-list-da
     ConfirmRegistrationComponent,
     CheckBoxComponent,
     ShoppingListDashboardComponent,
+    DashboardComponent,
   ],
   imports: [
     AppRoutingModule,
