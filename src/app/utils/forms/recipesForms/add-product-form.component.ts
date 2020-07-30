@@ -18,7 +18,6 @@ import {UpdateRecipeFormComponent} from './update-recipe-form.component';
   selector: 'app-add-product',
   templateUrl: './add-product-form.component.html',
   styleUrls: ['./add-product-form.component.css'],
-  // providers: [UpdateRecipeFormComponent, AddRecipeFormComponent],
 })
 
 export class AddProductFormComponent implements OnInit {
@@ -29,7 +28,6 @@ export class AddProductFormComponent implements OnInit {
     quantity: new FormControl(''),
   });
 
-  // myControl = new FormControl('', Validators.required);
   filteredOptions: Observable<IProduct[]>;
   errorMessage: string;
   error: HttpErrorResponse;
@@ -62,9 +60,7 @@ export class AddProductFormComponent implements OnInit {
   }
 
   addProduct() {
-    console.log('wchodzi');
     if (this.productForm.valid) {
-      console.log('wchodzi2');
       const productData = {
         name: this.productForm.get('productName').value,
       };
@@ -75,6 +71,7 @@ export class AddProductFormComponent implements OnInit {
         unit: this.productForm.get('unit').value,
         quantity: this.productForm.get('quantity').value.replace(/,/, '.'),
         department: null,
+        product: null,
       };
       this.http.post(environment.apiUrl + 'product', productData,
         {observe: 'response'}).subscribe(

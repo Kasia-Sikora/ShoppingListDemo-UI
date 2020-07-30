@@ -20,15 +20,12 @@ export class RecipeDetailComponent implements OnInit {
   errorMessage = '';
   recipe: IRecipe;
   recipe$: Observable<IRecipe> = new Observable<IRecipe>();
-  productQuantity: IProductQuantity[] = [];
-  private productQuantity$ = new BehaviorSubject<IProductQuantity[]>([]);
 
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private recipeService: RecipeService,
               private modalService: ModalService,
-              private productQuantityService: ProductQuantityService,
   ) {
   }
 
@@ -37,35 +34,11 @@ export class RecipeDetailComponent implements OnInit {
     const param = this.route.snapshot.paramMap.get('id');
     if (param) {
       const id = +param;
-      // this.getRecipe(id);
       if (id) {
         this.recipe$ = this.recipeService.getRecipe(id);
       }
     }
   }
-
-  // getRecipe(id: number) {
-  //
-  //   // this.recipeService.getRecipe(id).toPromise().then(data => {
-  //   //   this.recipe = data;
-  //   //   this.productQuantityService.recipeId = data.id;
-  //   //   // @ts-ignore
-  //   //   this.productQuantity = data.productsQuantity;
-  //   //   // @ts-ignore
-  //   //   this.productQuantity$.next(data.productsQuantity);
-  //   // });
-  //   this.recipeService.getRecipe(id).subscribe({
-  //     next: next => {
-  //       this.recipe = next;
-  //       this.productQuantityService.recipeId = next.id;
-  //       // @ts-ignore
-  //       this.productQuantity = next.productsQuantity;
-  //       // @ts-ignore
-  //       this.productQuantity$.next(next.productsQuantity);
-  //       },
-  //     error: err => this.errorMessage = err
-  //   });
-  // }
 
   onBack(): void {
     this.router.navigate(['./recipes']);
