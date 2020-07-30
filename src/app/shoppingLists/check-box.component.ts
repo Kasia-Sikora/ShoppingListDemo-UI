@@ -16,10 +16,9 @@ export interface Task {
   templateUrl: './check-box.component.html',
   styleUrls: ['./check-box.component.css']
 })
-export class CheckBoxComponent {
+export class CheckBoxComponent implements OnInit {
 
   constructor(private recipeDetailComponent: RecipeDetailComponent) {
-    this.addProductsToTask();
   }
 
   task: Task = {
@@ -53,26 +52,24 @@ export class CheckBoxComponent {
     this.task.subtasks.forEach(t => t.completed = completed);
   }
 
-  addProductsToTask() {
+  saveToList() {
+
+  }
+
+  ngOnInit(): void {
     this.recipeDetailComponent.getProductQuantity().subscribe(
       next => {
         for (const product of next) {
-
           console.log(next);
           this.task.subtasks.push({
-            // @ts-ignore
             name: product.product.name,
             unit: product.unit,
             quantity: product.quantity,
             completed: false,
-            color: 'primary'});
+            color: 'primary'
+          });
         }
       }
     );
-    console.log(this.task);
-  }
-
-  saveToList() {
-
   }
 }

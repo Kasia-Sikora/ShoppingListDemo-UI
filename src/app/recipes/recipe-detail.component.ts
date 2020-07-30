@@ -9,6 +9,7 @@ import {IProductQuantity} from '../products/product-quantity/product-quantity';
 import {ProductQuantityService} from '../products/product-quantity/product-quantity.service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {IUser} from '../users/user';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   templateUrl: './recipe-detail.component.html',
@@ -18,6 +19,7 @@ export class RecipeDetailComponent implements OnInit {
 
   errorMessage = '';
   recipe: IRecipe;
+  recipe$: Observable<IRecipe> = new Observable<IRecipe>();
   productQuantity: IProductQuantity[] = [];
   private productQuantity$ = new BehaviorSubject<IProductQuantity[]>([]);
 
@@ -31,34 +33,39 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     const param = this.route.snapshot.paramMap.get('id');
     if (param) {
       const id = +param;
-      this.getRecipe(id);
+      // this.getRecipe(id);
+      if (id) {
+        this.recipe$ = this.recipeService.getRecipe(id);
+      }
     }
   }
 
-  getRecipe(id: number) {
-    // this.recipeService.getRecipe(id).toPromise().then(data => {
-    //   this.recipe = data;
-    //   this.productQuantityService.recipeId = data.id;
-    //   // @ts-ignore
-    //   this.productQuantity = data.productsQuantity;
-    //   // @ts-ignore
-    //   this.productQuantity$.next(data.productsQuantity);
-    // });
-    this.recipeService.getRecipe(id).subscribe({
-      next: next => {
-        this.recipe = next;
-        this.productQuantityService.recipeId = next.id;
-        // @ts-ignore
-        this.productQuantity = next.productsQuantity;
-        // @ts-ignore
-        this.productQuantity$.next(next.productsQuantity);
-        },
-      error: err => this.errorMessage = err
-    });
-  }
+  // getRecipe(id: number) {
+  //
+  //   // this.recipeService.getRecipe(id).toPromise().then(data => {
+  //   //   this.recipe = data;
+  //   //   this.productQuantityService.recipeId = data.id;
+  //   //   // @ts-ignore
+  //   //   this.productQuantity = data.productsQuantity;
+  //   //   // @ts-ignore
+  //   //   this.productQuantity$.next(data.productsQuantity);
+  //   // });
+  //   this.recipeService.getRecipe(id).subscribe({
+  //     next: next => {
+  //       this.recipe = next;
+  //       this.productQuantityService.recipeId = next.id;
+  //       // @ts-ignore
+  //       this.productQuantity = next.productsQuantity;
+  //       // @ts-ignore
+  //       this.productQuantity$.next(next.productsQuantity);
+  //       },
+  //     error: err => this.errorMessage = err
+  //   });
+  // }
 
   onBack(): void {
     this.router.navigate(['./recipes']);
@@ -80,6 +87,8 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   getProductQuantity(): Observable<IProductQuantity[]> {
-    return this.productQuantity$;
+    return this.recipe$.pipe(
+      map(value => value.productsQuantity)
+    );
   }
 }
