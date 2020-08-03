@@ -19,7 +19,7 @@ export class ShoppingListService {
   }
 
   getShoppingLists(): Observable<IShoppingList[]> {
-    return this.http.get<IShoppingList[]>(environment.apiUrl + this.id$.getValue() + '/shopping-lists').pipe(
+    return this.http.get<IShoppingList[]>(environment.apiUrl + this.id$.getValue() + '/shopping-list').pipe(
       tap(data => JSON.stringify(data)),
       catchError(this.handleError));
   }
@@ -43,9 +43,9 @@ export class ShoppingListService {
   }
 
   remove(id: number): Observable<IShoppingList> {
-    const url = `${environment.apiUrl + this.id$.getValue() + '/shopping-lists'}/${id}`;
+    const url = `${environment.apiUrl + this.id$.getValue() + '/shopping-list'}/${id}`;
     return this.http.delete<IShoppingList>(url).pipe(
-      // tap(_ => console.log(`deleted recipe id=${id}`)),
+      tap(_ => console.log(`deleted list id=${id}`)),
       catchError(this.handleError)
     );
   }

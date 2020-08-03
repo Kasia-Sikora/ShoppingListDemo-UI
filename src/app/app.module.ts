@@ -34,6 +34,7 @@ import { CheckBoxComponent } from './shoppingLists/check-box/check-box.component
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ShoppingListDashboardComponent } from './shoppingLists/shopping-list-dashboard.component';
 import { DashboardComponent } from './home/dashboard/dashboard.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
     MatIconModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatCardModule,
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
     RecipeListComponent, AddRecipeFormComponent, UpdateRecipeFormComponent],

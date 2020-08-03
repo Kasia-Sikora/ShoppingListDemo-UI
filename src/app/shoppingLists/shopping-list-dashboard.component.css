@@ -28,3 +28,15 @@
   justify-content: space-evenly;
   position: relative;
 }
+
+.lists-card{
+  margin: 5%;
+}
+
+.card-title{
+  display: inline-flex;
+}
+
+button{
+  margin-left: 30%;
+}

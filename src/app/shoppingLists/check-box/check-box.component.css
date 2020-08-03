@@ -10,3 +10,18 @@ ul {
   list-style-type: none;
   margin-top: 4px;
 }
+
+.form-group input {
+  vertical-align: middle;
+  margin: 5px 10px 5px 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+
+#title-form {
+  display: inline-flex;
+  flex-flow: row wrap;
+  align-items: flex-end;
+}

@@ -1,7 +1,8 @@
 export interface IListProduct {
   id: number;
-  productName: string;
+  product_name: string;
   quantity: number;
   unit: string;
   department: string;
 }
+
