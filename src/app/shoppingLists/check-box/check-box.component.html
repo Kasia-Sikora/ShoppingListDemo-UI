@@ -1,0 +1,50 @@
+<form [formGroup]="shoppingListForm" (ngSubmit)="saveList()" id="title-form">
+
+  <mat-form-field class="example-full-width">
+    <input type="text"
+           placeholder="Wybierz listę zakupów"
+           aria-label="text"
+           matInput
+           formControlName="title"
+           [matAutocomplete]="auto">
+    <!--    <mat-error *ngIf="productForm.controls['productName'].errors?.required">{{ errorMessage }}</mat-error>-->
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions| async;let i = index" [value]="option.title">
+        {{option.title}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <div class="example-button-container">
+    <button mat-mini-fab class="add-button" [disabled]="!shoppingListForm.valid">set</button>
+  </div>
+</form>
+<br>
+
+
+<span class="example-list-section">
+    <mat-checkbox [checked]="allComplete"
+                  [indeterminate]="someComplete()"
+                  (change)="setAll($event.checked)">
+      {{productList.product_name}}
+    </mat-checkbox>
+  </span>
+<span class="example-list-section">
+    <ul>
+      <li *ngFor="let subtask of productList.products; let i=index">
+        <mat-checkbox [(ngModel)]="subtask.completed"
+                      [color]="subtask.color"
+                      (ngModelChange)="updateAllComplete()">
+          {{subtask.product_name }}
+          {{subtask.unit }}
+          {{subtask.quantity}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+<button class="btn btn-success btn-block btn-lg" (click)="saveToList(productList.products)"
+        [disabled]="!shoppingListForm.valid">
+  Zapisz do listy
+</button>
+
+
+

@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-
 import {ActivatedRoute, Router} from '@angular/router';
-
-import {IRecipe} from './recipe';
-import {RecipeService} from './recipe.service';
-import {ModalService} from '../utils/modal';
-import {IProductQuantity} from '../products/product-quantity/product-quantity';
-import {ProductQuantityService} from '../products/product-quantity/product-quantity.service';
+import {IRecipe} from '../recipe';
+import {RecipeService} from '../recipe.service';
+import {ModalService} from '../../utils/modal/modal.service';
+import {IProductQuantity} from '../../products/product-quantity';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   templateUrl: './recipe-detail.component.html',
@@ -15,33 +14,22 @@ import {ProductQuantityService} from '../products/product-quantity/product-quant
 export class RecipeDetailComponent implements OnInit {
 
   errorMessage = '';
-  recipe: IRecipe;
-  productQuantity: IProductQuantity[] = [];
-
+  recipe$: Observable<IRecipe> = new Observable<IRecipe>();
 
   constructor(private route: ActivatedRoute,
               private router: Router,
               private recipeService: RecipeService,
-              private modalService: ModalService,
-              private productQuantityService: ProductQuantityService,
-  ) {
+              private modalService: ModalService) {
   }
 
   ngOnInit(): void {
     const param = this.route.snapshot.paramMap.get('id');
     if (param) {
       const id = +param;
-      this.getRecipe(id);
+      if (id) {
+        this.recipe$ = this.recipeService.getRecipe(id);
+      }
     }
-  }
-
-  getRecipe(id: number) {
-    this.recipeService.getRecipe(id).toPromise().then(data => {
-      this.recipe = data;
-      this.productQuantityService.recipeId = data.id;
-      // @ts-ignore
-      this.productQuantity = data.productsQuantity;
-    });
   }
 
   onBack(): void {
@@ -63,9 +51,9 @@ export class RecipeDetailComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  private getProductQuantity() {
-    this.productQuantityService.getProductsQuantity().toPromise().then(data => {
-      this.productQuantity = data;
-    });
+  getProductQuantity(): Observable<IProductQuantity[]> {
+    return this.recipe$.pipe(
+      map(value => value.productsQuantity)
+    );
   }
 }

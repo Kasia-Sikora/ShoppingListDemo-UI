@@ -1,0 +1,56 @@
+.card {
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 2vw 5vw;
+  height: auto;
+}
+
+.card-header {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.card-body {
+  margin: 0 0.65rem 0.65rem 0.65rem;
+  height: auto;
+}
+
+.options {
+  float: right;
+  margin-left: auto;
+}
+
+.btn,
+.btn-outline-secondary {
+  margin: 0.5vw;
+}
+
+.body-header {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas: 'ingredients picture';
+}
+
+.center-block,
+.img-responsive {
+  width: 12vw;
+  height: 12vw;
+}
+
+.picture-grid {
+  text-align: center;
+  margin: 2vw;
+}
+
+.with-picture {
+  border-radius: 1em;
+  box-shadow: 2px 2px 30px gray;
+}
+
+.add-to-list {
+  margin-left: 2vw;
+  font-size: 0.85vw;
+}

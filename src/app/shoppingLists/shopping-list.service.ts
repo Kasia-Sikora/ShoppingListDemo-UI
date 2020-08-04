@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import {IRecipe} from './recipe';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, tap, map} from 'rxjs/operators';
 import {AuthorisationService} from '../utils/authorisation/authorisation.service';
 import {environment} from '../../environments/environment';
+import {IShoppingList} from './shoppingList';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeService {
+export class ShoppingListService {
 
   private id$ = new BehaviorSubject<number>(this.authorisationService.getUserId());
 
@@ -17,22 +17,24 @@ export class RecipeService {
     this.id$.next(this.authorisationService.getUserId());
   }
 
-  getRecipes(): Observable<IRecipe[]> {
-    return this.http.get<IRecipe[]>(`${environment.apiUrl + this.id$.getValue() + '/recipes'}`).pipe(
+  getShoppingLists(): Observable<IShoppingList[]> {
+    return this.http.get<IShoppingList[]>(environment.apiUrl + this.id$.getValue() + '/shopping-list').pipe(
       tap(data => JSON.stringify(data)),
       catchError(this.handleError));
   }
 
-  getRecipe(id: number): Observable<IRecipe | undefined> {
-    return this.http.get<IRecipe>(`${environment.apiUrl + this.id$.getValue() + '/recipes'}/${id}`).pipe(
-      tap(data => JSON.stringify(data)),
-      catchError(this.handleError));
+  getShoppingList(id: number): Observable<IShoppingList | undefined> {
+    return this.getShoppingLists()
+      .pipe(
+        map((lists: IShoppingList[]) => lists.find(r => r.id === id))
+      );
   }
 
 
-  remove(id: number): Observable<IRecipe> {
-    const url = `${environment.apiUrl + this.id$.getValue() + '/recipes'}/${id}`;
-    return this.http.delete<IRecipe>(url).pipe(
+  remove(id: number): Observable<IShoppingList> {
+    const url = `${environment.apiUrl + this.id$.getValue() + '/shopping-list'}/${id}`;
+    return this.http.delete<IShoppingList>(url).pipe(
+      // tap(_ => console.log(`deleted list id=${id}`)),
       catchError(this.handleError)
     );
   }

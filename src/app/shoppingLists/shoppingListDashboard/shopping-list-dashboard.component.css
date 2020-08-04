@@ -1,0 +1,39 @@
+.card {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 2vw 5vw;
+  height: auto;
+}
+
+.card-header {
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.card-title {
+  display: inline-flex;
+}
+
+.card-body {
+  margin: 0 0.65rem 0.65rem 0.65rem;
+  background-color: rgba(255, 255, 255, 1);
+  height: 70vh;
+  overflow: auto;
+}
+
+.grid {
+  flex: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  position: relative;
+}
+
+.mat-card {
+  box-shadow: 1px 1px 4px dimgray;
+  margin: 5%;
+}
+
+.btn,
+.btn-outline-secondary {
+  margin: 0.5vw;
+}

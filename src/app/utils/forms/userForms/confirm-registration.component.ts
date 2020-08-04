@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {ActivatedRoute} from '@angular/router';
-import {ModalService} from '../../modal';
+import {ModalService} from '../../modal/modal.service';
 import {environment} from '../../../../environments/environment';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 
 @Component({
-  templateUrl: './confirm-registration.component.html',
-
+  template: '``',
 })
 
 export class ConfirmRegistrationComponent implements OnInit {

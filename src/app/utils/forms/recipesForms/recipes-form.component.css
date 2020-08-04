@@ -1,0 +1,49 @@
+.mat-option:hover:not{
+  z-index: 10000;
+}
+
+.table {
+  width: 70%;
+  height: auto;
+  background-color: white;
+  opacity: 0.8;
+  margin: auto;
+}
+
+#product-field {
+  width: 30%;
+}
+
+#quantity-field{
+  width: 15%;
+}
+
+#select-unit{
+  width: 20%;
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+  z-index: 1000;
+}
+
+#add-product{
+  background-color: #218838;
+  margin-left: 1em;
+  margin-top: 0.4em;
+}
+
+#add-product:disabled{
+  background-color: #5fa349;
+  color: white;
+}
+
+#add-product-form {
+  display: inline-flex;
+  flex-flow: row wrap;
+}
+
+#remove-product {
+  width: 16px;
+  height: auto;
+}
+
+

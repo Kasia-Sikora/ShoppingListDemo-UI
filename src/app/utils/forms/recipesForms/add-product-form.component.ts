@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ModalService} from '../../modal';
+import {ModalService} from '../../modal/modal.service';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {Router} from '@angular/router';
 import {AddRecipeFormComponent} from './add-recipe-form.component';
-import {IProduct} from '../../../products/product/product';
+import {IProduct} from '../../../products/product';
 import {environment} from '../../../../environments/environment';
 import {Observable} from 'rxjs';
-import {ProductService} from '../../../products/product/product.service';
-import {IProductQuantity} from '../../../products/product-quantity/product-quantity';
+import {ProductService} from '../../../products/product.service';
+import {IProductQuantity} from '../../../products/product-quantity';
 import {map, startWith} from 'rxjs/operators';
 import {UpdateRecipeFormComponent} from './update-recipe-form.component';
 
@@ -17,8 +17,7 @@ import {UpdateRecipeFormComponent} from './update-recipe-form.component';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product-form.component.html',
-  styleUrls: ['./add-product-form.component.css'],
-  // providers: [UpdateRecipeFormComponent, AddRecipeFormComponent],
+  styleUrls: ['./recipes-form.component.css'],
 })
 
 export class AddProductFormComponent implements OnInit {
@@ -29,7 +28,6 @@ export class AddProductFormComponent implements OnInit {
     quantity: new FormControl(''),
   });
 
-  // myControl = new FormControl('', Validators.required);
   filteredOptions: Observable<IProduct[]>;
   errorMessage: string;
   error: HttpErrorResponse;
@@ -38,9 +36,6 @@ export class AddProductFormComponent implements OnInit {
   products: IProduct[] = [];
   units: string[] = ['', 'kg', 'dag', 'gram', 'mililitry', 'litry', 'szklanka', 'łyżeczka', 'łyżka', 'szczypta', 'sztuka'];
   productQuantity: IProductQuantity;
-  selectedUnit: any = {
-    unit: ''
-  };
 
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
@@ -52,9 +47,11 @@ export class AddProductFormComponent implements OnInit {
   }
 
   performFilter(filterBy: string): IProduct[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.products.filter((product: IProduct) =>
-      product.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    if (filterBy != null) {
+      filterBy = filterBy.toLocaleLowerCase();
+      return this.products.filter((product: IProduct) =>
+        product.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    }
   }
 
   ngOnInit(): void {
@@ -62,20 +59,9 @@ export class AddProductFormComponent implements OnInit {
   }
 
   addProduct() {
-    console.log('wchodzi');
     if (this.productForm.valid) {
-      console.log('wchodzi2');
-      const productData = {
-        name: this.productForm.get('productName').value,
-      };
-      const productQuantity = {
-        id: null,
-        product_id: null,
-        user_recipe_id: null,
-        unit: this.productForm.get('unit').value,
-        quantity: this.productForm.get('quantity').value.replace(/,/, '.'),
-        department: null,
-      };
+      const productData = this.getProductData();
+      const productQuantity = this.getProductQuantity();
       this.http.post(environment.apiUrl + 'product', productData,
         {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
@@ -85,8 +71,7 @@ export class AddProductFormComponent implements OnInit {
               id: response.body.id,
               name: response.body.name,
             };
-            this.errorMessage = null;
-            this.error = null;
+            this.resetErrors();
             this.productQuantity = productQuantity;
             this.productQuantity.product_id = response.body.id;
             this.addRecipeFormComponent.addProducts(this.productQuantity, this.product);
@@ -95,7 +80,6 @@ export class AddProductFormComponent implements OnInit {
           }
         },
         (error) => {
-          console.log('add product ' + error.error);
           this.errorMessage = error.error;
         });
     }
@@ -115,5 +99,28 @@ export class AddProductFormComponent implements OnInit {
         startWith(''),
         map(value => this.performFilter(value))
       );
+  }
+
+  private getProductData() {
+    return {
+      name: this.productForm.get('productName').value,
+    };
+  }
+
+  private getProductQuantity() {
+    return {
+      id: null,
+      product_id: null,
+      user_recipe_id: null,
+      unit: this.productForm.get('unit').value,
+      quantity: this.productForm.get('quantity').value.replace(/,/, '.'),
+      department: null,
+      product: null,
+    };
+  }
+
+  private resetErrors() {
+    this.errorMessage = null;
+    this.error = null;
   }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalService} from '../../utils/modal';
+import {ModalService} from '../../utils/modal/modal.service';
 import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
 import {Router} from '@angular/router';
 import {IUser} from '../../users/user';
@@ -19,6 +19,10 @@ export class NavbarComponent implements OnInit {
               private router: Router) {
   }
 
+  ngOnInit(): void {
+    this.user$ = this.authorisationService.getUser();
+  }
+
   openModal(id: string) {
     this.modalService.open(id);
   }
@@ -27,15 +31,10 @@ export class NavbarComponent implements OnInit {
     this.modalService.close(id);
   }
 
-  // TODO one user have to refresh whole page after logout to login another user
   logout() {
     this.authorisationService.setUser(null);
     this.authorisationService.setToken(null);
     localStorage.removeItem('token');
     this.router.navigate(['']);
-  }
-
-  ngOnInit(): void {
-    this.user$ = this.authorisationService.getUser();
   }
 }

@@ -1,8 +1,10 @@
 <nav class="navbar navbar-light bg-light">
-  <img id="broccoli-icon" src="assets/broccoli.png" alt="broccoli">
-  <div id="title">{{ pageTitle }}
+  <div id="logo">
+    <img id="broccoli-icon" src="assets/broccoli.png" alt="broccoli">
+    <div id="title"><a href="/">{{ pageTitle }}</a></div>
   </div>
 
+  <!--  If user is not logged in  -->
   <ng-template [ngIf]="(this.user$ | async) == null" [ngIfElse]="user">
     <div id="nav-buttons">
       <button class="btn btn-light" type="button" id="registration_button" (click)="openModal('reg-modal')">Rejestracja
@@ -10,21 +12,18 @@
       <button class="btn btn-light" type="button" id="login_button" (click)="openModal('login-modal')">Zaloguj</button>
     </div>
   </ng-template>
+
+  <!--  If users is logged in  -->
   <ng-template #user>
     <div id="user_login">Hey {{ (this.user$ | async).login }}!</div>
     <button class="btn btn-light" type="button" id="logout" (click)="logout()">Wyloguj</button>
   </ng-template>
 </nav>
 
-<!-- Footer -->
-<div>
-  <app-footer></app-footer>
-</div>
-
 <!--Registration modal-->
 <app-modal id="reg-modal">
-<div class="modal-header">
-<h5 class="modal-title">Rejestracja</h5>
+  <div class="modal-header">
+    <h5 class="modal-title">Rejestracja</h5>
     <button type="button" class="btn btn-outline-dark" (click)="closeModal('reg-modal')">
       <span aria-hidden="true">&times;</span>
     </button>

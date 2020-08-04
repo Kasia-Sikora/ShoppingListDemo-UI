@@ -1,24 +1,19 @@
 import {Injectable} from '@angular/core';
 import {IProduct} from './product';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, tap, map} from 'rxjs/operators';
-import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
-import {environment} from '../../../environments/environment';
+import {catchError, map, tap} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private id = this.authorisationService.getUserId();
   private productUrl = environment.apiUrl + 'products';
-  private removeProduct = environment.apiUrl + this.id + '/recipes';
-  private httpOptions = {
-    headers: new HttpHeaders({ header: 'Access-Control-Allow-Origin' })
-  };
 
-  constructor(private http: HttpClient, private authorisationService: AuthorisationService){  }
+  constructor(private http: HttpClient) {
+  }
 
   getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(this.productUrl).pipe(
@@ -34,21 +29,20 @@ export class ProductService {
   }
 
 
+  remove(id: number): Observable<IProduct> {
+    const url = `${this.productUrl}/${id}`;
+    return this.http.delete<IProduct>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(err: HttpErrorResponse) {
-    let errorMessage =  '';
+    let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     return throwError(errorMessage);
-  }
-
-  remove(id: number): Observable<IProduct> {
-    const url = `${this.productUrl}/${id}`;
-    return this.http.delete<IProduct>(url).pipe(
-      // tap(_ => console.log(`deleted recipe id=${id}`)),
-      catchError(this.handleError)
-    );
   }
 }

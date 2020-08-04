@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="submitForm();">
 
-<!--  Error messages -->
+  <!--  Error messages -->
   <div *ngIf="error && (form.touched || form.dirty)" class="nas-ino" style="color: red">
     <div class="has-ino" style="color: red"> {{ error.error }} </div>
   </div>
@@ -11,8 +11,9 @@
     <div class="nas-ino" style="color: darkgreen"> {{ (this.verificationMessage$ | async).valueOf() }} </div>
   </div>
 
-<!--  Email input -->
-  <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)" class="nas-ino" style="color: red">
+  <!--  Email input -->
+  <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)"
+       class="nas-ino" style="color: red">
     <div *ngIf="form.controls['email'].errors.required">
       E-mail jest wymagany.
     </div>
@@ -21,8 +22,10 @@
     <input class="form-control" placeholder="E-mail" formControlName="email" required>
   </div>
 
-<!--  Password input -->
-  <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)" class="nas-ino" style="color: red">
+  <!--  Password input -->
+  <div
+    *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)"
+    class="nas-ino" style="color: red">
     <div *ngIf="form.controls['password'].errors.required">
       Hasło jest wymagane.
     </div>
@@ -33,6 +36,6 @@
 
 
   <div class="form-group">
-    <button class="btn btn-success btn-block btn-lg" [disabled]="!form.valid">Zaloguj </button>
+    <button class="btn btn-success btn-block btn-lg" [disabled]="!form.valid">Zaloguj</button>
   </div>
 </form>

@@ -1,17 +1,20 @@
-<div class='card'
-     *ngIf='recipe'>
+<div class='card' *ngIf='(recipe$ | async) as recipe'>
   <div class='card-header'>
     {{recipe.title}}
   </div>
 
   <div class='card-body'>
     <div class="grid-container">
+
+<!--      Ingredients    -->
       <div class="ingredients">
-        <mat-list role="list" *ngIf="productQuantity && productQuantity.length">
-          <mat-list-item class="body-header" role="listitem">Składniki:</mat-list-item>
+        <mat-list role="list" *ngIf="recipe.productsQuantity && recipe.productsQuantity.length">
+          <mat-list-item class="body-header" role="listitem">Składniki:
+            <button class="btn btn-outline-secondary add-to-list" (click)="openModal('shopping-modal')">Dodaj do listy zakupów</button>
+          </mat-list-item>
           <mat-divider></mat-divider>
           <ul>
-            <div *ngFor='let product of productQuantity'>
+            <div *ngFor='let product of recipe.productsQuantity'>
               <li>
                 <mat-list-item role="listitem">{{product.quantity ? product.quantity : ''}}
                   {{product.unit ? product.unit : ''}}
@@ -21,24 +24,22 @@
           </ul>
         </mat-list>
       </div>
-      <div class="picture">
+
+<!--      Picture   -->
+      <div class="picture-grid">
         <ng-template [ngIf]="recipe.picture != null" [ngIfElse]="noPicture">
           <img class='center-block img-responsive with-picture'
-               [style.width.px]='200'
-               [style.height.px]='200'
-               [style.margin.px]='2'
                [src]='recipe.picture'
                [title]='recipe.title'>
         </ng-template>
         <ng-template #noPicture>
           <img class='center-block img-responsive no-picture'
-               [style.width.px]='200'
-               [style.height.px]='200'
-               [style.margin.px]='2'
                [src]="'./assets/broccoli.png'">
         </ng-template>
       </div>
     </div>
+
+<!--    Method   -->
     <div class="grid-container">
       <div class="method">
         <mat-list role="list">
@@ -49,6 +50,8 @@
     </div>
   </div>
 
+
+<!--  Card footer    -->
   <div class='card-footer'>
     <button class='btn btn-outline-secondary'
             (click)='onBack()'
@@ -81,7 +84,8 @@
   </div>
 </app-modal>
 
-<app-modal id="delete-recipe-modal">
+
+<app-modal *ngIf="recipe$ | async as recipe" id="delete-recipe-modal">
   <div class="modal-header">
     <h5 class="modal-title">Usuwanie przepisu </h5>
   </div>
@@ -94,5 +98,18 @@
     <button type="button" class="btn btn-outline-dark" (click)="closeModal('delete-recipe-modal')">
       <span aria-hidden="true">Anuluj</span>
     </button>
+  </div>
+</app-modal>
+
+
+<app-modal id="shopping-modal">
+  <div class="modal-header">
+    <h5 class="modal-title">Dodaj do listy zakupów</h5>
+    <button type="button" class="btn btn-outline-dark" (click)="closeModal('shopping-modal')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-check-box></app-check-box>
   </div>
 </app-modal>

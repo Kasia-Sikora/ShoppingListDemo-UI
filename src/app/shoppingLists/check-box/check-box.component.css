@@ -1,0 +1,7 @@
+ul {
+  list-style-type: none;
+}
+
+#title-form {
+  display: inline-flex;
+}
