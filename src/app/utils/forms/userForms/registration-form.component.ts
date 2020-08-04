@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {ModalService} from '../../modal';
+import {ModalService} from '../../modal/modal.service';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {environment} from '../../../../environments/environment';
 import {CustomValidationService} from './custom-validation.service';
@@ -31,7 +31,6 @@ export class UserRegistrationComponent implements OnInit {
 
   error: HttpErrorResponse;
   errorMessage: string;
-  isDataValid: boolean;
 
   ngOnInit() {
   }
@@ -55,20 +54,13 @@ export class UserRegistrationComponent implements OnInit {
     if (this.regForm.valid) {
       this.http.post(environment.apiUrl + 'sign-up', reqData, {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
-          this.isDataValid = true;
-          const token = response.headers.get('Authorization');
-          this.regForm.reset();
-          this.parent.close('reg-modal');
-          this.parent.open('info-modal');
+          this.closeForm();
         },
         (error) => {
           if (error.status === 403) {
             this.errorMessage = 'Nieprawidłowe dane.';
-            this.isDataValid = false;
           } else {
-            console.log(JSON.stringify(error));
             this.errorMessage = error.error;
-            this.isDataValid = false;
           }
         }
       );
@@ -79,5 +71,11 @@ export class UserRegistrationComponent implements OnInit {
 
   closeModal(id: string) {
     this.parent.close(id);
+  }
+
+  private closeForm() {
+    this.regForm.reset();
+    this.parent.close('reg-modal');
+    this.parent.open('info-modal');
   }
 }

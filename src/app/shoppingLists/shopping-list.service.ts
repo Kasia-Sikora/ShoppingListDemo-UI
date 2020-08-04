@@ -12,7 +12,6 @@ import {IShoppingList} from './shoppingList';
 export class ShoppingListService {
 
   private id$ = new BehaviorSubject<number>(this.authorisationService.getUserId());
-  private recipeUrl = environment.apiUrl + this.id$.getValue() + '/recipes';
 
   constructor(private http: HttpClient, private authorisationService: AuthorisationService){
     this.id$.next(this.authorisationService.getUserId());
@@ -32,6 +31,18 @@ export class ShoppingListService {
   }
 
 
+  remove(id: number): Observable<IShoppingList> {
+    const url = `${environment.apiUrl + this.id$.getValue() + '/shopping-list'}/${id}`;
+    return this.http.delete<IShoppingList>(url).pipe(
+      // tap(_ => console.log(`deleted list id=${id}`)),
+      catchError(this.handleError)
+    );
+  }
+
+  setId(id: number){
+    this.id$.next(id);
+  }
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage =  '';
     if (err.error instanceof ErrorEvent) {
@@ -40,17 +51,5 @@ export class ShoppingListService {
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     return throwError(errorMessage);
-  }
-
-  remove(id: number): Observable<IShoppingList> {
-    const url = `${environment.apiUrl + this.id$.getValue() + '/shopping-list'}/${id}`;
-    return this.http.delete<IShoppingList>(url).pipe(
-      tap(_ => console.log(`deleted list id=${id}`)),
-      catchError(this.handleError)
-    );
-  }
-
-  setId(id: number){
-    this.id$.next(id);
   }
 }

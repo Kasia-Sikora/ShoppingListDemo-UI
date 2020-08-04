@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
-import {IUser} from '../../users/user';
-import {Observable} from 'rxjs';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,17 +7,9 @@ import {Observable} from 'rxjs';
 })
 export class DashboardComponent {
 
-  // user$: Observable<IUser>;
-  //
-  // constructor(private authorisationService: AuthorisationService) {
-  // }
-  //
-  // ngOnInit(): void {
-  //   this.user$ = this.authorisationService.getUser();
-  // }
   changeStyle(name: string) {
     const list = document.getElementsByClassName('nav-link');
-    for (let i = 0; i < list.length; i++){
+    for (let i = 0; i < list.length; i++) {
       list[i].classList.remove('active');
       list[i].setAttribute('aria-selected', String(false));
     }

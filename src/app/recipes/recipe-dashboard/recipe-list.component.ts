@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {RecipeService} from './recipe.service';
-import {IRecipe} from './recipe';
-import {AuthorisationService} from '../utils/authorisation/authorisation.service';
+import {RecipeService} from '../recipe.service';
+import {IRecipe} from '../recipe';
+import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
 import {FormBuilder} from '@angular/forms';
-import {ModalService} from '../utils/modal';
+import {ModalService} from '../../utils/modal/modal.service';
 import {BehaviorSubject} from 'rxjs';
 
 
@@ -24,11 +24,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recipeService.setId(this.authorisationService.getUserId());
-    this.recipeService.getRecipes().subscribe({
-      next: recipes => this.recipes$.next(recipes),
-      error: err => this.errorMessage = err
-    });
+    this.refresh();
   }
 
   addRecipe(id: string) {
@@ -40,6 +36,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   refresh() {
+    this.recipeService.setId(this.authorisationService.getUserId());
     this.recipeService.getRecipes().subscribe({
       next: recipes => this.recipes$.next(recipes),
       error: err => this.errorMessage = err

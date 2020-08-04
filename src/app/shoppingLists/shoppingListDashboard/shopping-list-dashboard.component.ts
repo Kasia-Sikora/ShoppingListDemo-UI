@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {IShoppingList} from './shoppingList';
-import {AuthorisationService} from '../utils/authorisation/authorisation.service';
-import {ShoppingListService} from './shopping-list.service';
+import {IShoppingList} from '../shoppingList';
+import {AuthorisationService} from '../../utils/authorisation/authorisation.service';
+import {ShoppingListService} from '../shopping-list.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -15,8 +15,7 @@ export class ShoppingListDashboardComponent implements OnInit {
   errorMessage: string;
 
   constructor(private shoppingListService: ShoppingListService,
-              private authorisationService: AuthorisationService,
-              private router: Router,) {
+              private authorisationService: AuthorisationService) {
   }
 
   ngOnInit(): void {

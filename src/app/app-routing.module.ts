@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {RecipeListComponent} from './recipes/recipe-list.component';
-import {RecipeDetailComponent} from './recipes/recipe-detail.component';
+import {RecipeListComponent} from './recipes/recipe-dashboard/recipe-list.component';
+import {RecipeDetailComponent} from './recipes/recipe-detail/recipe-detail.component';
 import {WelcomeComponent} from './home/welcomeComponent/welcome.component';
 import {ConfirmRegistrationComponent} from './utils/forms/userForms/confirm-registration.component';
-import {ShoppingListDashboardComponent} from './shoppingLists/shopping-list-dashboard.component';
+import {ShoppingListDashboardComponent} from './shoppingLists/shoppingListDashboard/shopping-list-dashboard.component';
 
 
 const routes: Routes = [

@@ -1,6 +1,7 @@
 <form [formGroup]="productForm" (ngSubmit)="addProduct(); productForm.reset()" id="add-product-form">
 
-    <mat-form-field class="example-full-width">
+<!--  Product Name  -->
+    <mat-form-field id="product-field">
       <input type="text"
              placeholder="Produkt"
              aria-label="text"
@@ -15,7 +16,8 @@
       </mat-autocomplete>
     </mat-form-field>
 
-  <mat-form-field class="select">
+<!--  Unit  -->
+  <mat-form-field id="select-unit">
     <mat-label>Jednostka</mat-label>
     <mat-select ngModel="selectedUnit" formControlName="unit">
       <mat-option *ngFor="let unit of units" [value]="unit">
@@ -24,7 +26,8 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
+<!--  Quantity  -->
+  <mat-form-field id="quantity-field">
     <input type="text"
            pattern="[0-9]+([\.,][0-9]+)?"
            placeholder="Ilość"
@@ -34,7 +37,7 @@
   </mat-form-field>
 
   <div class="example-button-container">
-    <button mat-mini-fab class="add-button" [disabled]="!productForm.valid">+</button>
+    <button mat-mini-fab id="add-product" [disabled]="!productForm.valid">+</button>
   </div>
 
 </form>

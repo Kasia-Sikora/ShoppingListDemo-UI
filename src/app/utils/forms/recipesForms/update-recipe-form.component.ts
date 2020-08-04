@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ModalService} from '../../modal';
+import {ModalService} from '../../modal/modal.service';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {IRecipe} from '../../../recipes/recipe';
 import {RecipeService} from '../../../recipes/recipe.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
-import {IProductQuantity} from '../../../products/product-quantity/product-quantity';
-import {IProduct} from '../../../products/product/product';
-import {ProductService} from '../../../products/product/product.service';
+import {IProductQuantity} from '../../../products/product-quantity';
+import {IProduct} from '../../../products/product';
 import {BehaviorSubject} from 'rxjs';
 
 @Component({
@@ -17,8 +16,6 @@ import {BehaviorSubject} from 'rxjs';
   templateUrl: './update-recipe-form.component.html',
 })
 export class UpdateRecipeFormComponent implements OnInit {
-
-  // recipe$ = new BehaviorSubject<IRecipe>(null);
 
   recipeForm = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(4)]],
@@ -37,8 +34,7 @@ export class UpdateRecipeFormComponent implements OnInit {
               private authorisationService: AuthorisationService,
               private recipeService: RecipeService,
               private router: Router,
-              private route: ActivatedRoute,
-              private productService: ProductService) {
+              private route: ActivatedRoute) {
     this.id$.next(this.authorisationService.getUserId());
   }
 
@@ -64,33 +60,20 @@ export class UpdateRecipeFormComponent implements OnInit {
   }
 
   submitForm() {
-    const recipeData = {
-      // @ts-ignore
-      id: this.recipe.id,
-      title: this.recipeForm.get('title').value,
-      method: this.recipeForm.get('method').value,
-      user_id: this.id$.getValue(),
-    };
-    // formData.append('picture', this.form.get('picture').value);
+    const recipeData = this.getRecipeData();
     if (this.recipeForm.valid) {
-      // @ts-ignore
       this.http.put(environment.apiUrl + this.id$.getValue() + '/recipes/' + this.recipe.id, recipeData,
         {observe: 'response'}).subscribe(
         (response: HttpResponse<any>) => {
           if (response != null) {
             this.http.post(environment.apiUrl + this.recipe.id + '/recipe_products', this.productsQuantity,
               {observe: 'response'}).toPromise().then(data2 => {
-                this.recipeForm.reset();
-                this.parent.close('add-recipe-modal');
-                // this.recipeListComponent.refresh();
-                this.router.navigate(['/recipes']);
+                this.closeForm('add-recipe-modal');
               },
               (error) => {
                 this.errorMessage = error.message;
               });
-            this.recipeForm.reset();
-            this.parent.close('edit-recipe-modal');
-            this.router.navigate(['/recipes']);
+            this.closeForm('edit-recipe-modal');
           }
         },
         (error) => {
@@ -109,13 +92,26 @@ export class UpdateRecipeFormComponent implements OnInit {
     if (index > -1) {
       this.products.splice(index, 1);
     }
-    // @ts-ignore
     const tempProd: IProductQuantity = this.productsQuantity.filter(prod => prod.product.id === product.id)[0];
     const index2 = this.productsQuantity.indexOf(tempProd);
     if (index2 > -1) {
       this.productsQuantity.splice(index2, 1);
     }
+  }
 
+  private getRecipeData() {
+    return {
+      id: this.recipe.id,
+      title: this.recipeForm.get('title').value,
+      method: this.recipeForm.get('method').value,
+      user_id: this.id$.getValue(),
+    };
+  }
+
+  private closeForm(modalId: string) {
+    this.recipeForm.reset();
+    this.parent.close(modalId);
+    this.router.navigate(['/recipes']);
   }
 }
 

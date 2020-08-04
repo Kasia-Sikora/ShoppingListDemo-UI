@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthorisationService} from './utils/authorisation/authorisation.service';
-import {environment} from '../environments/environment';
 import {Observable} from 'rxjs';
 import {IUser} from './users/user';
 
@@ -9,7 +8,7 @@ import {IUser} from './users/user';
   selector: 'app-root',
   styleUrls: ['app.component.css'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   pageTitle = 'Stuff';
   public apiUrl: string;
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
-import {RecipeDetailComponent} from '../../recipes/recipe-detail.component';
+import {RecipeDetailComponent} from '../../recipes/recipe-detail/recipe-detail.component';
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -8,16 +8,17 @@ import {AuthorisationService} from '../../utils/authorisation/authorisation.serv
 import {IShoppingList} from '../shoppingList';
 import {ShoppingListService} from '../shopping-list.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ModalService} from '../../utils/modal';
+import {ModalService} from '../../utils/modal/modal.service';
 import {map, startWith} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
-export interface Task {
+export interface ProductsList {
   product_name: string;
   unit: string;
   quantity: number;
   completed: boolean;
   color: ThemePalette;
-  subtasks?: Task[];
+  products?: ProductsList[];
 }
 
 @Component({
@@ -27,27 +28,19 @@ export interface Task {
 })
 export class CheckBoxComponent implements OnInit {
 
-  shoppingListTitle = '';
   private id$ = new BehaviorSubject<number>(this.authorisationService.getUserId());
   filteredOptions: Observable<IShoppingList[]>;
   lists: IShoppingList[] = [];
-  filteredLists: IShoppingList[];
+  // filteredLists: IShoppingList[];
   shoppingListId$ = new BehaviorSubject<number>(null);
 
-  constructor(private recipeDetailComponent: RecipeDetailComponent,
-              private parent: ModalService,
-              private http: HttpClient,
-              private authorisationService: AuthorisationService,
-              private shoppingListService: ShoppingListService) {
-  }
-
-  task: Task = {
+  productList: ProductsList = {
     product_name: 'Zaznacz wszystko',
     unit: '',
     quantity: null,
     completed: false,
     color: 'primary',
-    subtasks: []
+    products: []
   };
 
   allComplete = false;
@@ -57,51 +50,81 @@ export class CheckBoxComponent implements OnInit {
     title: new FormControl('', Validators.required),
   });
 
+  constructor(private recipeDetailComponent: RecipeDetailComponent,
+              private parent: ModalService,
+              private http: HttpClient,
+              private authorisationService: AuthorisationService,
+              private shoppingListService: ShoppingListService,
+              private router: Router) {
+  }
+
   updateAllComplete() {
-    this.allComplete = this.task.subtasks != null && this.task.subtasks.every(t => t.completed);
-    console.log(this.task);
+    this.allComplete = this.productList.products != null && this.productList.products.every(t => t.completed);
+    console.log(this.productList);
   }
 
   someComplete(): boolean {
-    if (this.task.subtasks == null) {
+    if (this.productList.products == null) {
       return false;
     }
-    return this.task.subtasks.filter(t => t.completed).length > 0 && !this.allComplete;
+    return this.productList.products.filter(t => t.completed).length > 0 && !this.allComplete;
   }
 
   setAll(completed: boolean) {
     this.allComplete = completed;
-    if (this.task.subtasks == null) {
+    if (this.productList.products == null) {
       return;
     }
-    this.task.subtasks.forEach(t => t.completed = completed);
+    this.productList.products.forEach(t => t.completed = completed);
   }
 
-  saveToList(subtasks: Task[]) {
+  saveToList(subtasks: ProductsList[]) {
     const listOfProducts = subtasks.filter(value => value.completed === true);
-    console.log(listOfProducts);
     this.http.post(environment.apiUrl + this.id$.getValue() + '/shopping-products/' + this.shoppingListId$.getValue(), listOfProducts,
       {observe: 'response'}).subscribe(
       (response: HttpResponse<any>) => {
-        console.log(response);
-        this.shoppingListForm.reset();
-        this.parent.close('shopping-modal');
+        this.closeForm();
       }, (error) => {
         console.log(error.message);
       });
   }
 
   performFilter(filterBy: string): IShoppingList[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.lists.filter((list1: IShoppingList) =>
-      list1.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    if (filterBy != null) {
+      filterBy = filterBy.toLocaleLowerCase();
+      return this.lists.filter((list1: IShoppingList) =>
+        list1.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    }
   }
 
   ngOnInit(): void {
+    this.initProductList();
+    this.initList();
+    this.initFilteredOptions();
+  }
+
+  saveList() {
+    const list = {
+      id: this.shoppingListForm.get('id').value,
+      title: this.shoppingListForm.get('title').value,
+    };
+
+    this.http.post(environment.apiUrl + this.id$.getValue() + '/shopping-list', list,
+      {observe: 'response'}).subscribe(
+      (response: HttpResponse<any>) => {
+        if (response != null) {
+          this.shoppingListId$.next(response.body.id);
+        }
+      }, (error) => {
+        console.log(error.message);
+      });
+  }
+
+  private initProductList() {
     this.recipeDetailComponent.getProductQuantity().subscribe(
       next => {
         for (const product of next) {
-          this.task.subtasks.push({
+          this.productList.products.push({
             product_name: product.product.name,
             unit: product.unit,
             quantity: product.quantity,
@@ -111,35 +134,28 @@ export class CheckBoxComponent implements OnInit {
         }
       }
     );
+  }
+
+  private closeForm() {
+    this.shoppingListForm.reset();
+    this.parent.close('shopping-modal');
+    this.router.navigate(['/recipes']);
+  }
+
+  private initList() {
     this.shoppingListService.getShoppingLists().subscribe({
       next: shoppingLists => {
         this.lists = shoppingLists;
-        this.filteredLists = this.lists;
       },
       error: err => console.log(err.message)
     });
+  }
+
+  private initFilteredOptions() {
     this.filteredOptions = this.shoppingListForm.get('title').valueChanges
       .pipe(
         startWith(''),
         map(value => this.performFilter(value)),
       );
-  }
-
-  saveList() {
-    const list = {
-      id: this.shoppingListForm.get('id').value,
-      title: this.shoppingListForm.get('title').value,
-    };
-    console.log('id' + this.shoppingListForm.get('id').value);
-    this.http.post(environment.apiUrl + this.id$.getValue() + '/shopping-list', list,
-      {observe: 'response'}).subscribe(
-      (response: HttpResponse<any>) => {
-        if (response != null){
-          console.log(response);
-          this.shoppingListId$.next(response.body.id);
-        }
-      }, (error) => {
-        console.log(error.message);
-      });
   }
 }

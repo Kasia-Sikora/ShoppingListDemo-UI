@@ -1,22 +1,21 @@
 .card {
   background-color: rgba(255, 255, 255, 0.5);
-  margin-left: 10%;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin: 2vw 5vw;
+  height: auto;
 }
 
-
-.card,
 .card-header {
-  border: none;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.card-title {
+  display: inline-flex;
 }
 
 .card-body {
-  margin-left: 10px;
+  margin: 0 0.65rem 0.65rem 0.65rem;
   background-color: rgba(255, 255, 255, 1);
-  margin-right: 10px;
-  border-color: dimgrey;
-  margin-bottom: 10px;
   height: 70vh;
   overflow: auto;
 }
@@ -29,14 +28,12 @@
   position: relative;
 }
 
-.lists-card{
+.mat-card {
+  box-shadow: 1px 1px 4px dimgray;
   margin: 5%;
 }
 
-.card-title{
-  display: inline-flex;
-}
-
-button{
-  margin-left: 30%;
+.btn,
+.btn-outline-secondary {
+  margin: 0.5vw;
 }

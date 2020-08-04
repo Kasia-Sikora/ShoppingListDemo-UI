@@ -3,7 +3,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
-import {ModalService} from '../../modal';
+import {ModalService} from '../../modal/modal.service';
 import {environment} from '../../../../environments/environment';
 import {Observable} from 'rxjs';
 
@@ -12,7 +12,7 @@ import {Observable} from 'rxjs';
   templateUrl: './login-form.component.html',
 })
 
-export class UserLoginComponent implements OnInit, OnDestroy {
+export class UserLoginComponent implements OnInit{
   form = this.fb.group({
     email: ['', [Validators.required]],
     password: ['', [Validators.required]],
@@ -58,13 +58,8 @@ export class UserLoginComponent implements OnInit, OnDestroy {
             this.authorisationService.setToken(token);
             this.http.get(environment.apiUrl + 'me').subscribe(
               (response2: HttpResponse<any>) => {
-                console.log(response2);
                 this.authorisationService.setUser(response2);
-                this.form.reset();
-                this.error = null;
-                this.errorMessage = null;
-                this.parent.close('login-modal');
-                this.router.navigate(['/recipes']);
+                this.closeForm();
               },
               (error) => {
                 this.errorMessage = error.error;
@@ -73,11 +68,7 @@ export class UserLoginComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {
-          if (error.status === 403) {
             this.errorMessage = 'Nieprawidłowy email lub hasło';
-          } else {
-            this.errorMessage = 'Nieprawidłowy email lub hasło';
-          }
         },
       );
     } else {
@@ -85,10 +76,11 @@ export class UserLoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-  }
-
-  getErrorMessage() {
-    return this.errorMessage;
+  private closeForm() {
+    this.form.reset();
+    this.error = null;
+    this.errorMessage = null;
+    this.parent.close('login-modal');
+    this.router.navigate(['/recipes']);
   }
 }

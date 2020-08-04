@@ -1,21 +1,24 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ModalService} from '../../modal';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {ModalService} from '../../modal/modal.service';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {AuthorisationService} from '../../authorisation/authorisation.service';
 import {Router} from '@angular/router';
-import {RecipeListComponent} from '../../../recipes/recipe-list.component';
+import {RecipeListComponent} from '../../../recipes/recipe-dashboard/recipe-list.component';
 import {environment} from '../../../../environments/environment';
-import {IProductQuantity} from '../../../products/product-quantity/product-quantity';
-import {IProduct} from '../../../products/product/product';
+import {IProductQuantity} from '../../../products/product-quantity';
+import {IProduct} from '../../../products/product';
+import {BehaviorSubject} from 'rxjs';
 
 
 @Component({
   selector: 'app-add-recipes',
   templateUrl: './add-recipe-form.component.html',
+  styleUrls: ['./recipes-form.component.css'],
 })
 
-export class AddRecipeFormComponent {
+export class AddRecipeFormComponent implements OnInit {
+
   recipeForm = this.fb.group({
     title: ['', [Validators.required, Validators.minLength(4)]],
     method: ['', [Validators.required, Validators.minLength(4)]],
@@ -26,8 +29,7 @@ export class AddRecipeFormComponent {
   error: HttpErrorResponse;
   productsQuantity: IProductQuantity[] = [];
   products: IProduct[] = [];
-  private id = this.authorisationService.getUserId();
-  recipeId: number;
+  private id$ = new BehaviorSubject<number>(this.authorisationService.getUserId());
 
   constructor(private parent: ModalService,
               private fb: FormBuilder, private http: HttpClient,
@@ -36,25 +38,23 @@ export class AddRecipeFormComponent {
               private recipeListComponent: RecipeListComponent) {
   }
 
+  ngOnInit(): void {
+    this.id$.next(this.authorisationService.getUserId());
+  }
+
   async submitForm() {
-    const recipeData = {
-      title: this.recipeForm.get('title').value,
-      method: this.recipeForm.get('method').value,
-      user_id: this.id,
-    };
+    const recipeData = this.getRecipeData();
 
     if (this.recipeForm.valid) {
-      this.http.post(environment.apiUrl + this.id + '/recipes', recipeData,
-        {observe: 'response'}).toPromise().then(response => {
+      this.http.post(environment.apiUrl + this.id$.getValue() + '/recipes', recipeData,
+        {observe: 'response'}).subscribe(
+        (response: HttpResponse<any>) => {
           if (response != null) {
             // @ts-ignore
-            this.recipeId = response.body.id;
-            this.http.post(environment.apiUrl + this.recipeId + '/recipe_products', this.productsQuantity,
-              {observe: 'response'}).toPromise().then(data2 => {
-                this.recipeForm.reset();
-                this.parent.close('add-recipe-modal');
-                this.recipeListComponent.refresh();
-                this.router.navigate(['/recipes']);
+            const recipeId = response.body.id;
+            this.http.post(environment.apiUrl + recipeId + '/recipe_products', this.productsQuantity,
+              {observe: 'response'}).subscribe(data2 => {
+                this.closeForm();
               },
               (error) => {
                 this.errorMessage = error.message;
@@ -83,5 +83,20 @@ export class AddRecipeFormComponent {
     if (index2 > -1) {
       this.productsQuantity.splice(index2, 1);
     }
+  }
+
+  private closeForm() {
+    this.recipeForm.reset();
+    this.parent.close('add-recipe-modal');
+    this.recipeListComponent.refresh();
+    this.router.navigate(['/recipes']);
+  }
+
+  private getRecipeData() {
+    return {
+      title: this.recipeForm.get('title').value,
+      method: this.recipeForm.get('method').value,
+      user_id: this.id$.getValue(),
+    };
   }
 }

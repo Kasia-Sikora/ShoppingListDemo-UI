@@ -1,23 +1,25 @@
 <div class="card-header">
 
   <!--    Nav tabs in card   -->
+  <!--  Recipe tab   -->
   <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" id="recipe-tab" data-toggle="tab" [routerLink]="['/recipes']" role="tab"
          (click)="changeStyle('recipe-tab')" aria-controls="home"
          aria-selected="true">Przepisy</a>
     </li>
+    <!--    Favourite tab    -->
     <li class="nav-item">
       <a class="nav-link" id="favourite-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
          (click)="changeStyle('favourite-tab')"
          aria-selected="false">Ulubione</a>
     </li>
+    <!--    ShoppingList tab  -->
     <li class="nav-item">
       <a class="nav-link" id="shoppingList-tab" data-toggle="tab" [routerLink]="['/shoppingList']" role="tab"
          (click)="changeStyle('shoppingList-tab')" aria-controls="contact"
          aria-selected="false">Lista zakupów</a>
     </li>
-
     <!--      Search box  -->
     <li class="nav-item search-input">
       <div class="input-group">

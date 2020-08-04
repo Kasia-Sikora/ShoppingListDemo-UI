@@ -7,18 +7,7 @@ app-modal {
 }
 
 .app-modal {
-  /*position: fixed;*/
-  /*justify-content:center;*/
-  /*align-items: center;*/
-  /*right: 0;*/
-  /*bottom: 0;*/
-  /*width: auto !important;*/
-  /*height: auto !important;*/
-  /*top: 10%;*/
-  /*left: 40%;*/
   z-index: 1000;
-  /*overflow: auto;*/
-  /*display: flex;*/
   position: absolute;
   float: left;
   left: 50%;
@@ -30,7 +19,6 @@ app-modal {
 .app-modal-body {
   padding: 20px;
   background: #fff;
-  /*width: auto !important;*/
 }
 
 
